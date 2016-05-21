@@ -1,0 +1,5 @@
+
+.reward-pin .re-convert { margin-bottom:20px; }
+.reward-pin .re-convert .advance { margin:15px 0 ; }
+.reward-pin .re-convert .advance .re-tip { margin-bottom:0; }
+.reward-pin .advance .re-tip { margin: 13px 0 16px 0; }
