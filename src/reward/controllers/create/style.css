@@ -33,6 +33,6 @@
 .reward-create .rd-types .type-disable i.type-ico-wan { background-position:-14px -121px; }
 .reward-create .rd-types .type-disable i.type-ico-outline { background-position:-14px -160px; }
 .reward-create .rd-types .type-disable i.type-ico-score { background-position:-14px -194px; }
-.reward-create .rd-preview { width:285px;  }
+.reward-create .rd-preview { width:285px; height: 567px; }
 .reward-create .rd-preview img { display:block; width:258px; }
 .reward-create .rd-btn { width:132px; }

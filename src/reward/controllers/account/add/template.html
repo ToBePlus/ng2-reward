@@ -7,38 +7,41 @@
 	<div class="zs-body">
 		<div class="zs-body-main zs-border">
 			<div class="ra-crumbs">
-				<a href="#reward/home">返回奖励</a> ＞ <a href="#reward/account/list">核验子账号设置</a> ＞ 创建子账号
+				<a [routerLink]="['/']">返回奖励</a> ＞ <a [routerLink]="['/account/list']">核验子账号设置</a> ＞ 创建子账号
 			</div>
+			<form class="" (ngSubmit)="onSubmit()">
+
 			<div class="ra-form">
 				<div class="ra-fields">
 					<label for="">
 						<div>账号名称 <span>＋从员工账号中添加</span></div>
-						<input type="text">
+						<input type="text" [(ngModel)]="subAccount.cRCUName">
 					</label>
 				</div>
 				<div class="ra-fields">
 					<label for="">
 						<div>登录邮箱</div>
-						<input type="text">
+						<input type="text" [(ngModel)]="subAccount.cRCUEmail">
 					</label>
 				</div>
 				<div class="ra-fields">
 					<label for="">
 						<div>登录密码</div>
-						<input type="text">
+						<input type="password" [(ngModel)]="subAccount.cRCUPassword">
 					</label>
 				</div>
 				<div class="ra-fields">
 					<label for="">
 						<div>确认密码</div>
-						<input type="text">
+						<input type="password" [(ngModel)]="checkPwd">
 					</label>
 				</div>
 				<div class="ra-fields">
-					<div class="ra-fields-btn ra-fields-submit"><span>创建</span></div>
-					<div class="ra-fields-btn ra-fields-cancel"><span>取消</span></div>
+					<button type="submit" class="ra-fields-btn ra-fields-submit"><span>创建</span></button>
+					<button type="reset" (click)="toHome()" class="ra-fields-btn ra-fields-cancel"><span>取消</span></button>
 				</div>
 			</div>
+			</form>
 		</div>
 	</div>
 </div>

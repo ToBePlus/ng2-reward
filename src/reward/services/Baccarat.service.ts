@@ -3,32 +3,12 @@ import {Http, Response, URLSearchParams, Headers, RequestOptions } from '@angula
 import { Observable } from 'rxjs/Observable';
 import {baseUrl} from './config';
 
-export class PinProgram {
-    constructor(public cRPId: number, public cRPRewardType: number, public cRPName?: string, public cRPNameShow?: number,
-        public cRPSubtitle?: string, public cRPSubtitleShow?: number, public cRPBackgroundAdd?: string,
-        public cRPBackgroundShow?: number, public cRPDesc?: string, public cRPDescShow?: number,
-        public cRPValidDate?: string, public cRPValidStartDate?: string, public cRPValidEndDate?: string,
-        public cRPValidType?: number, public cRPRate?: number,
-        public cRPRateContent?: string, public totalRewards?: number, public cRPCodeType?: number,
-        public cRPCodeCommon?: string, public cRPGenerateType?: number, public fileName?: string,
-        public cRPNoticeNow?: number, public cRPNoticeNowContent?: string, public cRPValidNotice?: number,
-        public cRPValidNoticeDay?: string, public cRPValidNoticeContent?: string) {
-    }
-}
-
-export class PinParams {
-    constructor(public cRPId?: number, public startDate?: string, public endDate?: string, public projectId?: number, public currentPage?: number, public pageSize?: number,public status?:number) {
-
-    }
-}
-
 const PinAddUrl = baseUrl + '/rewardManage/check/add';
 const PinEditUrl = baseUrl + '/rewardManage/check/edit';
 const PinInfoUrl = baseUrl + '/rewardManage/info/query/';
 
 @Injectable()
-export class PinService {
-    program: PinProgram;
+export class BaccaratService {
     id: number;
     constructor(private http: Http) {
 

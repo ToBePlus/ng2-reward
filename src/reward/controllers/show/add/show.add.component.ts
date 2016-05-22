@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
-// import * as _ from 'lodash';
+import * as _ from 'lodash';
 
 
 import {ShowProgram, ShowService} from '../../../services/Show.service';

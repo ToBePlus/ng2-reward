@@ -7,38 +7,39 @@
 	<div class="zs-body">
 		<div class="zs-body-main zs-border">
 			<div class="ra-crumbs">
-				<a href="#reward/home">返回奖励</a> ＞ 核验子账号设置
+				<a [routerLink]="['/']">返回奖励</a> ＞ 核验子账号设置
 			</div>
-			<a href="#reward/account/add" class="zs-btn-add"><span>创建子账户</span></a>
-			<div class="ra-list" style="display:none;">
-				<div>账号列表</div>
-				<div>
-					<div>账号名称</div>
-					<div>登录邮箱</div>
-					<div>操作</div>
+			<a [routerLink]="['/account/add']" class="zs-btn-add"><span>创建子账户</span></a>
+			<div class="ra-list" *ngIf="list">
+				<div class="row">账号列表</div>
+				<div class="row">
+					<div class="col-xs-4">账号名称</div>
+					<div class="col-xs-4">登录邮箱</div>
+					<div class="col-xs-4">操作</div>
 				</div>
-				<div>
-					<div>admin</div>
-					<div>admin@mytianhui.com</div>
-					<div></div>
+				<div class="row">
+					<div class="col-xs-4">admin</div>
+					<div class="col-xs-4">admin@mytianhui.com</div>
+					<div class="col-xs-4"></div>
 				</div>
-				<div>
-					<div>王霞</div>
-					<div>xia.wang@mytianhui.com</div>
-					<div class="ra-list-op"><span>操作</span><span>冻结</span><span>删除</span></div>
-				</div>
-				<div>
-					<div>王霞</div>
-					<div>xia.wang@mytianhui.com</div>
-					<div class="ra-list-op"><span>操作</span><span>冻结</span><span>删除</span></div>
-				</div>
-				<div>
-					<div>王霞</div>
-					<div>xia.wang@mytianhui.com</div>
-					<div class="ra-list-op"><span>操作</span><span>冻结</span><span>删除</span></div>
-				</div>
+				<div class="row" *ngFor="let l of list, let i = index">
+					<div class="col-xs-4">王霞</div>
+					<div class="col-xs-4"> xia.wang@mytianhui.com</div>
+					<div class="col-xs-4" *ngIf="!l.delInput">
+						<span>操作</span>
+						<span>冻结</span>
+						<a [routerLink]="['/account/edit',{id:l.cRCUId}]">编辑</a>
+						<a class="rd-btn-link-inline" (click)="l.delInput=1">删除</a>
+					</div>
+					<div class="col-xs-4">
+						<div  *ngIf="l.delInput">
+							 <input type="text" class="inputtxt input-157" [(ngModel)]="l.delSubmitText" placeholder="请输入delete,确认删除">
+								 <a class="rd-btn-inline" (click)="onDelete(l)">确认删除</a>
+								 <a class="rd-btn-link-inline" (click)="l.delInput=0">取消删除</a>
+						</div>
+					</div>
 			</div>
-			<div class="zs-empty">
+			<div class="zs-empty" *ngIf="!list">
 				<div class="zs-empty-img"></div>
 				<div class="zs-empty-txt">当前未创建核验子账号</div>
 			</div>

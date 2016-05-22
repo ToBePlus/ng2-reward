@@ -19,7 +19,7 @@ export class CreateComponent {
     type: number;
 
     constructor(private rt: RewardTypeService, private router: Router) {
-
+      this.type = 1;
     }
 
     errorMessage: string;
@@ -34,6 +34,7 @@ export class CreateComponent {
 
     onSelect(item: RewardType) {
         if (item.status === 0) return;
+        this.type = item.type;
         this.rt.updateChecked(item.type, this.list);
     }
 
@@ -44,17 +45,17 @@ export class CreateComponent {
                 break;
             case 2: router = '/pin/add';
                 break;
-            case 3: router = '/baccarat';
+            case 3: router = '/baccarat/add';
                 break;
-            case 4: router = '/create';
+            case 4: router = '/';
                 break;
-            case 5: router = '/create';
+            case 5: router = '/';
                 break;
-            case 6: router = '/create';
+            case 6: router = '/';
                 break;
-            case 7: router = '/create';
+            case 7: router = '/';
                 break;
-            case 8: router = '/create';
+            case 8: router = '/';
                 break;
             default:
                 router = '/create';

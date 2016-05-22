@@ -4,20 +4,11 @@
 /** Map relative paths to URLs. */
 var map: any = {
   'moment': 'vendor/moment/moment.js',
-  'lodash': 'vendor/lodash/lodash.js'
+  'lodash': 'vendor/lodash/lodash.js',
+  'ts-md5/dist/md5': 'vendor/ts-md5/dist/md5.js'
 };
 /** User packages configuration. */
 var packages: any = {
-  // moment:{
-  //     main: 'moment.js',
-  //     type: 'cjs',
-  //     defaultExtension: 'js'
-  // },
-  // lodash:{
-  //     main: 'lodash.js',
-  //     // type: 'cjs',
-  //     defaultExtension: 'js'
-  // }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -59,7 +50,7 @@ System.config({
         'main': 'main.js'
     },
     packages: cliSystemConfigPackages,
-    meta: { lodash: { format: 'amd' } }
+    // meta: { lodash: { format: 'amd' }}
 });
 
     // Apply the user's configuration.

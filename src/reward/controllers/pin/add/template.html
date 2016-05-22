@@ -31,11 +31,12 @@
 					</div>
 					<div class="re-form-field re-form-name">
 						<div class="re-label">自定义背景图：<input class="re-ckb" type="checkbox" [(ngModel)]="pinProgram.cRPBackgroundShow"  [ngFormControl]="psForm.controls['cRPBackgroundShow']"  name="cRPBackgroundShow" id="ckb-bg"> <label for="ckb-bg">启用</label></div>
+						<input type="text" [(ngModel)]="pinProgram.cRPBackgroundAdd"  [ngFormControl]="psForm.controls['cRPBackgroundAdd']">
 						<div>
 							<div class="advance advance-base advance-show">
 								<div class="re-tip">请使用200*90比例的的PNG透明图片，小于2M</div>
 								<div class="re-upload">
-									<input type="file"  [(ngModel)]="pinProgram.cRPBackgroundAdd"  [ngFormControl]="psForm.controls['cRPBackgroundAdd']">
+									<input type="file"  >
 									<div class="rd-btn">选择文件</div>
 									<div class="re-progress clearfix">
 										<span>满100减20.PNG</span>

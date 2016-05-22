@@ -17,7 +17,9 @@
 				<a (click)="redirectTo()" class="rd-btn">创建</a>
 			</div>
 			<div class="rd-preview fr">
-				<img src="/reward/images/rd_show.png" alt="">
+				<img src="/reward/images/rd_show.png" *ngIf="type===1" alt="">
+				<img src="/reward/images/iphone-reward-2.png" *ngIf="type===2" alt="">
+				<img src="/reward/images/iphone-reward-3.png" *ngIf="type===3" alt="">
 			</div>
 		</div>
 	</div>

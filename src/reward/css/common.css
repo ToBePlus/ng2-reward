@@ -40,8 +40,8 @@ a:hover, a:active, a:focus, a:visited { text-decoration: none;  }
 .zs-bar .zs-back:hover { background: url("../images/back-hover.gif") no-repeat left center;}
 .rd-main { margin-top:57px; }
 .rd-mid { position:relative; width:1085px; margin:0 auto; }
-button.rd-btn,a.rd-btn {display:block; width:85px; height:30px; border:1px solid #5d90cb; font-size:14px;  background:#5d90cb; color:#fff; line-height: 28px; text-align: center; cursor:pointer;}
-button.rd-btn:hover,a.rd-btn:hover { background:#fff; color:#5d90cb; }
+.rd-btn,button.rd-btn,a.rd-btn {display:block; width:85px; height:30px; border:1px solid #5d90cb; font-size:14px;  background:#5d90cb; color:#fff; line-height: 28px; text-align: center; cursor:pointer;}
+.rd-btn,button.rd-btn:hover,a.rd-btn:hover { background:#fff; color:#5d90cb; }
 
 .rd-footer { font-size:14px; color: #32323a; height:50px; line-height: 50px; }
 
@@ -52,3 +52,26 @@ button.rd-btn:hover,a.rd-btn:hover { background:#fff; color:#5d90cb; }
 
 .zs-btn-export { display:block; width:69px; height:26px; line-height: 24px; text-align: center; border:1px solid #9a9a9a; background:#eee; color:#9a9a9a;text-indent: 0; border-radius:2px; font-size:12px; cursor:pointer; margin:8px 29px 0 0;}
 .zs-btn-export:hover { color:#9a9a9a; }
+
+.rd-btn-inline,button.rd-btn-inline,a.rd-btn-inline {
+  display: inline-block;
+  width: 85px;
+  height: 25px;
+  border: 1px solid #5d90cb;
+  font-size: 14px;
+  background: #5d90cb;
+  color: #fff;
+  line-height: 22px;
+  text-align: center;
+  cursor: pointer;}
+  .rd-btn-inline,button.rd-btn-inline:hover,a.rd-btn-inline:hover { background:#fff; color:#5d90cb; }
+  .rd-btn-link-inline,button.rd-btn-link-inline,a.rd-btn-link-inline {
+    display: inline-block;
+    text-decoration: underline;
+    min-width: 45px;
+    height: 25px;
+    font-size: 14px;
+    color: #383838;
+    line-height: 22px;
+    text-align: center;
+    cursor: pointer;}
