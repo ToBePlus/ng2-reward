@@ -124,14 +124,19 @@ let PinAddComponent = class PinAddComponent {
             this.psForm.markAsTouched();
             return false;
         }
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
         this.ps.add(this.pinProgram).subscribe(data => {
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
             }
+            this.loading = 0;
             alert('成功');
             this.toHome();
-        }, error => { this.errorMessage = error; alert(error); });
+        }, error => { this.errorMessage = error; alert(error); this.loading = 0; });
     }
     handleError(error) {
         // In a real world app, we might use a remote logging infrastructure

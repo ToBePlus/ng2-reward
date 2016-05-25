@@ -33,6 +33,7 @@ export class ShowAddComponent {
     errorMessage: any;
     id: number;
     state: number;
+    loading:number;
 
     uploadedFiles: any[] = [];
     options: Object = {
@@ -107,6 +108,10 @@ export class ShowAddComponent {
             this.psForm.markAsTouched();
             return false;
         }
+        if(this.loading){
+          return false;
+        }
+        this.loading = 1;
         this.ss.add(this.program).subscribe(
             data => {
                 if (data.error.state !== 0) {
@@ -115,8 +120,9 @@ export class ShowAddComponent {
                 }
                 alert('成功');
                 this.toHome();
+                this.loading = 0;
             },
-            error => this.errorMessage = <any>error);
+            error => {this.errorMessage = <any>error;this.loading=0});
     }
 
 

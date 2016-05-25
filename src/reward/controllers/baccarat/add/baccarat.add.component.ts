@@ -29,6 +29,7 @@ export class BaccaratAddComponent {
     baccarat: any;
     errorMessage: any;
     id: number;
+    loading: number;
 
     uploadedFiles: any[] = [];
     options: Object = {
@@ -119,15 +120,20 @@ export class BaccaratAddComponent {
             this.bsForm.markAsTouched();
             return false;
         }
+        if(this.loading){
+          return false;
+        }
+        this.loading = 1;
         this.ps.add(this.baccarat).subscribe(data => {
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
             }
+            this.loading = 0;
             alert('成功');
             this.toHome();
         },
-            error => { this.errorMessage = <any>error; alert(error) });
+            error => { this.errorMessage = <any>error; alert(error) ;this.loading = 0;});
     }
 
     onAddSubInfo(){

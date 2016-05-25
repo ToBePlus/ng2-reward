@@ -39,7 +39,13 @@ let ShowDetailComponent = class ShowDetailComponent {
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
         search.set('projectId', this.prizesParams.projectId);
-        return downLoadBase + search;
+        return downLoadBase + '?' + search;
+    }
+    onDoneDownload() {
+        let search = new http_1.URLSearchParams();
+        search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPStatus', '1');
+        return downLoadBase + '?' + search;
     }
     onSearch() {
         this.search();

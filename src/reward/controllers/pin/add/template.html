@@ -3,7 +3,7 @@
 	<div class="zs-bar tc">
 		<a [routerLink]="['/']" class="zs-back"></a>
 		{{pinProgram.cRPId?'修改核验型奖励':'新建核验型奖励'}}
-		<button class="rd-save" type="submit"></button>
+		<button class="rd-save" [disabled]="loading" type="submit"></button>
 	</div>
 	<div class="rd-main">
 		<div class="rd-mid-edit" *ngIf="state===1">奖励正在运行中，修改内容并保存后将立即生效，请谨慎操作！</div>

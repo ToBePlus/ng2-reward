@@ -88,6 +88,10 @@ let ShowAddComponent = class ShowAddComponent {
             this.psForm.markAsTouched();
             return false;
         }
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
         this.ss.add(this.program).subscribe(data => {
             if (data.error.state !== 0) {
                 alert(data.error.msg);
@@ -95,7 +99,8 @@ let ShowAddComponent = class ShowAddComponent {
             }
             alert('成功');
             this.toHome();
-        }, error => this.errorMessage = error);
+            this.loading = 0;
+        }, error => { this.errorMessage = error; this.loading = 0; });
     }
     //跳转首页
     toHome() {

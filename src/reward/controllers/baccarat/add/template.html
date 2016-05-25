@@ -3,7 +3,7 @@
 	<div class="zs-bar tc">
 		<a [routerLink]="['/']" class="zs-back"></a>
 		{{baccarat.cRPId?'修改大转盘型奖励':'新建大转盘型奖励'}}
-		<button class="rd-save" type="submit"></button>
+		<button class="rd-save" [disabled]="loading" type="submit"></button>
 	</div>
 	<div class="rd-main">
 		<div class="rd-mid zs-border clearfix re-main">
