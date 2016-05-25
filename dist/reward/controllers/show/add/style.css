@@ -25,5 +25,7 @@
   left: 28px;
   color: #888;
   width: 232px;
+  height: 95px;
   text-align: center;
+  overflow: auto;
 }

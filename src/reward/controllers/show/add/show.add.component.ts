@@ -12,6 +12,7 @@ import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 import {baseUrl} from '../../../services/config';
 import {ShowProgram, ShowService} from '../../../services/Show.service';
 import {Validators} from '../../../services/Validators';
+import {TextTohtmlPipe} from '../../../pipe/Text.to.html';
 
 // const URL = baseUrl+'/medias/uploadprize';
 const URL = baseUrl+'/medias/uploadBackgroundImage';
@@ -23,6 +24,7 @@ const URL = baseUrl+'/medias/uploadBackgroundImage';
     styleUrls: ['reward/controllers/show/add/style.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
+    pipes:[TextTohtmlPipe]
 })
 
 
@@ -42,6 +44,7 @@ export class ShowAddComponent {
     basicProgress: number = 0;
     basicResp: Object;
     uploadFile: any;
+    totalRewards: any;
 
     constructor(private ss: ShowService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -66,6 +69,7 @@ export class ShowAddComponent {
             'cRPRateContent': [''],
             'totalRewards': [''],
         });
+        this.totalRewards = this.psForm.controls['totalRewards'];
         //初始化数据
         this.basicResp={};
         this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);

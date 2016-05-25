@@ -145,7 +145,8 @@
 							<span class="text-danger">*</span>库存：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt input-157"   [readonly]="pinProgram.cRPId" type="text" required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt input-157"   [readonly]="pinProgram.cRPId" type="text" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
+
 							<div class="re-add-num" *ngIf="pinProgram.cRPId">
 								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" placeholder="输入1~100,000的数字">
 								<span (click)="onAddTotal()"></span>
@@ -157,6 +158,9 @@
 									当可发放的奖励少于一定数量时，我们将通过邮件或者手机短信通知到您
 								</div>
 							</div> -->
+						</div>
+						<div class="text-danger" *ngIf="totalRewards.hasError('pattern')">
+							输入1~100,000的数字,实际输入超出范围的数字,或者字母
 						</div>
 					</div>
 
@@ -212,7 +216,7 @@
 							<span *ngIf="psForm.value.cRPValidType===-1">有效日期：{{psForm.value.cRPValidStartDate}}-{{psForm.value.cRPValidEndDate}}</span>
 					</div>
 				</div>
-				<div class="reward-desc-title" *ngIf="psForm.value.cRPDescShow" [innerHTML]="psForm.value.cRPDesc">
+				<div class="reward-desc-title" *ngIf="psForm.value.cRPDescShow" [innerHTML]="psForm.value.cRPDesc|textTohtml">
 				</div>
 			</div>
 		</div>

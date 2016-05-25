@@ -19,6 +19,7 @@ const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
 const config_1 = require('../../../services/config');
 const Show_service_1 = require('../../../services/Show.service');
 const Validators_1 = require('../../../services/Validators');
+const Text_to_html_1 = require('../../../pipe/Text.to.html');
 // const URL = baseUrl+'/medias/uploadprize';
 const URL = config_1.baseUrl + '/medias/uploadBackgroundImage';
 let ShowAddComponent = class ShowAddComponent {
@@ -52,6 +53,7 @@ let ShowAddComponent = class ShowAddComponent {
             'cRPRateContent': [''],
             'totalRewards': [''],
         });
+        this.totalRewards = this.psForm.controls['totalRewards'];
         //初始化数据
         this.basicResp = {};
         this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
@@ -118,8 +120,9 @@ ShowAddComponent = __decorate([
         styleUrls: ['reward/controllers/show/add/style.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
+        pipes: [Text_to_html_1.TextTohtmlPipe]
     }), 
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-lKJx3Ehh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-lKJx3Ehh.tmp/0/src/reward/controllers/show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/show/add/show.add.component.js.map

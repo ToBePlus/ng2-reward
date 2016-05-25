@@ -63,6 +63,7 @@ let PinAddComponent = class PinAddComponent {
             'cRPValidNoticeDay': [3],
             'cRPValidNoticeContent': ['奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
         });
+        this.totalRewards = this.psForm.controls['totalRewards'];
         this.pinProgram = new Pin_service_1.PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
     }
     ngOnInit() {
@@ -162,4 +163,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-lKJx3Ehh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-lKJx3Ehh.tmp/0/src/reward/controllers/pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/pin/add/pin.add.component.js.map

@@ -65,4 +65,4 @@ HomeComponent = __decorate([
     __metadata('design:paramtypes', [Home_service_1.HomeService, router_1.Router])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-lKJx3Ehh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-lKJx3Ehh.tmp/0/src/reward/controllers/home/home.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/home/home.component.js.map

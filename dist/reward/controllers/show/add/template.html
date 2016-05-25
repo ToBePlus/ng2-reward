@@ -89,9 +89,6 @@
 						</div>
 						<div class="re-convert-ops re-convert-lib">
 							<input class="inputtxt input-157" [readonly]="program.cRPId" [disabled]="program.cRPId" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
-							<span *ngIf="psForm.find('totalRewards').pattern">
-								输入1~100,000的数字,实际输入超出范围的数字,或者字母
-							</span>
 							<div class="re-add-num" *ngIf="program.cRPId">
 								<input type="text" placeholder="输入1~100,000的数字">
 								<span (click)="onAddTotalRewards()"></span>
@@ -103,6 +100,9 @@
 									当可发放的奖励少于一定数量时，我们将通过邮件或者手机短信通知到您
 								</div>
 							</div> -->
+						</div>
+						<div class="text-danger" *ngIf="totalRewards.hasError('pattern')">
+							输入1~100,000的数字,实际输入超出范围的数字,或者字母
 						</div>
 					</div>
 					<div class="re-form-field" >
@@ -130,7 +130,7 @@
 							{{psForm.value.cRPSubtitle}}
 					</div>
 				</div>
-				<div class="reward-desc-title" *ngIf="psForm.value.cRPDescShow" [innerHTML]="psForm.value.cRPDesc">
+				<div class="reward-desc-title" *ngIf="psForm.value.cRPDescShow"  [innerHTML]="psForm.value.cRPDesc|textTohtml"  ><!---->
 				</div>
 			</div>
 		</div>
