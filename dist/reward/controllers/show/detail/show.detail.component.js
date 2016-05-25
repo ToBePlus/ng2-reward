@@ -82,7 +82,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.ss.projectsList(this.projectsParams).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.projectsList = data.data;
-                this.curProjectsList = data.data.filter(data => data.cPStatus === '2');
+                this.curProjectsList = data.data.filter(data => data.cPStatus === '1');
                 if (this.projectsList.length > 0 && this.prizesParams.projectId === undefined) {
                     this.prizesParams.projectId = this.projectsList[0].cPId;
                 }
@@ -92,7 +92,6 @@ let ShowDetailComponent = class ShowDetailComponent {
     }
     search() {
         if (this.prizesParams.projectId === undefined) {
-            alert('没有项目');
             return;
         }
         this.ss.showList(this.prizesParams).subscribe(data => {

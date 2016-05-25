@@ -115,7 +115,7 @@ export class PinDetailComponent {
         this.ps.projectsList(this.projectsParams).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.projectsList = data.data;
-                this.curProjectsList = data.data.filter(data => data.cPStatus === '2');
+                this.curProjectsList = data.data.filter(data => data.cPStatus === '1');
                 if (this.projectsList.length > 0 && this.prizesParams.projectId === undefined) {
                     this.prizesParams.projectId = this.projectsList[0].cPId;
                 }
@@ -126,7 +126,6 @@ export class PinDetailComponent {
 
     search() {
         if (this.prizesParams.projectId === undefined) {
-            alert('没有项目');
             return;
         }
         this.ps.pinList(this.prizesParams).subscribe(data => {
