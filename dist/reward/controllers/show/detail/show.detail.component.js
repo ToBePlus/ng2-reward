@@ -15,6 +15,7 @@ require('rxjs/Rx');
 const Observable_1 = require('rxjs/Observable');
 const moment = require('moment');
 const config_1 = require('../../../services/config');
+const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const Show_service_1 = require('../../../services/Show.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
 // const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
@@ -23,6 +24,9 @@ let ShowDetailComponent = class ShowDetailComponent {
     constructor(ss, router, params) {
         this.ss = ss;
         this.router = router;
+        this.currentPage = 0;
+        this.pageSize = 10;
+        this.pageCount = 0;
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -32,6 +36,13 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.prizesParams.cRPId = this.id;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+    }
+    setPage(pageNo) {
+        this.currentPage = pageNo;
+    }
+    ;
+    pageChanged(event) {
+        console.log(event);
     }
     onDownload() {
         let search = new http_1.URLSearchParams();
@@ -132,10 +143,10 @@ ShowDetailComponent = __decorate([
         selector: 'show-detail',
         templateUrl: 'reward/controllers/show/detail/template.html',
         styleUrls: ['reward/controllers/show/detail/style.min.css'],
-        directives: [router_1.ROUTER_DIRECTIVES],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS],
     }), 
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/show/detail/show.detail.component.js.map

@@ -18,6 +18,8 @@ module.exports = function(defaults) {
       'ng2-uploader/src/**/*.js',
       'ng2-uploader/ng2-uploader.js',
       'json5/lib/json5.js',
+      'ng2-bootstrap/components/pagination/*.js',
+      'ng2-bootstrap/**/*.js',
     ]
   });
 };

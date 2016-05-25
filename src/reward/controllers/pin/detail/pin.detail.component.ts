@@ -7,6 +7,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {baseUrl} from '../../../services/config';
+import { PAGINATION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 
 
@@ -22,7 +23,7 @@ const downLoadBase = baseUrl+'/rewardManage/show/export';
     selector: 'pin-detail',
     templateUrl: 'reward/controllers/pin/detail/template.html',
     styleUrls: ['reward/controllers/pin/detail/style.min.css'],
-    directives: [ROUTER_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES,ROUTER_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS],
 })
 
@@ -41,6 +42,10 @@ export class PinDetailComponent {
     pinList: any;
     page: any;
 
+    currentPage:number = 0;
+    pageSize:number = 10;
+    pageCount:number = 0;
+
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
@@ -56,6 +61,14 @@ export class PinDetailComponent {
         this.prizesParams.pageSize = 10;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+    }
+
+    public setPage(pageNo:number):void {
+      this.currentPage = pageNo;
+    };
+
+    pageChanged(event){
+      console.log(event);
     }
 
     onDownload() {

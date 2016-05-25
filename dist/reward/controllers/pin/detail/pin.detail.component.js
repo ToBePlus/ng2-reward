@@ -16,6 +16,7 @@ require('rxjs/Rx');
 const Observable_1 = require('rxjs/Observable');
 const moment = require('moment');
 const config_1 = require('../../../services/config');
+const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const Pin_service_1 = require('../../../services/Pin.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
 // const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
@@ -24,6 +25,9 @@ let PinDetailComponent = class PinDetailComponent {
     constructor(ps, router, params) {
         this.ps = ps;
         this.router = router;
+        this.currentPage = 0;
+        this.pageSize = 10;
+        this.pageCount = 0;
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -38,6 +42,13 @@ let PinDetailComponent = class PinDetailComponent {
         this.prizesParams.pageSize = 10;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+    }
+    setPage(pageNo) {
+        this.currentPage = pageNo;
+    }
+    ;
+    pageChanged(event) {
+        console.log(event);
     }
     onDownload() {
         let search = new http_1.URLSearchParams();
@@ -155,10 +166,10 @@ PinDetailComponent = __decorate([
         selector: 'pin-detail',
         templateUrl: 'reward/controllers/pin/detail/template.html',
         styleUrls: ['reward/controllers/pin/detail/style.min.css'],
-        directives: [router_1.ROUTER_DIRECTIVES],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS],
     }), 
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map

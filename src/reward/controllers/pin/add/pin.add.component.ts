@@ -112,12 +112,20 @@ export class PinAddComponent {
     handleFileUpload(data): void {
       if (data.response) {
         this.uploadFileXls = JSON.parse(data.response);
-        this.pinProgram.cRPBackgroundAdd = this.uploadFileXls.data;
+        if(this.uploadFileXls.error.state===0){
+          this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+        }
         this.fileResp = data;
       }
       this.zone.run(() => {
           this.fileProgress = data.progress.percent;
       });
+    }
+
+    onDelFileName(){
+      this.pinProgram.fileName='';
+      this.fileProgress=0;
+      this.uploadFileXls = {};
     }
 
     getImg(){
@@ -141,6 +149,7 @@ export class PinAddComponent {
         }, error => this.handleError);
     }
     onEnterAddTotal(event) {
+        event.stopPropagation();
         if (event.keyCode == 13) {
             this.onAddTotal();
         }
@@ -156,11 +165,12 @@ export class PinAddComponent {
         }
         this.loading = 1;
         this.ps.add(this.pinProgram).subscribe(data => {
+            this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
             }
-            this.loading = 0;
+
             alert('成功');
             this.toHome();
         },

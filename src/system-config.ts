@@ -9,11 +9,16 @@ var map: any = {
     'ts-md5/dist/md5': 'vendor/ts-md5/dist/md5.js',
     'ng2-uploader': 'vendor/ng2-uploader',
     'json5': 'vendor/json5/lib/json5.js',
+    'ng2-bootstrap': 'vendor/ng2-bootstrap',
 };
 /** User packages configuration. */
 var packages: any = {
     'ng2-uploader': {
       main: 'ng2-uploader.js',
+      defaultExtension: 'js'
+    },
+    'ng2-bootstrap': {
+      main: 'ng2-bootstrap.js',
       defaultExtension: 'js'
     }
 };

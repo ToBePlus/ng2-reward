@@ -15,7 +15,7 @@ import {Validators} from '../../../services/Validators';
 import {TextTohtmlPipe} from '../../../pipe/Text.to.html';
 
 // const URL = baseUrl+'/medias/uploadprize';
-const URL = baseUrl+'/medias/uploadBackgroundImage';
+const URL = baseUrl + '/medias/uploadBackgroundImage';
 
 
 @Component({
@@ -24,7 +24,7 @@ const URL = baseUrl+'/medias/uploadBackgroundImage';
     styleUrls: ['reward/controllers/show/add/style.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
-    pipes:[TextTohtmlPipe]
+    pipes: [TextTohtmlPipe]
 })
 
 
@@ -35,7 +35,8 @@ export class ShowAddComponent {
     errorMessage: any;
     id: number;
     state: number;
-    loading:number;
+    loading: number;
+    additionalNum: number;
 
     uploadedFiles: any[] = [];
     options: Object = {
@@ -71,7 +72,7 @@ export class ShowAddComponent {
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
         //初始化数据
-        this.basicResp={};
+        this.basicResp = {};
         this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
     }
 
@@ -81,20 +82,20 @@ export class ShowAddComponent {
 
 
     handleUpload(data): void {
-      if (data.response) {
-        this.uploadFile = JSON.parse(data.response);
-        this.program.cRPBackgroundAdd = this.uploadFile.data;
-        this.basicResp = data;
-      }
-      this.zone.run(() => {
-          this.basicProgress = data.progress.percent;
-      });
+        if (data.response) {
+            this.uploadFile = JSON.parse(data.response);
+            this.program.cRPBackgroundAdd = this.uploadFile.data;
+            this.basicResp = data;
+        }
+        this.zone.run(() => {
+            this.basicProgress = data.progress.percent;
+        });
     }
 
-    getImg(){
-      if(this.program.cRPBackgroundAdd&&this.program.cRPBackgroundShow){
-        return 'url(\'/'+this.program.cRPBackgroundAdd+'\') no-repeat center center';
-      }
+    getImg() {
+        if (this.program.cRPBackgroundAdd && this.program.cRPBackgroundShow) {
+            return 'url(\'/' + this.program.cRPBackgroundAdd + '\') no-repeat center center';
+        }
     }
 
     //查询
@@ -107,28 +108,54 @@ export class ShowAddComponent {
         this.program = data.data;
     }
 
+    onAddTotal() {
+        let data:any = {};
+        data.cRPId = this.program.cRPId;
+        data.cRPDId = this.program.cRPId;
+        data.fileName = this.program.fileName;
+        data.additionalNum = +this.additionalNum;
+        this.ss.addTotal(data).subscribe(data => {
+
+            // TimerWrapper.setTimeout(() => {
+            //   tl.addStatus = 0;
+            //   this.getTotalList();
+            // }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event) {
+        if (event.keyCode == 13) {
+            this.onAddTotal();
+        }
+    }
+
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
         }
-        if(this.loading){
-          return false;
+        if (this.loading) {
+            return false;
         }
         this.loading = 1;
         this.ss.add(this.program).subscribe(
             data => {
+                this.loading = 0;
                 if (data.error.state !== 0) {
                     alert(data.error.msg);
                     return;
                 }
                 alert('成功');
                 this.toHome();
-                this.loading = 0;
             },
-            error => {this.errorMessage = <any>error;this.loading=0});
+            error => { this.errorMessage = <any>error; this.loading = 0 });
     }
 
+    private handleError(error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
+    }
 
     //跳转首页
     toHome() {

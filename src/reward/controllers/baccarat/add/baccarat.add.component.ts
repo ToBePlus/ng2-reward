@@ -1,4 +1,4 @@
-import {Component, Input, Output,NgZone} from '@angular/core';
+import {Component, Input, Output, NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
@@ -12,18 +12,18 @@ import {baseUrl} from '../../../services/config';
 import { BaccaratService } from '../../../services/Baccarat.service';
 import {Validators} from '../../../services/Validators';
 
-const URL = baseUrl+'/medias/uploadBackgroundImage';
+const URL = baseUrl + '/medias/uploadBackgroundImage';
 
 @Component({
     selector: 'baccarat-add',
     templateUrl: 'reward/controllers/baccarat/add/template.html',
     styleUrls: ['reward/controllers/baccarat/add/style.min.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES],
     providers: [BaccaratService, HTTP_PROVIDERS, JSONP_PROVIDERS],
 })
 
 export class BaccaratAddComponent {
-  zone: NgZone;
+    zone: NgZone;
     bsForm: ControlGroup;
     subForm: ControlGroup;
     baccarat: any;
@@ -39,8 +39,8 @@ export class BaccaratAddComponent {
     basicResp: Object;
     uploadFile: any;
     constructor(private ps: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
-      this.zone = new NgZone({ enableLongStackTrace: false });
-      this.id = +params.getParam('id');
+        this.zone = new NgZone({ enableLongStackTrace: false });
+        this.id = +params.getParam('id');
         this.subForm = fb.group({
             'cRPDName': ['', Validators.required],
             'cRPDSubtitle': [''],
@@ -89,16 +89,16 @@ export class BaccaratAddComponent {
         this.baccarat.cRPValidNoticeDay = 3;
         this.baccarat.cRPNoticeNowContent = '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}'
         this.baccarat.cRPValidNoticeContent = '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'
-        this.baccarat.subInfo = [{},{},{}];
+        this.baccarat.subInfo = [{}, {}, {}];
 
         this.getPinProgram();
     }
 
-    handleBasicUpload(data,index): void {
+    handleBasicUpload(data, index): void {
         let sb = this.baccarat.subInfo[index];
         if (data && data.response) {
-          sb.uploadFile = JSON.parse(data.response);
-          sb.cRPBackgroundAdd = sb.uploadFile.data;
+            sb.uploadFile = JSON.parse(data.response);
+            sb.cRPBackgroundAdd = sb.uploadFile.data;
         }
         sb.basicResp = data;
         this.zone.run(() => {
@@ -120,27 +120,27 @@ export class BaccaratAddComponent {
             this.bsForm.markAsTouched();
             return false;
         }
-        if(this.loading){
-          return false;
+        if (this.loading) {
+            return false;
         }
         this.loading = 1;
         this.ps.add(this.baccarat).subscribe(data => {
+            this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
             }
-            this.loading = 0;
             alert('成功');
             this.toHome();
         },
-            error => { this.errorMessage = <any>error; alert(error) ;this.loading = 0;});
+            error => { this.errorMessage = <any>error; alert(error); this.loading = 0; });
     }
 
-    onAddSubInfo(){
-      if(this.baccarat.subInfo.length>7){
-        return;
-      }
-      this.baccarat.subInfo.push({});
+    onAddSubInfo() {
+        if (this.baccarat.subInfo.length > 7) {
+            return;
+        }
+        this.baccarat.subInfo.push({});
     }
 
     toHome() {

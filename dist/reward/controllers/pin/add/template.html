@@ -49,8 +49,8 @@
 								</div>
 								<div *ngIf="pinProgram.cRPBackgroundAdd" style="background: #f3f3f3;">
 									<span>已上传图片  {{basicResp?.originalName||pinProgram.cRPBackgroundAdd}}</span>
-									<a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';">重新上传</a>
-                  <a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';">删除</a>
+									<a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';basicProgress=0;">重新上传</a>
+                  <a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';basicProgress=0;">删除</a>
 								</div>
 							</div>
 						</div>
@@ -108,7 +108,7 @@
 							<span>输入6-8位数字与英文字母的组合，如 SALE20</span>
 						</div>
 					</div>
-					<div class="re-form-field">
+					<div class="re-form-field" *ngIf="pinProgram.cRPCodeType === 1" >
 						<div class="re-label">生成方式：</div>
 						<div class="re-convert-ops re-convert-create" >
 							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCreate" [checked]="pinProgram.cRPGenerateType === 1" (click)="pinProgram.cRPGenerateType = 1"  id="convert-create-1"> <label for="convert-create-1">系统生成</label>
@@ -116,10 +116,9 @@
 							<a href="/word/checkcode.xlsx" *ngIf="pinProgram.cRPGenerateType === 2">下载模板文件</a>
 						</div>
 					</div>
-					<div class="advance advance-show" *ngIf="pinProgram.cRPGenerateType === 2">
-            <input type="hidden" [(ngModel)]="pinProgram.fileName" >
+					<div class="advance advance-show" *ngIf="!uploadFileXls?.error&&!pinProgram.fileName&&pinProgram.cRPGenerateType === 2">
 						<div class="re-upload">
-							<div *ngIf="!pinProgram.fileName" class="re-upload">
+							<div  class="re-upload">
 								<input type="file" name="fileName" [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >
 								<div class="rd-btn">选择文件</div>
 								<div class="re-progress clearfix" *ngIf="fileProgress">
@@ -132,13 +131,30 @@
 									</div>
 								</div>
 							</div>
-							<div *ngIf="pinProgram.fileName" style="background: #f3f3f3;">
+							<!-- <div *ngIf="pinProgram.fileName" style="background: #f3f3f3;">
 								<span>已上传图片  {{fileResp?.originalName||pinProgram.fileName}}</span>
-								<a class="upload-op" (click)="pinProgram.fileName='';">重新上传</a>
-								<a class="upload-op" (click)="pinProgram.fileName='';">删除</a>
-							</div>
+								<a class="upload-op" (click)="pinProgram.fileName='';fileProgress=0;">重新上传</a>
+								<a class="upload-op" (click)="pinProgram.fileName='';fileProgress=0;">删除</a>
+							</div> -->
 						</div>
 						<div class="re-tip">请下载模板文件，按照要求上传导入码库</div>
+					</div>
+					<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&pinProgram.cRPGenerateType === 2">
+						<div class="clearfix">
+							<span>已上传</span>
+							<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
+							<span class="fr upload-op" (click)="onDelFileName()">重新上传</span>
+							<span class="fr upload-op" (click)="onDelFileName()">删除</span>
+						</div>
+						<div class="re-tip">成功导入 {{uploadFileXls?.data.num}}个核验码</div>
+					</div>
+					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&pinProgram.cRPGenerateType === 2">
+						<div class="clearfix">
+							<span>{{uploadFileXls?.error.msg}}</span>
+							<span class="fr upload-op" (click)="onDelFileName()">重新上传</span>
+							<span class="fr upload-op" (click)="onDelFileName()">删除</span>
+						</div>
+						<div class="re-tip">核验码需由字母和数字组合，6-12位</div>
 					</div>
 					<div class="re-form-field">
 						<div class="re-label">

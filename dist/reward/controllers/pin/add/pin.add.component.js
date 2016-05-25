@@ -91,12 +91,19 @@ let PinAddComponent = class PinAddComponent {
     handleFileUpload(data) {
         if (data.response) {
             this.uploadFileXls = JSON.parse(data.response);
-            this.pinProgram.cRPBackgroundAdd = this.uploadFileXls.data;
+            if (this.uploadFileXls.error.state === 0) {
+                this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+            }
             this.fileResp = data;
         }
         this.zone.run(() => {
             this.fileProgress = data.progress.percent;
         });
+    }
+    onDelFileName() {
+        this.pinProgram.fileName = '';
+        this.fileProgress = 0;
+        this.uploadFileXls = {};
     }
     getImg() {
         if (this.pinProgram.cRPBackgroundAdd && this.pinProgram.cRPBackgroundShow) {
@@ -117,6 +124,7 @@ let PinAddComponent = class PinAddComponent {
         }, error => this.handleError);
     }
     onEnterAddTotal(event) {
+        event.stopPropagation();
         if (event.keyCode == 13) {
             this.onAddTotal();
         }
@@ -131,11 +139,11 @@ let PinAddComponent = class PinAddComponent {
         }
         this.loading = 1;
         this.ps.add(this.pinProgram).subscribe(data => {
+            this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
             }
-            this.loading = 0;
             alert('成功');
             this.toHome();
         }, error => { this.errorMessage = error; alert(error); this.loading = 0; });
@@ -165,4 +173,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/pin/add/pin.add.component.js.map

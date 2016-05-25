@@ -2,6 +2,7 @@
 
 # compiled output
 /tmp
+/logs
 
 # dependencies
 /node_modules
@@ -26,3 +27,5 @@ testem.log
 #System Files
 .DS_Store
 src/reward/.svn/entries
+
+dist/reward/controllers/baccarat/add/baccarat.add.component.js.map

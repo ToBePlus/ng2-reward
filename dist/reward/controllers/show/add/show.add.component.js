@@ -12,6 +12,7 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 require('rxjs/Rx');
+const Observable_1 = require('rxjs/Observable');
 const http_2 = require('@angular/http');
 const common_1 = require('@angular/common');
 const moment = require('moment');
@@ -85,6 +86,24 @@ let ShowAddComponent = class ShowAddComponent {
     setPsForm(data) {
         this.program = data.data;
     }
+    onAddTotal() {
+        let data = {};
+        data.cRPId = this.program.cRPId;
+        data.cRPDId = this.program.cRPId;
+        data.fileName = this.program.fileName;
+        data.additionalNum = +this.additionalNum;
+        this.ss.addTotal(data).subscribe(data => {
+            // TimerWrapper.setTimeout(() => {
+            //   tl.addStatus = 0;
+            //   this.getTotalList();
+            // }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event) {
+        if (event.keyCode == 13) {
+            this.onAddTotal();
+        }
+    }
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
@@ -95,14 +114,20 @@ let ShowAddComponent = class ShowAddComponent {
         }
         this.loading = 1;
         this.ss.add(this.program).subscribe(data => {
+            this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
             }
             alert('成功');
             this.toHome();
-            this.loading = 0;
         }, error => { this.errorMessage = error; this.loading = 0; });
+    }
+    handleError(error) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable_1.Observable.throw(errMsg);
     }
     //跳转首页
     toHome() {
@@ -125,4 +150,4 @@ ShowAddComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-ZKyOuL9I.tmp/0/src/reward/controllers/show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/show/add/show.add.component.js.map
