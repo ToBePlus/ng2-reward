@@ -12,6 +12,7 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 require('rxjs/Rx');
+const Observable_1 = require('rxjs/Observable');
 const http_2 = require('@angular/http');
 const common_1 = require('@angular/common');
 const moment = require('moment');
@@ -100,6 +101,24 @@ let PinAddComponent = class PinAddComponent {
             return 'url(\'/' + this.pinProgram.cRPBackgroundAdd + '\') no-repeat center center';
         }
     }
+    onAddTotal() {
+        let data = {};
+        data.cRPId = this.pinProgram.cRPId;
+        data.cRPDId = this.pinProgram.cRPId;
+        data.fileName = this.pinProgram.fileName;
+        data.additionalNum = +this.additionalNum;
+        this.ps.addTotal(data).subscribe(data => {
+            // TimerWrapper.setTimeout(() => {
+            //   tl.addStatus = 0;
+            //   this.getTotalList();
+            // }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event) {
+        if (event.keyCode == 13) {
+            this.onAddTotal();
+        }
+    }
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
@@ -113,6 +132,12 @@ let PinAddComponent = class PinAddComponent {
             alert('成功');
             this.toHome();
         }, error => { this.errorMessage = error; alert(error); });
+    }
+    handleError(error) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable_1.Observable.throw(errMsg);
     }
     toHome() {
         this.router.navigate(['/']);

@@ -49,8 +49,8 @@
 								</div>
 								<div *ngIf="pinProgram.cRPBackgroundAdd" style="background: #f3f3f3;">
 									<span>已上传图片  {{basicResp?.originalName||pinProgram.cRPBackgroundAdd}}</span>
-									<a class="upload-op" (click)="basicResp.done=false;">重新上传</a>
-                  <a class="upload-op" (click)="basicResp.done=false;pinProgram.cRPBackgroundAdd='';">删除</a>
+									<a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';">重新上传</a>
+                  <a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';">删除</a>
 								</div>
 							</div>
 						</div>
@@ -104,7 +104,7 @@
 						<div class="re-convert-ops re-convert-code">
   							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCode" [checked]="pinProgram.cRPCodeType === 1" (click)="pinProgram.cRPCodeType = 1"  id="convert-code-1"> <label for="convert-code-1">一人一码</label>
   							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCode" [checked]="pinProgram.cRPCodeType === 2" (click)="pinProgram.cRPCodeType = 2" id="convert-code-2"> <label for="convert-code-2">通用码</label>
-              <input class="inputtxt input-70" type="text" maxlength="8" [(ngModel)]="pinProgram.cRPCodeCommon"  (click)="pinProgram.cRPCodeType = 2" [ngFormControl]="psForm.controls['cRPCodeCommon']" >
+              <input class="inputtxt input-70" type="text" maxlength="8" *ngIf="pinProgram.cRPCodeType === 2" [(ngModel)]="pinProgram.cRPCodeCommon"  [ngFormControl]="psForm.controls['cRPCodeCommon']" >
 							<span>输入6-8位数字与英文字母的组合，如 SALE20</span>
 						</div>
 					</div>
@@ -134,8 +134,8 @@
 							</div>
 							<div *ngIf="pinProgram.fileName" style="background: #f3f3f3;">
 								<span>已上传图片  {{fileResp?.originalName||pinProgram.fileName}}</span>
-								<a class="upload-op" (click)="fileResp.done=false;">重新上传</a>
-								<a class="upload-op" (click)="fileResp.done=false;pinProgram.fileName='';">删除</a>
+								<a class="upload-op" (click)="pinProgram.fileName='';">重新上传</a>
+								<a class="upload-op" (click)="pinProgram.fileName='';">删除</a>
 							</div>
 						</div>
 						<div class="re-tip">请下载模板文件，按照要求上传导入码库</div>
@@ -147,8 +147,8 @@
 						<div class="re-convert-ops re-convert-lib">
 							<input class="inputtxt input-157"   [readonly]="pinProgram.cRPId" type="text" required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="pinProgram.cRPId">
-								<input type="text" placeholder="输入1~100,000的数字">
-								<span></span>
+								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" placeholder="输入1~100,000的数字">
+								<span (click)="onAddTotal()"></span>
 							</div>
 							<!-- <a href="" class="re-date-tip">+添加到期提醒</a>
 							<div class="zs-b-des">

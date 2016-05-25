@@ -50,8 +50,8 @@
 								</div>
 								<div *ngIf="program.cRPBackgroundAdd" style="background: #f3f3f3;">
 									<span>已上传图片  {{basicResp.originalName||program.cRPBackgroundAdd}}</span>
-									<a class="upload-op" (click)="basicResp.done=false;">重新上传</a>
-                  <a class="upload-op" (click)="basicResp.done=false;program.cRPBackgroundAdd='';">删除</a>
+									<a class="upload-op" (click)="program.cRPBackgroundAdd='';">重新上传</a>
+                  <a class="upload-op" (click)="program.cRPBackgroundAdd='';">删除</a>
 								</div>
 							</div>
 						</div>
@@ -91,7 +91,7 @@
 							<input class="inputtxt input-157" [readonly]="program.cRPId" [disabled]="program.cRPId" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="program.cRPId">
 								<input type="text" placeholder="输入1~100,000的数字">
-								<span></span>
+								<span (click)="onAddTotalRewards()"></span>
 							</div>
 							<!-- <a href="" class="re-date-tip">+添加到期提醒</a> -->
 							<!-- <div class="zs-b-des">

@@ -31,6 +31,7 @@ export class PinAddComponent {
     pinProgram: PinProgram;
     errorMessage: any;
     id: number;
+    additionalNum: number;
 
     options: Object = {
         url: URL
@@ -120,6 +121,25 @@ export class PinAddComponent {
       }
     }
 
+    onAddTotal() {
+        let data:any = {};
+        data.cRPId = this.pinProgram.cRPId;
+        data.cRPDId = this.pinProgram.cRPId;
+        data.fileName = this.pinProgram.fileName;
+        data.additionalNum = +this.additionalNum;
+        this.ps.addTotal(data).subscribe(data => {
+
+            // TimerWrapper.setTimeout(() => {
+            //   tl.addStatus = 0;
+            //   this.getTotalList();
+            // }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event) {
+        if (event.keyCode == 13) {
+            this.onAddTotal();
+        }
+    }
 
     onSubmit() {
         if (!this.psForm.valid) {
@@ -135,6 +155,12 @@ export class PinAddComponent {
             this.toHome();
         },
             error => { this.errorMessage = <any>error; alert(error) });
+    }
+    private handleError(error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
 
     toHome() {

@@ -156,6 +156,11 @@ let PinService = class PinService {
         let URL = config_1.baseUrl + '/rewardManage/check/total/' + id;
         return this.http.get(URL).map(res => res.json()).catch(this.handleError);
     }
+    /**
+     * 追加数量
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
     addTotal(data) {
         let URL = config_1.baseUrl + '/rewardManage/nums/append';
         let body = JSON.stringify(data);
