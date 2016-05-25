@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {Http, Response,URLSearchParams,Headers, RequestOptions} from '@angular/http';
 import { Observable } from 'rxjs/Observable';
+import {baseUrl} from './config';
 
 export class ShowProgram {
     constructor(public cRPId: number, public cRPRewardType: number, public cRPName?: string, public cRPNameShow?: number,
@@ -29,7 +30,7 @@ export class ShowService {
      * @return {[Observables]}      [observables 数据]
      */
     getOne(id) {
-        return this.http.get('http://localhost:4500/ccs/rewardManage/info/query/' + id).map(res => res.json()).catch(this.handleError);
+        return this.http.get(baseUrl+'/rewardManage/info/query/' + id).map(res => res.json()).catch(this.handleError);
     }
 
     /**
@@ -38,7 +39,7 @@ export class ShowService {
      * @return {[Observables]}      [observables 数据]
      */
     add(data) {
-        let base = 'http://localhost:4500/ccs/rewardManage/show/';
+        let base = baseUrl+'/rewardManage/show/';
         let URL;
 
         if (data.cRPId === null ||data.cRPId === undefined || isNaN(data.cRPId)) {
@@ -62,7 +63,7 @@ export class ShowService {
      * @return {[Observables]}  [observables 数据]
      */
     delete(id){
-      let URL = 'http://localhost:4500/ccs/rewardManage/status/edit';
+      let URL = baseUrl+'/rewardManage/status/edit';
       let data = {cRPId:id,cRPStatus:0};//0删除,1发放中,2暂停中
       let body = JSON.stringify(data);
       let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -76,7 +77,7 @@ export class ShowService {
      * @return {[type]}       [observables 数据]
      */
     putState(id,state){
-      let URL = 'http://localhost:4500/ccs/rewardManage/status/edit';
+      let URL = baseUrl+'/rewardManage/status/edit';
       let data = {cRPId:id,cRPStatus:state};//0删除,1发放中,2暂停中
       let body = JSON.stringify(data);
       let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -92,7 +93,7 @@ export class ShowService {
       let search = new URLSearchParams();
       search.set('cRPId', params.cRPId);
       search.set('queryType', params.queryType);
-      let URL = 'http://localhost:4500/ccs/rewardManage/projects/list';
+      let URL = baseUrl+'/rewardManage/projects/list';
       return this.http.get(URL,{search:search}).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -106,7 +107,7 @@ export class ShowService {
       search.set('startDate', params.startDate);
       search.set('endDate', params.endDate);
       search.set('projectId', params.projectId);
-      let URL = 'http://localhost:4500/ccs/rewardManage/show/list';
+      let URL = baseUrl+'/rewardManage/show/list';
       return this.http.get(URL,{search:search}).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -115,7 +116,7 @@ export class ShowService {
      * @return {[Observables]}   [observables 数据]
      */
     totalList(id){
-      let URL = 'http://localhost:4500/ccs/rewardManage/show/total/'+id;
+      let URL = baseUrl+'/rewardManage/show/total/'+id;
       return this.http.get(URL).map(res => res.json()).catch(this.handleError);
     }
 

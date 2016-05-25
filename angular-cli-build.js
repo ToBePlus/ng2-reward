@@ -14,7 +14,10 @@ module.exports = function(defaults) {
       '@angular/**/*.js',
       'moment/moment.js',
       'lodash/lodash.js',
-      'ts-md5/dist/md5.js'
+      'ts-md5/dist/md5.js',
+      'ng2-uploader/src/**/*.js',
+      'ng2-uploader/ng2-uploader.js',
+      'json5/lib/json5.js',
     ]
   });
 };

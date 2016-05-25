@@ -19,7 +19,7 @@
     }
   },
   "defaults": {
-    "prefix": "reward",
+    "prefix": "rewardredirect",
     "sourceDir": "src"
   }
 }

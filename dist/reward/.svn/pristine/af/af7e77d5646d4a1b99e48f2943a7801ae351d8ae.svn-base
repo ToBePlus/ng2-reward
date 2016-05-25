@@ -1,0 +1,2 @@
+.reward-pin .advance { border:none; padding:0; margin:0;}
+.reward-pin .advance .re-tip { margin: 13px 0 16px 0; }

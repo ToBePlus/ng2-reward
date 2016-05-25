@@ -10,8 +10,6 @@ import {PinDetailComponent} from './controllers/pin/detail/pin.detail.component'
 import {AccountAddComponent} from './controllers/account/add/account.add.component';
 import {AccountListComponent} from './controllers/account/list/account.list.component';
 import {BaccaratAddComponent} from './controllers/baccarat/add/baccarat.add.component';
-import {BaccaratShowDetailComponent} from './controllers/baccarat/detail/baccarat.show.detail.component';
-import {BaccaratPinDetailComponent} from './controllers/baccarat/detail/baccarat.pin.detail.component';
 
 
 
@@ -25,6 +23,9 @@ import {BaccaratPinDetailComponent} from './controllers/baccarat/detail/baccarat
 @Routes([
     { path: '/', component: HomeComponent},
     { path: '/create', component: CreateComponent},
+    { path: '/account/add', component: AccountAddComponent},
+    { path: '/account/edit', component: AccountAddComponent},
+    { path: '/account/list', component: AccountListComponent},
     { path: '/show/add', component: ShowAddComponent },
     { path: '/show/edit', component: ShowAddComponent },
     { path: '/show/detail', component: ShowDetailComponent },
@@ -33,8 +34,8 @@ import {BaccaratPinDetailComponent} from './controllers/baccarat/detail/baccarat
     { path: '/pin/detail', component: PinDetailComponent },
     { path: '/baccarat/add', component: BaccaratAddComponent },
     { path: '/baccarat/edit', component: BaccaratAddComponent },
-    { path: '/baccarat/show/detail', component: BaccaratShowDetailComponent },
-    { path: '/baccarat/pin/detail', component: BaccaratPinDetailComponent },
+    { path: '/baccarat/show/detail', component: ShowDetailComponent },
+    { path: '/baccarat/pin/detail', component: PinDetailComponent },
 ])
 
 export class AppComponent implements OnInit {

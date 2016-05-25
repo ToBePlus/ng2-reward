@@ -5,15 +5,16 @@ import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {baseUrl} from '../../../services/config';
 
 
 import {ShowProgram, ShowService} from '../../../services/Show.service';
 import {Validators} from '../../../services/Validators';
 
-const URL = 'http://localhost:4500/ccs/medias/uploadBackgroundImage';
+const URL = baseUrl+'/ccs/medias/uploadBackgroundImage';
 // const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 
-const downLoadBase = 'http://localhost:4500/ccs/rewardManage/show/export';
+const downLoadBase = baseUrl+'/rewardManage/show/export';
 
 @Component({
     selector: 'show-detail',

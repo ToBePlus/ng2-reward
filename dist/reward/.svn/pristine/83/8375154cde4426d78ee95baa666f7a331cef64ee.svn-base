@@ -1,0 +1,54 @@
+<div class="reward-create">
+	<div class="zs-bar tc">
+		<a href="#/reward/home" class="zs-back"></a>
+		创建奖励方案
+	</div>
+	<div class="rd-main">
+		<div class="rd-mid zs-border clearfix rc-main">
+			<div class="rd-types fl">
+				<div class="title">选择奖励的类型</div>	
+				<div class="types">
+					<div class="type type-check">
+						<i class="type-ico-show"></i>
+						<div>展示型优惠券</div>
+					</div>
+					<div class="type type-pin">
+						<i class="type-ico-pin"></i>
+						<div>核验型优惠码</div>
+					</div>
+					<div class="type type-baccarat">
+						<i class="type-ico-baccarat"></i>
+						<div>大转盘</div>
+					</div>
+					<div class="type type-phone">
+						<i class="type-ico-phone"></i>
+						<div>手机话费</div>
+					</div>
+					<div class="type type-tian">
+						<i class="type-ico-tian"></i>
+						<div>天会宝</div>
+					</div>
+					<div class="type type-disable">
+						<i class="type-ico-wan"></i>
+						<div>万里通积分</div>
+					</div>
+					<div class="type type-disable">
+						<i class="type-ico-outline"></i>
+						<div>线下实物寄送</div>
+					</div>
+					<div class="type type-disable">
+						<i class="type-ico-score"></i>
+						<div>集分宝</div>
+					</div>
+
+				</div>
+				
+				<a href="#/reward/baccarat/add" class="rd-btn">创建</a>
+			</div>
+			<div class="rd-preview fr">
+				<img src="/reward/images/rd_show.png" alt="">
+			</div>
+		</div>
+	</div>
+		
+</div>

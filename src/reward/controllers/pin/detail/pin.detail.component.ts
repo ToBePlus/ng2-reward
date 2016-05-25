@@ -1,19 +1,22 @@
 import {Component} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
+import {TimerWrapper} from '@angular/core/src/facade/async';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {baseUrl} from '../../../services/config';
 
 
-import {PinProgram, PinService,PinParams} from '../../../services/Pin.service';
+
+import {PinProgram, PinService, PinParams} from '../../../services/Pin.service';
 import {Validators} from '../../../services/Validators';
 
-const URL = 'http://localhost:4500/ccs/medias/uploadBackgroundImage';
+const URL = baseUrl+'/ccs/medias/uploadBackgroundImage';
 // const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 
-const downLoadBase = 'http://localhost:4500/ccs/rewardManage/show/export';
+const downLoadBase = baseUrl+'/rewardManage/show/export';
 
 @Component({
     selector: 'pin-detail',
@@ -30,7 +33,7 @@ export class PinDetailComponent {
     state: number;
     showDetail: any;
     projectsParams: any;
-    prizesParams: PinParams;
+    prizesParams: any;
     info: any;
     totalList: any;
     projectsList: any;
@@ -44,8 +47,10 @@ export class PinDetailComponent {
         this.projectsParams = {};
         this.projectsParams.cRPId = this.id;
         this.projectsParams.queryType = 1;
-        this.prizesParams = new PinParams();
-        this.prizesParams.cRPId = 18;
+        this.prizesParams = {};
+        this.prizesParams.cRPId = this.id;
+        this.prizesParams.sendStatus = 0;
+        this.prizesParams.verifyStatus = 0;
         // this.prizesParams.projectId = 0;
         this.prizesParams.currentPage = 0;
         this.prizesParams.pageSize = 10;
@@ -55,10 +60,10 @@ export class PinDetailComponent {
 
     onDownload() {
         let search = new URLSearchParams();
-        search.set('cRPId', this.prizesParams.cRPId+'');
+        search.set('cRPId', this.prizesParams.cRPId + '');
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
-        search.set('projectId', this.prizesParams.projectId+'');
+        search.set('projectId', this.prizesParams.projectId + '');
         return downLoadBase + search;
     }
 
@@ -77,6 +82,7 @@ export class PinDetailComponent {
     onState() {
         this.ps.putState(this.id, this.state === 1 ? 2 : 1).subscribe(data => {
             if (this.errorAlert(data)) {
+                alert('奖励状态变更成功');
                 this.getOne();
             }
         }, error => this.handleError);
@@ -131,6 +137,28 @@ export class PinDetailComponent {
             }
         }, error => this.handleError);
     }
+
+    onAddTotal(tl) {
+        tl.additionalNum = +tl.additionalNum;
+        this.ps.addTotal(tl).subscribe(data => {
+            if (data.error.state !== 0) {
+                tl.addStatus = 2;
+            } else {
+                tl.addTotalShow = 0;
+                tl.addStatus = 1;
+            }
+            TimerWrapper.setTimeout(() => {
+              tl.addStatus = 0;
+              this.getTotalList();
+            }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event, data) {
+        if (event.keyCode == 13) {
+            this.onAddTotal(data);
+        }
+    }
+
 
     errorAlert(data) {
         if (data.error.state !== 0) {

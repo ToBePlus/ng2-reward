@@ -1,4 +1,4 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component, Input, Output, NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
@@ -7,30 +7,43 @@ import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
+import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 
-
+import {baseUrl} from '../../../services/config';
 import {ShowProgram, ShowService} from '../../../services/Show.service';
 import {Validators} from '../../../services/Validators';
 
-const URL = 'http://localhost:4500/ccs/medias/uploadBackgroundImage';
+// const URL = baseUrl+'/medias/uploadprize';
+const URL = baseUrl+'/medias/uploadBackgroundImage';
 
 
 @Component({
     selector: 'show-add',
     templateUrl: 'reward/controllers/show/add/template.html',
     styleUrls: ['reward/controllers/show/add/style.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
 })
 
 
 export class ShowAddComponent {
+    zone: NgZone;
     psForm: ControlGroup;
     program: any;
     errorMessage: any;
     id: number;
     state: number;
+
+    uploadedFiles: any[] = [];
+    options: Object = {
+        url: URL
+    };
+    basicProgress: number = 0;
+    basicResp: Object;
+    uploadFile: any;
+
     constructor(private ss: ShowService, private router: Router, fb: FormBuilder, params: RouteSegment) {
+        this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         //自定义from 验证规则
@@ -53,12 +66,32 @@ export class ShowAddComponent {
             'totalRewards': [''],
         });
         //初始化数据
+        this.basicResp={};
         this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
     }
 
     ngOnInit() {
         this.getProgram();
     }
+
+
+    handleUpload(data): void {
+      if (data.response) {
+        this.uploadFile = JSON.parse(data.response);
+        this.program.cRPBackgroundAdd = this.uploadFile.data;
+        this.basicResp = data;
+      }
+      this.zone.run(() => {
+          this.basicProgress = data.progress.percent;
+      });
+    }
+
+    getImg(){
+      if(this.program.cRPBackgroundAdd&&this.program.cRPBackgroundShow){
+        return 'url(\'/'+this.program.cRPBackgroundAdd+'\') no-repeat center center';
+      }
+    }
+
     //查询
     getProgram() {
         if (this.id === undefined || isNaN(this.id)) return;

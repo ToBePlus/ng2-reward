@@ -1,4 +1,4 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component, Input, Output,NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
@@ -6,25 +6,48 @@ import { Observable } from 'rxjs/Observable';
 import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
+import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 
-
+import {baseUrl} from '../../../services/config';
 import {PinProgram, PinService} from '../../../services/Pin.service';
 import {Validators} from '../../../services/Validators';
+
+const URL = baseUrl+'/medias/uploadBackgroundImage';
+
+const FILE_URL = baseUrl+'/rewardManage/uploadCheckCode';
+
 
 @Component({
     selector: 'pin-add',
     templateUrl: 'reward/controllers/pin/add/template.html',
     styleUrls: ['reward/controllers/pin/add/style.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS, JSONP_PROVIDERS],
 })
 
 export class PinAddComponent {
+    zone: NgZone;
     psForm: ControlGroup;
     pinProgram: PinProgram;
     errorMessage: any;
     id: number;
+
+    options: Object = {
+        url: URL
+    };
+    basicProgress: number = 0;
+    basicResp: Object;
+    uploadFile: any;
+
+    fileOptions: Object = {
+        url: FILE_URL
+    };
+    fileProgress: number = 0;
+    fileResp: Object;
+
+    uploadFileXls: any;
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
+        this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.psForm = fb.group({
             'cRPName': ['', Validators.required],
@@ -68,6 +91,35 @@ export class PinAddComponent {
     setPsForm(data) {
         this.pinProgram = data.data;
     }
+
+    handleUpload(data): void {
+      if (data.response) {
+        this.uploadFile = JSON.parse(data.response);
+        this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
+        this.basicResp = data;
+      }
+      this.zone.run(() => {
+          this.basicProgress = data.progress.percent;
+      });
+    }
+
+    handleFileUpload(data): void {
+      if (data.response) {
+        this.uploadFileXls = JSON.parse(data.response);
+        this.pinProgram.cRPBackgroundAdd = this.uploadFileXls.data;
+        this.fileResp = data;
+      }
+      this.zone.run(() => {
+          this.fileProgress = data.progress.percent;
+      });
+    }
+
+    getImg(){
+      if(this.pinProgram.cRPBackgroundAdd&&this.pinProgram.cRPBackgroundShow){
+        return 'url(\'/'+this.pinProgram.cRPBackgroundAdd+'\') no-repeat center center';
+      }
+    }
+
 
     onSubmit() {
         if (!this.psForm.valid) {

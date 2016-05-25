@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault} from '@angular/common';
+import {CORE_DIRECTIVES,NgFor,NgSwitch,NgStyle, NgSwitchWhen, NgSwitchDefault} from '@angular/common';
 import {ROUTER_DIRECTIVES,Router} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
@@ -15,13 +15,15 @@ import {GroupTypePipe} from '../../pipe/Group.type.pipe';
     selector: 'home',
     templateUrl:'reward/controllers/home/template.html',
     styleUrls:['reward/controllers/home/style.css'],
-    directives: [ROUTER_DIRECTIVES,CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault],
+    directives: [ROUTER_DIRECTIVES,CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault,NgStyle],
     providers: [HomeService,HTTP_PROVIDERS],
     pipes: [ GroupTypePipe ],
 })
 
 export class HomeComponent{
   typelist:any;
+  run:number;
+  all:number;
   params:any;
   errorMessage:any;
   item:RType;
@@ -31,6 +33,13 @@ export class HomeComponent{
 
   ngOnInit(){
     this.getList();
+  }
+
+  getImg(tl){
+    if(tl.cRPBackgroundAdd&&tl.cRPBackgroundShow){
+      let imgUrl = tl.cRPBackgroundAdd;
+      return 'url(/'+imgUrl+') no-repeat top center';
+    }
   }
 
   getList(){
@@ -44,6 +53,9 @@ export class HomeComponent{
     }
     this.params = data.params;
     this.typelist=data.data;
+    let runList = this.typelist.filter(item=>item.cRPStatus==1);
+    this.run = runList.length;
+    this.all = this.typelist.length;
   }
 
   trackByTypelist(index:number,rtype:RType){

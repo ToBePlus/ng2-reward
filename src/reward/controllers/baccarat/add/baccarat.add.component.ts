@@ -1,4 +1,4 @@
-import {Component, Input, Output} from '@angular/core';
+import {Component, Input, Output,NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
@@ -6,27 +6,40 @@ import { Observable } from 'rxjs/Observable';
 import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
+import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 
-
+import {baseUrl} from '../../../services/config';
 import { BaccaratService } from '../../../services/Baccarat.service';
 import {Validators} from '../../../services/Validators';
+
+const URL = baseUrl+'/medias/uploadBackgroundImage';
 
 @Component({
     selector: 'baccarat-add',
     templateUrl: 'reward/controllers/baccarat/add/template.html',
     styleUrls: ['reward/controllers/baccarat/add/style.min.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES],
     providers: [BaccaratService, HTTP_PROVIDERS, JSONP_PROVIDERS],
 })
 
 export class BaccaratAddComponent {
+  zone: NgZone;
     bsForm: ControlGroup;
     subForm: ControlGroup;
     baccarat: any;
     errorMessage: any;
     id: number;
+
+    uploadedFiles: any[] = [];
+    options: Object = {
+        url: URL
+    };
+    basicProgress: number = 0;
+    basicResp: Object;
+    uploadFile: any;
     constructor(private ps: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
-        this.id = +params.getParam('id');
+      this.zone = new NgZone({ enableLongStackTrace: false });
+      this.id = +params.getParam('id');
         this.subForm = fb.group({
             'cRPDName': ['', Validators.required],
             'cRPDSubtitle': [''],
@@ -80,6 +93,18 @@ export class BaccaratAddComponent {
         this.getPinProgram();
     }
 
+    handleBasicUpload(data,index): void {
+        let sb = this.baccarat.subInfo[index];
+        if (data && data.response) {
+          sb.uploadFile = JSON.parse(data.response);
+          sb.cRPBackgroundAdd = sb.uploadFile.data;
+        }
+        sb.basicResp = data;
+        this.zone.run(() => {
+            sb.basicProgress = data.progress.percent;
+        });
+    }
+
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id)) return;
         this.ps.getOne(this.id).subscribe(data => this.setPsForm(data));
@@ -103,6 +128,13 @@ export class BaccaratAddComponent {
             this.toHome();
         },
             error => { this.errorMessage = <any>error; alert(error) });
+    }
+
+    onAddSubInfo(){
+      if(this.baccarat.subInfo.length>7){
+        return;
+      }
+      this.baccarat.subInfo.push({});
     }
 
     toHome() {

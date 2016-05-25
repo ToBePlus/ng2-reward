@@ -1,0 +1,10 @@
+[
+  {"type":1,"name": "展示型优惠券","ico": "type-ico-show", "status":1, "isChecked":true},
+  {"type":2,"name": "核验型优惠码","ico": "type-ico-pin", "status":1, "isChecked":false},
+  {"type":3,"name": "大转盘","ico": "type-ico-baccarat", "status":1, "isChecked":false},
+  {"type":4,"name": "手机话费","ico": "type-ico-phone", "status":0, "isChecked":false},
+  {"type":5,"name": "天会宝","ico": "type-ico-tian", "status":0, "isChecked":false},
+  {"type":6,"name": "万里通积分","ico": "type-ico-wan", "status":0, "isChecked":false},
+  {"type":7,"name": "线下实物寄送","ico": "type-ico-outline", "status":0, "isChecked":false},
+  {"type":8,"name": "集分宝","ico": "type-ico-score", "status":0, "isChecked":false}
+]

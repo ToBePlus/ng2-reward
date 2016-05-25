@@ -1,0 +1,29 @@
+.reward-view{
+  background: url(/reward/images/coupon_normal.png);
+  display: inline-block;
+  width: 232px;
+  height: 84px;
+  position: absolute;
+  bottom: 250px;
+  left: 28px;
+}
+.reward-title{
+  line-height: 46px;
+  text-align: center;
+  color:#fff;
+  font-size: 22px;
+}
+.reward-sub-title{
+  line-height: 40px;
+  text-align: center;
+  color:#fff;
+  font-size: 16px;
+}
+.reward-desc-title{
+  position: absolute;
+  top: 380px;
+  left: 28px;
+  color: #888;
+  width: 232px;
+  text-align: center;
+}

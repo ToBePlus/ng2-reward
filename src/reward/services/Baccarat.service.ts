@@ -3,8 +3,8 @@ import {Http, Response, URLSearchParams, Headers, RequestOptions } from '@angula
 import { Observable } from 'rxjs/Observable';
 import {baseUrl} from './config';
 
-const PinAddUrl = baseUrl + '/rewardManage/check/add';
-const PinEditUrl = baseUrl + '/rewardManage/check/edit';
+const PinAddUrl = baseUrl + '/rewardManage/turntable/add';
+const PinEditUrl = baseUrl + '/rewardManage/turntable/edit';
 const PinInfoUrl = baseUrl + '/rewardManage/info/query/';
 
 @Injectable()
@@ -51,7 +51,7 @@ export class BaccaratService {
      * @return {[Observables]}  [observables 数据]
      */
     delete(id) {
-        let URL = 'http://localhost:4500/ccs/rewardManage/status/edit';
+        let URL = baseUrl+'/rewardManage/status/edit';
         let data = { cRPId: id, cRPStatus: 0 };//0删除,1发放中,2暂停中
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -65,7 +65,7 @@ export class BaccaratService {
      * @return {[type]}       [observables 数据]
      */
     putState(id, state) {
-        let URL = 'http://localhost:4500/ccs/rewardManage/status/edit';
+        let URL = baseUrl+'/rewardManage/status/edit';
         let data = { cRPId: id, cRPStatus: state };//0删除,1发放中,2暂停中
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -81,7 +81,7 @@ export class BaccaratService {
         let search = new URLSearchParams();
         search.set('cRPId', params.cRPId);
         search.set('queryType', params.queryType);
-        let URL = 'http://localhost:4500/ccs/rewardManage/projects/list';
+        let URL = baseUrl+'/rewardManage/projects/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -97,7 +97,7 @@ export class BaccaratService {
         search.set('projectId', params.projectId+'');
         search.set('currentPage', params.currentPage+'');
         search.set('pageSize', params.pageSize+'');
-        let URL = 'http://localhost:4500/ccs/rewardManage/check/list';
+        let URL = baseUrl+'/rewardManage/check/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -106,7 +106,7 @@ export class BaccaratService {
      * @return {[Observables]}   [observables 数据]
      */
     totalList(id) {
-        let URL = 'http://localhost:4500/ccs/rewardManage/check/total/' + id;
+        let URL = baseUrl+'/rewardManage/check/total/' + id;
         return this.http.get(URL).map(res => res.json()).catch(this.handleError);
     }
 

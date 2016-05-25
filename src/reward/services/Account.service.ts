@@ -57,7 +57,7 @@ export class AccountService {
      * @return {[type]}       [observables 数据]
      */
     putState(id, state) {
-        let URL = 'http://localhost:4500/ccs/rewardManage/status/edit';
+        let URL = baseUrl+'/rewardManage/status/edit';
         let data = { cRPId: id, cRPStatus: state };//0删除,1发放中,2暂停中
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -73,7 +73,7 @@ export class AccountService {
         let search = new URLSearchParams();
         search.set('cRPId', params.cRPId);
         search.set('queryType', params.queryType);
-        let URL = 'http://localhost:4500/ccs/rewardManage/projects/list';
+        let URL = baseUrl+'/rewardManage/projects/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -93,7 +93,7 @@ export class AccountService {
      * @return {[Observables]}   [observables 数据]
      */
     totalList(id) {
-        let URL = 'http://localhost:4500/ccs/rewardManage/check/total/' + id;
+        let URL = baseUrl+'/rewardManage/check/total/' + id;
         return this.http.get(URL).map(res => res.json()).catch(this.handleError);
     }
 

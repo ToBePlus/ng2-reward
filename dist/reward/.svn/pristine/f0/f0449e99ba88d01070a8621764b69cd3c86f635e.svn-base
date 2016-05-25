@@ -1,0 +1,33 @@
+import {Component,Input,Output} from 'angular2/core';
+import {ControlGroup} from 'angular2/common';
+import {ROUTER_DIRECTIVES, Router} from 'angular2/router';
+
+import {Program, ShowService} from '../../../services/Show.service';
+
+@Component({
+    selector: 'show-add',
+    templateUrl: './reward/controllers/show/add/template.html',
+    styleUrls: ['./reward/controllers/show/add/style.css'],
+    directives: [ROUTER_DIRECTIVES],
+    providers: [ShowService],
+})
+
+export class ShowAddComponent {
+    // @Input()
+    // programForm: any;
+    // type: number;
+
+    constructor(private s: ShowService,private router: Router) {
+
+    }
+
+    program = new Program(1);
+
+    ngOnInit() {
+
+    }
+
+    onSubmit(form:ControlGroup){
+      console.log(form);
+    }
+}
