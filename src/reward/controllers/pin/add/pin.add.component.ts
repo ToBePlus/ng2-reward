@@ -11,6 +11,7 @@ import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 import {baseUrl} from '../../../services/config';
 import {PinProgram, PinService} from '../../../services/Pin.service';
 import {Validators} from '../../../services/Validators';
+import {TextTohtmlPipe} from '../../../pipe/Text.to.html';
 
 const URL = baseUrl+'/medias/uploadBackgroundImage';
 
@@ -23,6 +24,7 @@ const FILE_URL = baseUrl+'/rewardManage/uploadCheckCode';
     styleUrls: ['reward/controllers/pin/add/style.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS, JSONP_PROVIDERS],
+    pipes:[TextTohtmlPipe]
 })
 
 export class PinAddComponent {

@@ -36,7 +36,7 @@
 							<div class="advance advance-base advance-show">
 								<div class="re-tip">请使用200*90比例的的PNG,JPG透明图片，小于2M</div>
 								<div *ngIf="!program.cRPBackgroundAdd" class="re-upload">
-									<input type="file" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
+									<input type="file" name="fileName" accept="image/gif,image/jpeg,image/png" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
 									<div class="rd-btn">选择文件</div>
 									<div class="re-progress clearfix" *ngIf="basicProgress">
 										<div >

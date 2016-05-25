@@ -38,7 +38,7 @@ export class HomeComponent{
   getImg(tl){
     if(tl.cRPBackgroundAdd&&tl.cRPBackgroundShow){
       let imgUrl = tl.cRPBackgroundAdd;
-      return 'url(/'+imgUrl+') no-repeat center center';
+      // return 'url(/'+imgUrl+') no-repeat center center';
     }
   }
 

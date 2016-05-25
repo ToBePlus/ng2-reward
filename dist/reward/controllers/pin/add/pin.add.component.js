@@ -20,6 +20,7 @@ const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
 const config_1 = require('../../../services/config');
 const Pin_service_1 = require('../../../services/Pin.service');
 const Validators_1 = require('../../../services/Validators');
+const Text_to_html_1 = require('../../../pipe/Text.to.html');
 const URL = config_1.baseUrl + '/medias/uploadBackgroundImage';
 const FILE_URL = config_1.baseUrl + '/rewardManage/uploadCheckCode';
 let PinAddComponent = class PinAddComponent {
@@ -159,6 +160,7 @@ PinAddComponent = __decorate([
         styleUrls: ['reward/controllers/pin/add/style.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
+        pipes: [Text_to_html_1.TextTohtmlPipe]
     }), 
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);

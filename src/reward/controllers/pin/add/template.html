@@ -35,7 +35,7 @@
 							<div class="advance advance-base advance-show">
 								<div class="re-tip">请使用200*90比例的的PNG,JPG透明图片，小于2M</div>
 								<div *ngIf="!pinProgram.cRPBackgroundAdd" class="re-upload">
-									<input type="file" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
+									<input type="file"accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
 									<div class="rd-btn">选择文件</div>
 									<div class="re-progress clearfix" *ngIf="basicProgress">
 										<div >
@@ -177,7 +177,7 @@
 							<div class="re-msg-ops">
 								<input class="re-ckb" type="checkbox" [(ngModel)]="pinProgram.cRPNoticeNow" [ngFormControl]="psForm.controls['cRPNoticeNow']" id="ckb-msg-notice"> <label for="ckb-msg-notice">获奖后立即通知（短信¥0.50元/条，发送（库存）份奖励需¥5,000元）</label>
 							</div>
-							<textarea name="" id="" cols="30" rows="10" [(ngModel)]="pinProgram.cRPNoticeNowContent" [ngFormControl]="psForm.controls['cRPNoticeNowContent']" >
+							<textarea name="" id="" cols="30" rows="10" maxlength="1000" [(ngModel)]="pinProgram.cRPNoticeNowContent" [ngFormControl]="psForm.controls['cRPNoticeNowContent']" >
               </textarea>
 							<div class="re-msg-ops">
 								<input class="re-ckb" type="checkbox" id="ckb-msg-day" [(ngModel)]="pinProgram.cRPValidNotice" [ngFormControl]="psForm.controls['cRPValidNotice']" >

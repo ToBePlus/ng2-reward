@@ -31,7 +31,7 @@
 								</div>
 								<div class="advance advance-base advance-show">
 									<div *ngIf="!subinfo.uploadFile?.status" class="re-upload">
-										<input type="file" name="fileName" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
+										<input type="file" name="fileName" accept="image/gif,image/jpeg,image/png" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
 										<div class="rd-btn">选择文件</div>
 										<div class="re-progress clearfix">
 											<div >
