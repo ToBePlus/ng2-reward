@@ -7,24 +7,26 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {baseUrl} from '../../../services/config';
-import { PAGINATION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 
 
 import {PinProgram, PinService, PinParams} from '../../../services/Pin.service';
 import {Validators} from '../../../services/Validators';
 
-const URL = baseUrl+'/ccs/medias/uploadBackgroundImage';
-// const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
+const URL = baseUrl + '/ccs/medias/uploadBackgroundImage';
 
-const downLoadBase = baseUrl+'/rewardManage/show/export';
+const downLoadBase = baseUrl + '/rewardManage/show/export';
 
 @Component({
     selector: 'pin-detail',
     templateUrl: 'reward/controllers/pin/detail/template.html',
     styleUrls: ['reward/controllers/pin/detail/style.min.css'],
-    directives: [PAGINATION_DIRECTIVES,ROUTER_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS],
+    host: {
+        '(click)': 'closeDatePicker($event)'
+    }
 })
 
 
@@ -42,9 +44,11 @@ export class PinDetailComponent {
     pinList: any;
     page: any;
 
-    currentPage:number = 0;
-    pageSize:number = 10;
-    pageCount:number = 0;
+    currentPage: number = 0;
+    pageSize: number = 10;
+    pageCount: number = 0;
+
+    dateShow: any = 0;
 
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
         this.id = +params.getParam('id'); //获取URL中的ID
@@ -61,14 +65,45 @@ export class PinDetailComponent {
         this.prizesParams.pageSize = 10;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.rangeDate = this.prizesParams.startDate + '~' + this.prizesParams.endDate;
+        this.prizesParams.range = -1;
+    }
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
     }
 
-    public setPage(pageNo:number):void {
-      this.currentPage = pageNo;
+    public closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
+    }
+
+    public setPage(pageNo: number): void {
+        this.currentPage = pageNo;
     };
 
-    pageChanged(event){
-      console.log(event);
+    moment(date) {
+        return moment(date).format('YYYY-MM-DD');
+    }
+
+    onSetRange(range) {
+        this.prizesParams.range = range;
+        if (range < 91) {
+            this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        } else if (range === 'currentYear') {
+            this.prizesParams.startDate = moment().startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().endOf('year').format('YYYY-MM-DD');
+        } else if (range === 'nextYear') {
+            this.prizesParams.startDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
+        }
+    }
+
+
+    pageChanged(event) {
+        console.log(event);
     }
 
     onDownload() {
@@ -146,6 +181,7 @@ export class PinDetailComponent {
                 this.pinList = data.data.list;
                 this.page = data.data.page;
                 this.prizesParams = data.param;
+                this.prizesParams.range = -1;
             }
         }, error => this.handleError);
     }
@@ -160,8 +196,8 @@ export class PinDetailComponent {
                 tl.addStatus = 1;
             }
             TimerWrapper.setTimeout(() => {
-              tl.addStatus = 0;
-              this.getTotalList();
+                tl.addStatus = 0;
+                this.getTotalList();
             }, 5000);
         }, error => this.handleError);
     }

@@ -9,7 +9,7 @@ textarea::-moz-placeholder {color:#9a9a9a;}
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {color:#9a9a9a;}
 a:hover, a:active, a:focus, a:visited { text-decoration: none;  }
-input[readonly],input[diabeld]{
+input[disabld]{ 
   background: #d3d3d3;
 }
 .fl { float:left;  }

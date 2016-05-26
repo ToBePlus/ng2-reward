@@ -43,4 +43,4 @@ RewardTypeService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], RewardTypeService);
 exports.RewardTypeService = RewardTypeService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/services/RewardType.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/src/reward/services/RewardType.service.js.map

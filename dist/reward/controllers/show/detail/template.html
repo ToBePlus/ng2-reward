@@ -13,20 +13,25 @@
 				<div class="rx-search">
 					<div class="rx-condition">
 						<div class="rx-cond-label">发放日期</div>
-						<div>
-							<div class="rd-btn active">全部</div>
-							<div class="s-input tc">
-								<select name="" id="">
-									<option value="">2015-01-01～2015-01-14</option>
-								</select>
+						<div class="th-datepicker-block">
+							<div class="rd-btn" [class.active]="prizesParams.range===-1" (click)="onSetRange()">全部</div>
+							<div class="s-input tc th-datepicker-range" >
+								<input type="text" readonly (click)="onShowDate($event)" name="name" class="inputtxt" [value]="prizesParams.startDate+'~'+prizesParams.endDate" style="width:100%" value="">
+								<div class="tc th-datepicker-tip" (click)="$event.stopPropagation()" *ngIf="dateShow" >
+									<div class="th-datepicker" >
+										<datepicker [ngModel]="prizesParams.startDate" (ngModelChange)="prizesParams.startDate = moment($event)"  [showWeeks]="true"></datepicker>
+									</div>
+									<div class="th-datepicker">
+										<datepicker [ngModel]="prizesParams.endDate" (ngModelChange)="prizesParams.endDate = moment($event)" [showWeeks]="true"></datepicker>
+									</div>
+								</div>
 							</div>
-							<div class="rd-btn ">本周</div>
-							<div class="rd-btn">本月</div>
-							<div class="rd-btn">本季度</div>
-							<div class="rd-btn">2015</div>
-							<div class="rd-btn">2016</div>
+							<div class="rd-btn" [class.active]="prizesParams.range===7" (click)="onSetRange(7)">本周</div>
+							<div class="rd-btn" [class.active]="prizesParams.range===30" (click)="onSetRange(30)">本月</div>
+							<div class="rd-btn" [class.active]="prizesParams.range===90" (click)="onSetRange(90)">本季度</div>
+							<div class="rd-btn" [class.active]="prizesParams.range==='currentYear'" (click)="onSetRange('currentYear')">2015</div>
+							<div class="rd-btn" [class.active]="prizesParams.range==='nextYear'" (click)="onSetRange('nextYear')">2016</div>
 						</div>
-
 					</div>
 
 					<div class="rx-condition">

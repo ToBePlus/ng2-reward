@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {baseUrl} from '../../../services/config';
-import { PAGINATION_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {ShowProgram, ShowService} from '../../../services/Show.service';
 import {Validators} from '../../../services/Validators';
@@ -20,8 +20,11 @@ const downLoadBase = baseUrl+'/rewardManage/show/export';
     selector: 'show-detail',
     templateUrl: 'reward/controllers/show/detail/template.html',
     styleUrls: ['reward/controllers/show/detail/style.min.css'],
-    directives: [PAGINATION_DIRECTIVES,ROUTER_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES,ROUTER_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS],
+    host: {
+        '(click)': 'closeDatePicker($event)'
+    }
 })
 
 
@@ -43,6 +46,8 @@ export class ShowDetailComponent {
     pageSize:number = 10;
     pageCount:number = 0;
 
+    dateShow:any = 0;
+
     constructor(private ss: ShowService, private router: Router, params: RouteSegment) {
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
@@ -53,15 +58,45 @@ export class ShowDetailComponent {
         this.prizesParams.cRPId = this.id;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.range = -1;
     }
 
-    public setPage(pageNo:number):void {
-      this.currentPage = pageNo;
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+
+    public closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
+    }
+
+    public setPage(pageNo: number): void {
+        this.currentPage = pageNo;
     };
+
+    moment(date) {
+        return moment(date).format('YYYY-MM-DD');
+    }
+
+    onSetRange(range) {
+        this.prizesParams.range = range;
+        if (range < 91) {
+            this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        } else if (range === 'currentYear') {
+            this.prizesParams.startDate = moment().startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().endOf('year').format('YYYY-MM-DD');
+        } else if (range === 'nextYear') {
+            this.prizesParams.startDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
+        }
+    }
 
     pageChanged(event){
       console.log(event);
     }
+
 
     onDownload() {
         let search = new URLSearchParams();
@@ -143,6 +178,7 @@ export class ShowDetailComponent {
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;
                 this.page = data.data.page;
+                this.prizesParams.range = -1;
             }
         }, error => this.handleError);
     }

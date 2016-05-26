@@ -1,0 +1,11 @@
+.th-datepicker-block{
+  .th-datepicker-range{
+    position: relative;
+  }
+  .th-datepicker-tip{
+    position: absolute;width:640px;z-index: 2;
+  }
+  .th-datepicker{
+    display:inline-block; width:320px;min-height:270px;
+  }
+}

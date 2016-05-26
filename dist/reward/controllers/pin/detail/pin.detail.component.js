@@ -19,7 +19,6 @@ const config_1 = require('../../../services/config');
 const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const Pin_service_1 = require('../../../services/Pin.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
-// const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 const downLoadBase = config_1.baseUrl + '/rewardManage/show/export';
 let PinDetailComponent = class PinDetailComponent {
     constructor(ps, router, params) {
@@ -28,6 +27,7 @@ let PinDetailComponent = class PinDetailComponent {
         this.currentPage = 0;
         this.pageSize = 10;
         this.pageCount = 0;
+        this.dateShow = 0;
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -42,11 +42,40 @@ let PinDetailComponent = class PinDetailComponent {
         this.prizesParams.pageSize = 10;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.rangeDate = this.prizesParams.startDate + '~' + this.prizesParams.endDate;
+        this.prizesParams.range = -1;
+    }
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+    closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
     setPage(pageNo) {
         this.currentPage = pageNo;
     }
     ;
+    moment(date) {
+        return moment(date).format('YYYY-MM-DD');
+    }
+    onSetRange(range) {
+        this.prizesParams.range = range;
+        if (range < 91) {
+            this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        }
+        else if (range === 'currentYear') {
+            this.prizesParams.startDate = moment().startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().endOf('year').format('YYYY-MM-DD');
+        }
+        else if (range === 'nextYear') {
+            this.prizesParams.startDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
+        }
+    }
     pageChanged(event) {
         console.log(event);
     }
@@ -117,6 +146,7 @@ let PinDetailComponent = class PinDetailComponent {
                 this.pinList = data.data.list;
                 this.page = data.data.page;
                 this.prizesParams = data.param;
+                this.prizesParams.range = -1;
             }
         }, error => this.handleError);
     }
@@ -166,10 +196,13 @@ PinDetailComponent = __decorate([
         selector: 'pin-detail',
         templateUrl: 'reward/controllers/pin/detail/template.html',
         styleUrls: ['reward/controllers/pin/detail/style.min.css'],
-        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS],
+        host: {
+            '(click)': 'closeDatePicker($event)'
+        }
     }), 
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map

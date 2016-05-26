@@ -27,6 +27,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.currentPage = 0;
         this.pageSize = 10;
         this.pageCount = 0;
+        this.dateShow = 0;
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -36,11 +37,38 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.prizesParams.cRPId = this.id;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.range = -1;
+    }
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+    closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
     setPage(pageNo) {
         this.currentPage = pageNo;
     }
     ;
+    moment(date) {
+        return moment(date).format('YYYY-MM-DD');
+    }
+    onSetRange(range) {
+        this.prizesParams.range = range;
+        if (range < 91) {
+            this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        }
+        else if (range === 'currentYear') {
+            this.prizesParams.startDate = moment().startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().endOf('year').format('YYYY-MM-DD');
+        }
+        else if (range === 'nextYear') {
+            this.prizesParams.startDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
+        }
+    }
     pageChanged(event) {
         console.log(event);
     }
@@ -115,6 +143,7 @@ let ShowDetailComponent = class ShowDetailComponent {
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;
                 this.page = data.data.page;
+                this.prizesParams.range = -1;
             }
         }, error => this.handleError);
     }
@@ -143,10 +172,13 @@ ShowDetailComponent = __decorate([
         selector: 'show-detail',
         templateUrl: 'reward/controllers/show/detail/template.html',
         styleUrls: ['reward/controllers/show/detail/style.min.css'],
-        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS],
+        host: {
+            '(click)': 'closeDatePicker($event)'
+        }
     }), 
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/src/reward/controllers/show/detail/show.detail.component.js.map

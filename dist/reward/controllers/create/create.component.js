@@ -81,4 +81,4 @@ CreateComponent = __decorate([
     __metadata('design:paramtypes', [RewardType_service_1.RewardTypeService, router_1.Router])
 ], CreateComponent);
 exports.CreateComponent = CreateComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-klthb5Mf.tmp/0/src/reward/controllers/create/create.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/src/reward/controllers/create/create.component.js.map
