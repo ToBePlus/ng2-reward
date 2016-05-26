@@ -7,7 +7,7 @@
 .reward-home .rd-btn-link { width:148px; height:42px; line-height: 40px; text-align: center; background:#ddedff;  }
 .reward-home .zs-col-main { padding:24px 31px 0 39px; min-width:313px;  }
 .rd-coupons h1 {font-size:14px; color:#383838; margin-bottom:16px;}
-.rd-coupons h1 i { display:inline-block; width:20px; height:16px; vertical-align: middle; margin-right:16px; background:url(/reward/images/reward_ico.png) no-repeat;}
+.rd-coupons h1 i { display:inline-block; width:20px; height:16px; vertical-align: middle; margin-right:16px; background:url(./../../reward/images/reward_ico.png) no-repeat;}
 .rd-coupons h1 i.coupons-ico-show { background-position:-162px -18px;}
 .rd-coupons h1 i.coupons-ico-pin { background-position:-162px -86px;}
 .rd-coupons h1 i.coupons-ico-tian { background-position:-162px -152px;}
@@ -24,6 +24,6 @@
 .rd-coupon .coupon-edit {   z-index: 2; position:absolute; bottom:0; right:20px; font-size:12px; line-height: 2; color:#383838;}
 .coupon-status span.coupon-status-pause { color:#fa4848;}
 .coupon-status span.coupon-status-run {color:#5fac1c;}
-.rd-coupon-over:after{ z-index: 2;content: ''; position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(255, 255, 255, .59) url(/reward/images/coupon_over.png) no-repeat center 12px;  }
+.rd-coupon-over:after{ z-index: 2;content: ''; position:absolute; top:0; right:0; bottom:0; left:0; background:rgba(255, 255, 255, .59) url(./../../reward/images/coupon_over.png) no-repeat center 12px;  }
 .rd-coupon:hover {box-shadow:0 0 7px #6196d0, 1px 1px 4px rgba(0, 0, 0, .22);  }
 .rd-coupon:hover .coupon-name:after { display:none; }

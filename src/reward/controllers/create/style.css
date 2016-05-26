@@ -7,7 +7,7 @@
 .reward-create .rd-types .type div {text-align: center; font-size:14px;}
 .reward-create .rd-types .type-disable { background:#f4f4f4;  color:#c5c5c5;cursor: default;}
 .reward-create .rd-types .type-check { background:#5d91c7; border:1px solid #006795; color:#fff; }
-.reward-create .rd-types .type i { display:block; margin:17px auto 7px; width:24px; height:24px; background:url(/reward/images/reward_ico.png) no-repeat; }
+.reward-create .rd-types .type i { display:block; margin:17px auto 7px; width:24px; height:24px; background:url(./../../reward/images/reward_ico.png) no-repeat; }
 .reward-create .rd-types .type i.type-ico-show { background-position:-65px -13px; }
 .reward-create .rd-types .type i.type-ico-pin { background-position:-65px -84px; }
 .reward-create .rd-types .type i.type-ico-baccarat { background-position:-65px -49px; }

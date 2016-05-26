@@ -91,6 +91,9 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.search();
     }
     onDelete() {
+        if (!confirm('是否删除该奖励?')) {
+            return;
+        }
         this.ss.delete(this.id).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.toHome();
@@ -98,6 +101,9 @@ let ShowDetailComponent = class ShowDetailComponent {
         }, error => this.handleError);
     }
     onState() {
+        if (!confirm('是否变更该奖励状态?')) {
+            return;
+        }
         this.ss.putState(this.id, this.state === 1 ? 2 : 1).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.getOne();
@@ -182,4 +188,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/src/reward/controllers/show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-fPq4wRwB.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-fPq4wRwB.tmp/0/src/reward/controllers/show/detail/show.detail.component.js.map

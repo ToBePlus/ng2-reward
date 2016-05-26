@@ -116,6 +116,9 @@ let PinDetailComponent = class PinDetailComponent {
         this.search();
     }
     onDelete() {
+        if (!confirm('是否删除该奖励?')) {
+            return;
+        }
         this.ps.delete(this.id).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.toHome();
@@ -123,6 +126,9 @@ let PinDetailComponent = class PinDetailComponent {
         }, error => this.handleError);
     }
     onState() {
+        if (!confirm('是否变更该奖励状态?')) {
+            return;
+        }
         this.ps.putState(this.id, this.state === 1 ? 2 : 1).subscribe(data => {
             if (this.errorAlert(data)) {
                 alert('奖励状态变更成功');
@@ -232,4 +238,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-FjSSMyvj.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-fPq4wRwB.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-fPq4wRwB.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map

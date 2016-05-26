@@ -11,16 +11,16 @@ import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-
 import {ShowProgram, ShowService} from '../../../services/Show.service';
 import {Validators} from '../../../services/Validators';
 
-const URL = baseUrl+'/ccs/medias/uploadBackgroundImage';
+const URL = baseUrl + '/ccs/medias/uploadBackgroundImage';
 // const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 
-const downLoadBase = baseUrl+'/rewardManage/show/export';
+const downLoadBase = baseUrl + '/rewardManage/show/export';
 
 @Component({
     selector: 'show-detail',
     templateUrl: 'reward/controllers/show/detail/template.html',
     styleUrls: ['reward/controllers/show/detail/style.min.css'],
-    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES,ROUTER_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS],
     host: {
         '(click)': 'closeDatePicker($event)'
@@ -42,11 +42,11 @@ export class ShowDetailComponent {
     showList: any;
     page: any;
 
-    currentPage:number = 0;
-    pageSize:number = 10;
-    pageCount:number = 0;
+    currentPage: number = 0;
+    pageSize: number = 10;
+    pageCount: number = 0;
 
-    dateShow:any = 0;
+    dateShow: any = 0;
 
     constructor(private ss: ShowService, private router: Router, params: RouteSegment) {
         this.id = +params.getParam('id'); //获取URL中的ID
@@ -93,8 +93,8 @@ export class ShowDetailComponent {
         }
     }
 
-    pageChanged(event){
-      console.log(event);
+    pageChanged(event) {
+        console.log(event);
     }
 
 
@@ -104,7 +104,7 @@ export class ShowDetailComponent {
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
         search.set('projectId', this.prizesParams.projectId);
-        return downLoadBase+'?'+ search;
+        return downLoadBase + '?' + search;
     }
 
     onDoneDownload(dId) {
@@ -112,7 +112,7 @@ export class ShowDetailComponent {
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', dId);
         search.set('cRPStatus', '1');
-        return downLoadBase+'?'+ search;
+        return downLoadBase + '?' + search;
     }
 
 
@@ -121,6 +121,9 @@ export class ShowDetailComponent {
     }
 
     onDelete() {
+        if (!confirm('是否删除该奖励?')) {
+            return;
+        }
         this.ss.delete(this.id).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.toHome();
@@ -129,6 +132,9 @@ export class ShowDetailComponent {
     }
 
     onState() {
+        if (!confirm('是否变更该奖励状态?')) {
+            return;
+        }
         this.ss.putState(this.id, this.state === 1 ? 2 : 1).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.getOne();

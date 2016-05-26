@@ -145,6 +145,9 @@ export class PinDetailComponent {
     }
 
     onDelete() {
+        if(!confirm('是否删除该奖励?')){
+          return;
+        }
         this.ps.delete(this.id).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.toHome();
@@ -153,6 +156,9 @@ export class PinDetailComponent {
     }
 
     onState() {
+      if(!confirm('是否变更该奖励状态?')){
+        return;
+      }
         this.ps.putState(this.id, this.state === 1 ? 2 : 1).subscribe(data => {
             if (this.errorAlert(data)) {
                 alert('奖励状态变更成功');

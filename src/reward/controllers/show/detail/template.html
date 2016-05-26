@@ -2,9 +2,9 @@
 	<div class="zs-bar tc">
 		<a [routerLink]="['/']" class="zs-back"></a>
 		{{info?.cRPName}}
-		<a class="pull-xs-right" [routerLink]="['/show/edit',{id:id}]">编辑</a>
-		<a class="pull-xs-right" (click)="onDelete()">删除</a>
-		<a class="pull-xs-right" (click)="onState()">{{info?.cRPStatus===1?'发放中':'暂停中'}}</a>
+		<span class="pull-right state-btn" [class.state-btn-stop]="info?.cRPStatus!=1" (click)="onState()">{{info?.cRPStatus==1?'发放中':'暂停中'}}</span>
+		<a class="pull-right del-btn" (click)="onDelete()"></a>
+		<a class="pull-right edit-btn" [routerLink]="['/show/edit',{id:id}]"></a>
 	</div>
 	<div class="rd-main">
 		<div class="rx-col">
