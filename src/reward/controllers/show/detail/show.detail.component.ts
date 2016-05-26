@@ -107,12 +107,14 @@ export class ShowDetailComponent {
         return downLoadBase+'?'+ search;
     }
 
-    onDoneDownload() {
+    onDoneDownload(dId) {
         let search = new URLSearchParams();
         search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', dId);
         search.set('cRPStatus', '1');
         return downLoadBase+'?'+ search;
     }
+
 
     onSearch() {
         this.search();

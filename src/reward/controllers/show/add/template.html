@@ -88,8 +88,8 @@
 						<div class="re-label">
 							<span class="text-danger">*</span>发放总量：
 						</div>
-						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt input-157" [readonly]="program.cRPId" [disabled]="program.cRPId" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
+						<div class="re-convert-ops re-convert-lib"> 
+							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="program.cRPId">
 								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum"  placeholder="输入1~100,000的数字">
 								<span (click)="onAddTotal()"></span>

@@ -130,7 +130,7 @@
 .s-header span { margin-left:16px; }
 .s-items { border-top:1px solid #dbdbdb; font-size:0; padding-top:4px;}
 .s-item { margin:30px 0; }
-.s-item span { display:inline-block; font-size:14px; line-height: 16px; height:16px; vertical-align: middle; color: #383838;}
+.s-item span,.s-item a { display:inline-block; font-size:14px; line-height: 16px; height:16px; vertical-align: middle; color: #383838;}
 .s-item > div { margin:14px 0; }
 .s-item > div:first-child { margin-top:0; }
 .s-item > div > span:first-child { width:125px; margin-right:15px; text-align: right;}

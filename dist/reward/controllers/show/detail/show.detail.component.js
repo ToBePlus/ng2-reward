@@ -80,9 +80,10 @@ let ShowDetailComponent = class ShowDetailComponent {
         search.set('projectId', this.prizesParams.projectId);
         return downLoadBase + '?' + search;
     }
-    onDoneDownload() {
+    onDoneDownload(dId) {
         let search = new http_1.URLSearchParams();
         search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', dId);
         search.set('cRPStatus', '1');
         return downLoadBase + '?' + search;
     }

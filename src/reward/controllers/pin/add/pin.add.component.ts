@@ -141,7 +141,8 @@ export class PinAddComponent {
         data.fileName = this.pinProgram.fileName;
         data.additionalNum = +this.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
-
+          alert('追加成功');
+          this.pinProgram.totalRewards += +this.additionalNum;
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();

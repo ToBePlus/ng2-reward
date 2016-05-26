@@ -19,7 +19,7 @@ const config_1 = require('../../../services/config');
 const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const Pin_service_1 = require('../../../services/Pin.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
-const downLoadBase = config_1.baseUrl + '/rewardManage/show/export';
+const downLoadBase = config_1.baseUrl + '/rewardManage/check/export';
 let PinDetailComponent = class PinDetailComponent {
     constructor(ps, router, params) {
         this.ps = ps;
@@ -81,11 +81,25 @@ let PinDetailComponent = class PinDetailComponent {
     }
     onDownload() {
         let search = new http_1.URLSearchParams();
-        search.set('cRPId', this.prizesParams.cRPId + '');
+        search.set('cRPId', this.prizesParams.cRPId);
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
-        search.set('projectId', this.prizesParams.projectId + '');
-        return downLoadBase + search;
+        search.set('projectId', this.prizesParams.projectId);
+        return downLoadBase + '?' + search;
+    }
+    onDoneDownload(dId) {
+        let search = new http_1.URLSearchParams();
+        search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', dId);
+        search.set('cRPStatus', '1');
+        return downLoadBase + '?' + search;
+    }
+    onExchangeDownload(dId) {
+        let search = new http_1.URLSearchParams();
+        search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', dId);
+        search.set('cRPStatus', '4');
+        return downLoadBase + '?' + search;
     }
     onSearch() {
         this.search();

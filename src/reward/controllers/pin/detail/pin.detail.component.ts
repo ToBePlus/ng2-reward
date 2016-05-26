@@ -16,7 +16,7 @@ import {Validators} from '../../../services/Validators';
 
 const URL = baseUrl + '/ccs/medias/uploadBackgroundImage';
 
-const downLoadBase = baseUrl + '/rewardManage/show/export';
+const downLoadBase = baseUrl + '/rewardManage/check/export';
 
 @Component({
     selector: 'pin-detail',
@@ -108,11 +108,27 @@ export class PinDetailComponent {
 
     onDownload() {
         let search = new URLSearchParams();
-        search.set('cRPId', this.prizesParams.cRPId + '');
+        search.set('cRPId', this.prizesParams.cRPId);
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
-        search.set('projectId', this.prizesParams.projectId + '');
-        return downLoadBase + search;
+        search.set('projectId', this.prizesParams.projectId);
+        return downLoadBase+'?'+ search;
+    }
+
+    onDoneDownload(dId) {
+        let search = new URLSearchParams();
+        search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', dId);
+        search.set('cRPStatus', '1');
+        return downLoadBase+'?'+ search;
+    }
+
+    onExchangeDownload(dId) {
+        let search = new URLSearchParams();
+        search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', dId);
+        search.set('cRPStatus', '4');
+        return downLoadBase+'?'+ search;
     }
 
     onSearch() {

@@ -138,12 +138,12 @@
 						<div>
 							<span>已发放总量</span>
 							<span class="c-green">{{tl.senderNum}}</span>
-							<span class="s-ico s-ico-down"></span>
+							<a class="s-ico s-ico-down" target="_blank" [href]="onDoneDownload(tl.cRPDId)"></a>
 						</div>
 						<div>
 							<span>已兑换总量</span>
 							<span class="c-green">{{tl.verfiyNum}}</span>
-							<span class="s-ico s-ico-down"></span>
+							<a class="s-ico s-ico-down" target="_blank" [href]="onExchangeDownload(tl.cRPDId)"></a>
 						</div>
 					</div>
 				</div>
