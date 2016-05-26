@@ -29,3 +29,7 @@ testem.log
 src/reward/.svn/entries
 
 dist/reward/controllers/baccarat/add/baccarat.add.component.js.map
+
+logs/error.log
+
+*.log
