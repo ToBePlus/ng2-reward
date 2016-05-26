@@ -8,13 +8,14 @@ import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
+import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+
 
 import {baseUrl} from '../../../services/config';
 import {ShowProgram, ShowService} from '../../../services/Show.service';
 import {Validators} from '../../../services/Validators';
 import {TextTohtmlPipe} from '../../../pipe/Text.to.html';
 
-// const URL = baseUrl+'/medias/uploadprize';
 const URL = baseUrl + '/medias/uploadBackgroundImage';
 
 
@@ -22,9 +23,12 @@ const URL = baseUrl + '/medias/uploadBackgroundImage';
     selector: 'show-add',
     templateUrl: 'reward/controllers/show/add/template.html',
     styleUrls: ['reward/controllers/show/add/style.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES,DATEPICKER_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
-    pipes: [TextTohtmlPipe]
+    pipes: [TextTohtmlPipe],
+    host: {
+        '(click)': 'closeDatePicker($event)'
+    }
 })
 
 
@@ -46,6 +50,8 @@ export class ShowAddComponent {
     basicResp: Object;
     uploadFile: any;
     totalRewards: any;
+
+    dateShow: any = 0;
 
     constructor(private ss: ShowService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -74,6 +80,16 @@ export class ShowAddComponent {
         //初始化数据
         this.basicResp = {};
         this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
+    }
+
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+
+    public closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
 
     moment(date) {

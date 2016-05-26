@@ -80,15 +80,25 @@
 							<div class="rd-btn" [class.active]="program.cRPValidType===30" (click)="program.cRPValidType=30">发放后30日</div>
 							<input name="cRPValidType" type="hidden" [ngFormControl]="psForm.controls['cRPValidType']" [(ngModel)]="program.cRPValidType" >
 						</div>
-						<div class="re-rule-custom" [hidden]="program.cRPValidType!==-1">
-							<input class="inputtxt input-191" readonly name="cRPValidDate" [ngFormControl]="psForm.controls['cRPValidType']" [(ngModel)]="program.cRPValidType" type="text" placeholder="2016.01.11  24:00">
-						</div>
+						<div class="re-rule-custom th-datepicker-block" *ngIf="program.cRPValidType===-1">
+							<div class="s-input tc th-datepicker-range" >
+								<input type="text" readonly (click)="onShowDate($event)" name="name" class="inputtxt" [value]="program.cRPValidStartDate+'~'+program.cRPValidEndDate" style="width:100%" value="">
+								<div class="tc th-datepicker-tip" (click)="$event.stopPropagation()" *ngIf="dateShow" >
+									<div class="th-datepicker" >
+										<datepicker [ngModel]="program.cRPValidStartDate" (ngModelChange)="program.cRPValidStartDate = moment($event)"  [showWeeks]="true"></datepicker>
+									</div>
+									<div class="th-datepicker">
+										<datepicker [ngModel]="program.cRPValidEndDate" (ngModelChange)="program.cRPValidEndDate = moment($event)" [showWeeks]="true"></datepicker>
+									</div>
+								</div>
+							</div>
+					</div>
 					</div>
 					<div class="re-form-field">
 						<div class="re-label">
 							<span class="text-danger">*</span>发放总量：
 						</div>
-						<div class="re-convert-ops re-convert-lib"> 
+						<div class="re-convert-ops re-convert-lib">
 							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="program.cRPId">
 								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum"  placeholder="输入1~100,000的数字">

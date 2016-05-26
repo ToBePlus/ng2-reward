@@ -78,9 +78,19 @@
               <div class="rd-btn" [class.active]="pinProgram.cRPValidType===30" (click)="pinProgram.cRPValidType=30">发放后30日</div>
               <input name="cRPValidType" type="hidden" [ngFormControl]="psForm.controls['cRPValidType']" [(ngModel)]="pinProgram.cRPValidType" >
             </div>
-            <div class="re-rule-custom" [hidden]="psForm.value.cRPValidType!==-1">
-              <input class="inputtxt input-191" readonly name="cRPValidDate" [(ngModel)]="pinProgram.cRPValidDate"  [ngFormControl]="psForm.controls['cRPValidDate']" type="text" placeholder="2016.01.11  24:00">
-            </div>
+						<div class="re-rule-custom th-datepicker-block" *ngIf="pinProgram.cRPValidType===-1">
+							<div class="s-input tc th-datepicker-range" >
+								<input type="text" readonly (click)="onShowDate($event)" name="name" class="inputtxt" [value]="pinProgram.cRPValidStartDate+'~'+pinProgram.cRPValidEndDate" style="width:100%" value="">
+								<div class="tc th-datepicker-tip" (click)="$event.stopPropagation()" *ngIf="dateShow" >
+									<div class="th-datepicker" >
+										<datepicker [ngModel]="pinProgram.cRPValidStartDate" (ngModelChange)="pinProgram.cRPValidStartDate = moment($event)"  [showWeeks]="true"></datepicker>
+									</div>
+									<div class="th-datepicker">
+										<datepicker [ngModel]="pinProgram.cRPValidEndDate" (ngModelChange)="pinProgram.cRPValidEndDate = moment($event)" [showWeeks]="true"></datepicker>
+									</div>
+								</div>
+							</div>
+					</div>
 					</div>
 					<div class="re-form-field">
 						<div class="re-label">发放规则：</div>

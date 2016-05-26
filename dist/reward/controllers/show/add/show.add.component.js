@@ -17,11 +17,11 @@ const http_2 = require('@angular/http');
 const common_1 = require('@angular/common');
 const moment = require('moment');
 const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
+const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const config_1 = require('../../../services/config');
 const Show_service_1 = require('../../../services/Show.service');
 const Validators_1 = require('../../../services/Validators');
 const Text_to_html_1 = require('../../../pipe/Text.to.html');
-// const URL = baseUrl+'/medias/uploadprize';
 const URL = config_1.baseUrl + '/medias/uploadBackgroundImage';
 let ShowAddComponent = class ShowAddComponent {
     constructor(ss, router, fb, params) {
@@ -32,6 +32,7 @@ let ShowAddComponent = class ShowAddComponent {
             url: URL
         };
         this.basicProgress = 0;
+        this.dateShow = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
@@ -58,6 +59,14 @@ let ShowAddComponent = class ShowAddComponent {
         //初始化数据
         this.basicResp = {};
         this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
+    }
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+    closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
     moment(date) {
         return moment(date).format('YYYY-MM-DD');
@@ -150,9 +159,12 @@ ShowAddComponent = __decorate([
         selector: 'show-add',
         templateUrl: 'reward/controllers/show/add/template.html',
         styleUrls: ['reward/controllers/show/add/style.css'],
-        directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES],
+        directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
-        pipes: [Text_to_html_1.TextTohtmlPipe]
+        pipes: [Text_to_html_1.TextTohtmlPipe],
+        host: {
+            '(click)': 'closeDatePicker($event)'
+        }
     }), 
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);

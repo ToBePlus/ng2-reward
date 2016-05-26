@@ -17,6 +17,7 @@ const http_2 = require('@angular/http');
 const common_1 = require('@angular/common');
 const moment = require('moment');
 const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
+const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const config_1 = require('../../../services/config');
 const Pin_service_1 = require('../../../services/Pin.service');
 const Validators_1 = require('../../../services/Validators');
@@ -35,6 +36,7 @@ let PinAddComponent = class PinAddComponent {
             url: FILE_URL
         };
         this.fileProgress = 0;
+        this.dateShow = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.psForm = fb.group({
@@ -66,6 +68,14 @@ let PinAddComponent = class PinAddComponent {
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.pinProgram = new Pin_service_1.PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
+    }
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+    closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
     moment(date) {
         return moment(date).format('YYYY-MM-DD');
@@ -173,9 +183,12 @@ PinAddComponent = __decorate([
         selector: 'pin-add',
         templateUrl: 'reward/controllers/pin/add/template.html',
         styleUrls: ['reward/controllers/pin/add/style.css'],
-        directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES],
+        directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
-        pipes: [Text_to_html_1.TextTohtmlPipe]
+        pipes: [Text_to_html_1.TextTohtmlPipe],
+        host: {
+            '(click)': 'closeDatePicker($event)'
+        }
     }), 
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);

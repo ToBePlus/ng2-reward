@@ -7,6 +7,7 @@ import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
+import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {baseUrl} from '../../../services/config';
 import {PinProgram, PinService} from '../../../services/Pin.service';
@@ -22,9 +23,12 @@ const FILE_URL = baseUrl+'/rewardManage/uploadCheckCode';
     selector: 'pin-add',
     templateUrl: 'reward/controllers/pin/add/template.html',
     styleUrls: ['reward/controllers/pin/add/style.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES,DATEPICKER_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS, JSONP_PROVIDERS],
-    pipes:[TextTohtmlPipe]
+    pipes:[TextTohtmlPipe],
+    host: {
+        '(click)': 'closeDatePicker($event)'
+    }
 })
 
 export class PinAddComponent {
@@ -51,6 +55,9 @@ export class PinAddComponent {
     fileResp: Object;
 
     uploadFileXls: any;
+
+    dateShow: any = 0;
+
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
@@ -83,6 +90,16 @@ export class PinAddComponent {
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.pinProgram = new PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
+    }
+
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+
+    public closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
 
     moment(date) {
