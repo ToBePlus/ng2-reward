@@ -138,16 +138,16 @@
 						<div class="clearfix">
 							<span>已上传</span>
 							<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
-							<span class="fr upload-op" (click)="onDelFileName()">重新上传</span>
-							<span class="fr upload-op" (click)="onDelFileName()">删除</span>
+							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">重新上传</span>
+							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">删除</span>
 						</div>
 						<div class="re-tip">成功导入 {{uploadFileXls?.data.num}}个核验码</div>
 					</div>
 					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&pinProgram.cRPGenerateType === 2">
 						<div class="clearfix">
 							<span>{{uploadFileXls?.error.msg}}</span>
-							<span class="fr upload-op" (click)="onDelFileName()">重新上传</span>
-							<span class="fr upload-op" (click)="onDelFileName()">删除</span>
+							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">重新上传</span>
+							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">删除</span>
 						</div>
 						<div class="re-tip">核验码需由字母和数字组合，6-12位</div>
 					</div>

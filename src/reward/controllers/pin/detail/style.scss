@@ -16,3 +16,18 @@
     display:inline-block; width:320px;min-height:270px;
   }
 }
+.re-rule{
+  .re-rule-pin{
+    &:after{
+      display: block;
+      position: absolute;
+      content: '';
+      width: 16px;
+      height: 14px;
+      background: url(/reward/images/reward_ico.png) no-repeat -164px -282px;
+      top: 5px;
+      width: 170px;
+      z-index: 1;
+    }
+  }
+}

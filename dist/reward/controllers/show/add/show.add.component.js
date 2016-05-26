@@ -59,6 +59,9 @@ let ShowAddComponent = class ShowAddComponent {
         this.basicResp = {};
         this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
     }
+    moment(date) {
+        return moment(date).format('YYYY-MM-DD');
+    }
     ngOnInit() {
         this.getProgram();
     }
@@ -85,6 +88,8 @@ let ShowAddComponent = class ShowAddComponent {
     }
     setPsForm(data) {
         this.program = data.data;
+        this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
+        this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
     }
     onAddTotal() {
         let data = {};

@@ -184,6 +184,8 @@ export class BaccaratAddComponent {
 
     setPsForm(data) {
         this.baccarat = data.data;
+        this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
+        this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
     }
 
     onSubmit() {
