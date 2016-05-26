@@ -193,4 +193,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-fPq4wRwB.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-fPq4wRwB.tmp/0/src/reward/controllers/pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/reward/controllers/pin/add/pin.add.component.js.map

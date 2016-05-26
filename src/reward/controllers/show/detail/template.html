@@ -69,16 +69,16 @@
 								<th>获奖手机号</th>
 							</tr>
 						</thead>
-						<tbody *ngIf="prizesList">
-							<tr *ngFor="let psl of prizesList;let i = index;">
+						<tbody *ngIf="showList">
+							<tr *ngFor="let psl of showList;let i = index;">
 								<td>{{i+1}}</td>
-								<td>{{psl.cRSendTime}}</td>
+								<td>{{psl.cRSendTime|date:'yyyy/MM/dd'}}</td>
 								<td>{{psl.groupName}}{{psl.cREntityName}}</td>
 								<td>{{psl.cRMobile}}</td>
 							</tr>
 						</tbody>
 					</table>
-					<div class="rx-list-empty tc c-pink re-hide" *ngIf="!prizesList">
+					<div class="rx-list-empty tc c-pink re-hide" *ngIf="!showList">
 						未查找到有效数据
 					</div>
 					<pagination [totalItems]="pageCount" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" class="pagination-sm"
