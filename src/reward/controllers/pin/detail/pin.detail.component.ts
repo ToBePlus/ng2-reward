@@ -29,7 +29,6 @@ const downLoadBase = baseUrl + '/rewardManage/check/export';
     }
 })
 
-
 export class PinDetailComponent {
     errorMessage: any;
     id: number;
@@ -108,7 +107,17 @@ export class PinDetailComponent {
 
     onDownload() {
         let search = new URLSearchParams();
+        let status = '0';
+        if(this.prizesParams.sendStatus==2){
+          if(this.prizesParams.verifyStatus==2){
+            status = '2';
+          } else {
+            status = '1';
+          }
+        }
         search.set('cRPId', this.prizesParams.cRPId);
+        search.set('cRPDId', this.prizesParams.cRPId);
+        search.set('cRPStatus', status);
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
         search.set('projectId', this.prizesParams.projectId);
@@ -127,7 +136,7 @@ export class PinDetailComponent {
         let search = new URLSearchParams();
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', dId);
-        search.set('cRPStatus', '4');
+        search.set('cRPStatus', '2');
         return downLoadBase+'?'+ search;
     }
 
@@ -194,10 +203,12 @@ export class PinDetailComponent {
         }
         this.ps.pinList(this.prizesParams).subscribe(data => {
             if (this.errorAlert(data)) {
-                this.pinList = data.data.list;
-                this.page = data.data.page;
+                this.pinList = data.data;
                 this.prizesParams = data.param;
                 this.prizesParams.range = -1;
+                this.currentPage= +this.prizesParams.currentPage;
+                this.pageSize=+this.prizesParams.pageSize;
+                this.pageCount=+this.prizesParams.pageCount;
             }
         }, error => this.handleError);
     }

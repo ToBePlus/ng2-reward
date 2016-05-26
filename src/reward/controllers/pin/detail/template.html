@@ -90,21 +90,21 @@
 								<th>核验人</th>
 							</tr>
 						</thead>
-						<tbody *ngIf="prizesList">
-							<tr *ngFor="let psl of prizesList;let i = index;">
+						<tbody *ngIf="pinList">
+							<tr *ngFor="let psl of pinList;let i = index;">
 								<td>{{i+1}}</td>
 								<td>{{psl.cRCode}}</td>
-								<td>{{psl.cRState}}</td>
-								<td>{{psl.cREntityType}}</td>
-								<td>{{psl.cRSendTime}}</td>
+								<td>{{psl.cRStatus!==0?'已发放':'-'}}</td>
+								<td>{{psl.cRStatus===2?'已兑换':'未兑换'}}</td>
+								<td>{{psl.cRSendTime|date:'yy-MM-dd'}}</td>
 								<td>{{psl.groupName}}{{psl.cREntityName}}</td>
-								<td>{{psl.cRMobile}}</td>
-								<td>{{psl.cRVerifyTime}}</td>
-								<td>{{psl.userName}}</td>
+								<td>{{psl.cRMobile||'-'}}</td>
+								<td>{{psl.cRVerifyTime|date:'yy-MM-dd'}}</td>
+								<td>{{psl.userName||'-'}}</td>
 							</tr>
 						</tbody>
 					</table>
-					<div class="rx-list-empty tc c-pink" *ngIf="!prizesList">
+					<div class="rx-list-empty tc c-pink" *ngIf="!pinList">
 						未查找到有效数据
 					</div>
 					<pagination [totalItems]="pageCount" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" class="pagination-sm"

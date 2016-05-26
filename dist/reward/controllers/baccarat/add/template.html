@@ -69,17 +69,24 @@
 					<div class="re-form-field re-rule-date">
 						<div class="re-label">有效日期：</div>
 						<div>
-							<div class="rd-btn active">自定义</div>
-							<div class="rd-btn">发放后当日</div>
-							<div class="rd-btn">发放后24小时</div>
-							<div class="rd-btn">发放后7日</div>
-							<div class="rd-btn">发放后30日</div>
-							<input type="hidden" [(ngModel)]="baccarat.cRPValidType" [ngFormControl]="bsForm.controls['cRPValidType']">
+							<div class="rd-btn" [class.active]="baccarat.cRPValidType===-1" (click)="baccarat.cRPValidType=-1">自定义</div>
+							<div class="rd-btn" [class.active]="baccarat.cRPValidType===0" (click)="baccarat.cRPValidType=0">发放后当日</div>
+							<div class="rd-btn" [class.active]="baccarat.cRPValidType===1" (click)="baccarat.cRPValidType=1">发放后24小时</div>
+							<div class="rd-btn" [class.active]="baccarat.cRPValidType===7" (click)="baccarat.cRPValidType=7">发放后7日</div>
+							<div class="rd-btn" [class.active]="baccarat.cRPValidType===30" (click)="baccarat.cRPValidType=30">发放后30日</div>
 						</div>
-						<input type="text" [(ngModel)]="baccarat.cRPValidStartDate" [ngFormControl]="bsForm.controls['cRPValidStartDate']">
-						<input type="text" [(ngModel)]="baccarat.cRPValidEndDate" [ngFormControl]="bsForm.controls['cRPValidEndDate']">
-						<div class="re-rule-custom">
-							<input class="inputtxt input-191" type="text" >
+              <div class="re-rule-custom th-datepicker-block" *ngIf="baccarat.cRPValidType===-1">
+                <div class="s-input tc th-datepicker-range" >
+                  <input type="text" readonly (click)="onShowDate($event)" name="name" class="inputtxt" [value]="baccarat.cRPValidStartDate+'~'+baccarat.cRPValidEndDate" style="width:100%" value="">
+                  <div class="tc th-datepicker-tip" (click)="$event.stopPropagation()" *ngIf="dateShow" >
+                    <div class="th-datepicker" >
+                      <datepicker [ngModel]="baccarat.cRPValidStartDate" (ngModelChange)="baccarat.cRPValidStartDate = moment($event)"  [showWeeks]="true"></datepicker>
+                    </div>
+                    <div class="th-datepicker">
+                      <datepicker [ngModel]="baccarat.cRPValidEndDate" (ngModelChange)="baccarat.cRPValidEndDate = moment($event)" [showWeeks]="true"></datepicker>
+                    </div>
+                  </div>
+                </div>
 						</div>
 					</div>
 					<div class="re-form-field">
@@ -123,45 +130,46 @@
 						<div class="re-convert-ops re-convert-create">
 							<input class="re-ckb re-ckb-radio" type="radio" [checked]="baccarat.cRPGenerateType === 1" (click)="baccarat.cRPGenerateType = 1" name="convertCode" name="convertCreate" id="convert-create-1"> <label for="convert-create-1">系统生成</label>
 							<input class="re-ckb re-ckb-radio" type="radio" [checked]="baccarat.cRPGenerateType === 2" (click)="baccarat.cRPGenerateType = 2" name="convertCode" name="convertCreate" id="convert-create-2"> <label for="convert-create-2">导入码库</label>
-							<a href="">下载模板文件</a>
+							<a href="/word/checkcode.xlsx" >下载模板文件</a>
 						</div>
 						<input type="text" [(ngModel)]="baccarat.fileName" [ngFormControl]="bsForm.controls['fileName']" >
 					</div>
-					<div class="advance advance-show">
-						<div class="re-upload re-import-code clearfix">
-							<input type="file">
-							<div class="rd-btn">上  传</div>
-							<div class="re-progress clearfix">
-								<span>满100减20.PNG</span>
-								<div class="re-progress-bar">
-									<div style="width:30%"></div>
+          <div class="advance advance-show" *ngIf="!uploadFileXls?.error&&!baccarat.fileName&&baccarat.cRPGenerateType === 2">
+						<div class="re-upload">
+							<div  class="re-upload">
+								<input type="file" name="fileName" [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >
+								<div class="rd-btn">选择文件</div>
+								<div class="re-progress clearfix" *ngIf="fileProgress">
+									<div >
+										<span></span>
+										<div class="re-progress-bar">
+											<div [ngStyle]="{ 'width': fileProgress + '%' }"></div>
+										</div>
+										<span>{{fileProgress + '%'}}</span>
+									</div>
 								</div>
-								<span>80%</span>
 							</div>
-							<span class="fr upload-op">重新上传</span>
-							<span class="fr upload-op">删除</span>
 						</div>
 						<div class="re-tip">请下载模板文件，按照要求上传导入码库</div>
 					</div>
-					<div class="advance advance-result advance-suc">
+					<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&baccarat.cRPGenerateType === 2">
 						<div class="clearfix">
 							<span>已上传</span>
-							<span class="f-name">活动码库.PNG</span>
-							<span class="fr upload-op">重新上传</span>
-							<span class="fr upload-op">删除</span>
+							<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
+							<span class="fr upload-op" (click)="onDelFileName()">重新上传</span>
+							<span class="fr upload-op" (click)="onDelFileName()">删除</span>
 						</div>
-						<div class="re-tip">成功导入 100,000个核验码</div>
+						<div class="re-tip">成功导入 {{uploadFileXls?.data.num}}个核验码</div>
 					</div>
-					<div class="advance advance-result advance-err">
+					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&baccarat.cRPGenerateType === 2">
 						<div class="clearfix">
-							<span>上传失败</span>
-
-							<span class="fr upload-op">重新上传</span>
-							<span class="fr upload-op">删除</span>
+							<span>{{uploadFileXls?.error.msg}}</span>
+							<span class="fr upload-op" (click)="onDelFileName()">重新上传</span>
+							<span class="fr upload-op" (click)="onDelFileName()">删除</span>
 						</div>
 						<div class="re-tip">核验码需由字母和数字组合，6-12位</div>
 					</div>
-				</div>
+        </div>
 				<!-- 奖品兑换方式 end -->
 				<!-- 短信通知 -->
 				<div class="lengend">短信通知</div>

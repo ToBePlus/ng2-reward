@@ -11,15 +11,20 @@ import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 import {baseUrl} from '../../../services/config';
 import { BaccaratService } from '../../../services/Baccarat.service';
 import {Validators} from '../../../services/Validators';
+import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 const URL = baseUrl + '/medias/uploadBackgroundImage';
+const FILE_URL = baseUrl+'/rewardManage/uploadCheckCode';
 
 @Component({
     selector: 'baccarat-add',
     templateUrl: 'reward/controllers/baccarat/add/template.html',
     styleUrls: ['reward/controllers/baccarat/add/style.min.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES,DATEPICKER_DIRECTIVES],
     providers: [BaccaratService, HTTP_PROVIDERS, JSONP_PROVIDERS],
+    host: {
+        '(click)': 'closeDatePicker($event)'
+    }
 })
 
 export class BaccaratAddComponent {
@@ -31,13 +36,23 @@ export class BaccaratAddComponent {
     id: number;
     loading: number;
 
-    uploadedFiles: any[] = [];
     options: Object = {
         url: URL
     };
     basicProgress: number = 0;
     basicResp: Object;
     uploadFile: any;
+
+    fileOptions: Object = {
+        url: FILE_URL
+    };
+    fileProgress: number = 0;
+    fileResp: Object;
+    uploadFileXls: any;
+
+    dateShow:any;
+    currentPage:any;
+
     constructor(private ps: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
@@ -89,9 +104,45 @@ export class BaccaratAddComponent {
         this.baccarat.cRPValidNoticeDay = 3;
         this.baccarat.cRPNoticeNowContent = '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}'
         this.baccarat.cRPValidNoticeContent = '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'
+        this.baccarat.cRPValidStartDate = moment().format('YYYY-MM-DD');
+        this.baccarat.cRPValidEndDate = moment().add(7, 'days').format('YYYY-MM-DD');
+        this.baccarat.range = -1;
+
         this.baccarat.subInfo = [{}, {}, {}];
 
         this.getPinProgram();
+    }
+
+    onShowDate(event) {
+        event.stopPropagation();
+        this.dateShow = !this.dateShow;
+    }
+
+    public closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
+    }
+
+    public setPage(pageNo: number): void {
+        this.currentPage = pageNo;
+    };
+
+    moment(date) {
+        return moment(date).format('YYYY-MM-DD');
+    }
+
+    onSetRange(range) {
+        this.baccarat.range = range;
+        if (range < 91) {
+            this.baccarat.cRPValidStartDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
+            this.baccarat.cRPValidEndDate = moment().format('YYYY-MM-DD');
+        } else if (range === 'currentYear') {
+            this.baccarat.cRPValidStartDate = moment().startOf('year').format('YYYY-MM-DD');
+            this.baccarat.cRPValidEndDate = moment().endOf('year').format('YYYY-MM-DD');
+        } else if (range === 'nextYear') {
+            this.baccarat.cRPValidStartDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
+            this.baccarat.cRPValidEndDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
+        }
     }
 
     handleBasicUpload(data, index): void {
@@ -105,6 +156,26 @@ export class BaccaratAddComponent {
             sb.basicProgress = data.progress.percent;
         });
     }
+
+    handleFileUpload(data): void {
+      if (data.response) {
+        this.uploadFileXls = JSON.parse(data.response);
+        if(this.uploadFileXls.error.state===0){
+          this.baccarat.fileName = this.uploadFileXls.data.filePath;
+        }
+        this.fileResp = data;
+      }
+      this.zone.run(() => {
+          this.fileProgress = data.progress.percent;
+      });
+    }
+
+    onDelFileName(){
+      this.baccarat.fileName='';
+      this.fileProgress=0;
+      this.uploadFileXls = {};
+    }
+
 
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id)) return;
