@@ -128,6 +128,7 @@ export class BaccaratAddComponent {
     };
 
     moment(date) {
+      if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
     }
 

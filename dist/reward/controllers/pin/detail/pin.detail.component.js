@@ -59,6 +59,8 @@ let PinDetailComponent = class PinDetailComponent {
     }
     ;
     moment(date) {
+        if (date == null)
+            return '';
         return moment(date).format('YYYY-MM-DD');
     }
     onSetRange(range) {
@@ -238,4 +240,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/reward/controllers/pin/detail/pin.detail.component.js.map

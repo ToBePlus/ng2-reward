@@ -49,4 +49,4 @@ HomeService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], HomeService);
 exports.HomeService = HomeService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/reward/services/Home.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/reward/services/Home.service.js.map

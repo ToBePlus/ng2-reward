@@ -54,4 +54,4 @@ AppComponent = __decorate([
     __metadata('design:paramtypes', [router_1.Router])
 ], AppComponent);
 exports.AppComponent = AppComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/reward/app.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/reward/app.component.js.map

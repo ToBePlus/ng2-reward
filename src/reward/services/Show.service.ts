@@ -7,8 +7,8 @@ export class ShowProgram {
     constructor(public cRPId: number, public cRPRewardType: number, public cRPName?: string, public cRPNameShow?: number,
         public cRPSubtitle?: string, public cRPSubtitleShow?: number, public cRPbackgroundAdd?: string,
         public cRPbackgroundShow?: number, public cRPDesc?: string, public cRPDescShow?: number,
-        public cRPValidDate?: string, public cRPValidType?: number, public cRPRate?: number,
-        public cRPRateContent?: number, public totalRewards?: number) {
+        public cRPValidType?: number, public cRPRate?: number,
+        public cRPRateContent?: number, public totalRewards?: number,public cRPValidStartDate?: string,public cRPValidEndDate?: string) {
 
     }
 }

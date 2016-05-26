@@ -57,4 +57,4 @@ System.config({
 });
 // Apply the user's configuration.
 System.config({ map: map, packages: packages });
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/system-config.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/system-config.js.map

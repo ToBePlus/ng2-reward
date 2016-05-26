@@ -58,7 +58,7 @@ let ShowAddComponent = class ShowAddComponent {
         this.totalRewards = this.psForm.controls['totalRewards'];
         //初始化数据
         this.basicResp = {};
-        this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
+        this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
     }
     onShowDate(event) {
         event.stopPropagation();
@@ -69,6 +69,8 @@ let ShowAddComponent = class ShowAddComponent {
         this.dateShow = 0;
     }
     moment(date) {
+        if (date == null)
+            return '';
         return moment(date).format('YYYY-MM-DD');
     }
     ngOnInit() {
@@ -169,4 +171,4 @@ ShowAddComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/reward/controllers/show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/reward/controllers/show/add/show.add.component.js.map

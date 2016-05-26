@@ -13,7 +13,7 @@ const http_1 = require('@angular/http');
 const Observable_1 = require('rxjs/Observable');
 const config_1 = require('./config');
 class ShowProgram {
-    constructor(cRPId, cRPRewardType, cRPName, cRPNameShow, cRPSubtitle, cRPSubtitleShow, cRPbackgroundAdd, cRPbackgroundShow, cRPDesc, cRPDescShow, cRPValidDate, cRPValidType, cRPRate, cRPRateContent, totalRewards) {
+    constructor(cRPId, cRPRewardType, cRPName, cRPNameShow, cRPSubtitle, cRPSubtitleShow, cRPbackgroundAdd, cRPbackgroundShow, cRPDesc, cRPDescShow, cRPValidType, cRPRate, cRPRateContent, totalRewards, cRPValidStartDate, cRPValidEndDate) {
         this.cRPId = cRPId;
         this.cRPRewardType = cRPRewardType;
         this.cRPName = cRPName;
@@ -24,11 +24,12 @@ class ShowProgram {
         this.cRPbackgroundShow = cRPbackgroundShow;
         this.cRPDesc = cRPDesc;
         this.cRPDescShow = cRPDescShow;
-        this.cRPValidDate = cRPValidDate;
         this.cRPValidType = cRPValidType;
         this.cRPRate = cRPRate;
         this.cRPRateContent = cRPRateContent;
         this.totalRewards = totalRewards;
+        this.cRPValidStartDate = cRPValidStartDate;
+        this.cRPValidEndDate = cRPValidEndDate;
     }
 }
 exports.ShowProgram = ShowProgram;
@@ -156,4 +157,4 @@ ShowService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], ShowService);
 exports.ShowService = ShowService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-W5iu2NYh.tmp/0/src/reward/services/Show.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/reward/services/Show.service.js.map

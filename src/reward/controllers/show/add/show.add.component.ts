@@ -23,7 +23,7 @@ const URL = baseUrl + '/medias/uploadBackgroundImage';
     selector: 'show-add',
     templateUrl: 'reward/controllers/show/add/template.html',
     styleUrls: ['reward/controllers/show/add/style.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES,DATEPICKER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
     pipes: [TextTohtmlPipe],
     host: {
@@ -79,7 +79,7 @@ export class ShowAddComponent {
         this.totalRewards = this.psForm.controls['totalRewards'];
         //初始化数据
         this.basicResp = {};
-        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, '', 0, 1, null, null);
+        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
     }
 
     onShowDate(event) {
@@ -93,6 +93,7 @@ export class ShowAddComponent {
     }
 
     moment(date) {
+        if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
     }
 
@@ -132,14 +133,14 @@ export class ShowAddComponent {
     }
 
     onAddTotal() {
-        let data:any = {};
+        let data: any = {};
         data.cRPId = this.program.cRPId;
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
         data.additionalNum = +this.additionalNum;
         this.ss.addTotal(data).subscribe(data => {
-          alert('追加成功');
-          this.program.totalRewards += +this.additionalNum;
+            alert('追加成功');
+            this.program.totalRewards += +this.additionalNum;
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
