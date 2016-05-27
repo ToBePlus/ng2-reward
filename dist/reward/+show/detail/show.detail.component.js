@@ -12,22 +12,29 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 require('rxjs/Rx');
+const async_1 = require('@angular/core/src/facade/async');
 const Observable_1 = require('rxjs/Observable');
 const moment = require('moment');
 const config_1 = require('../../services/config');
 const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+const common_1 = require('@angular/common');
 const Show_service_1 = require('../Show.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
 // const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 const downLoadBase = config_1.baseUrl + '/rewardManage/show/export';
 let ShowDetailComponent = class ShowDetailComponent {
-    constructor(ss, router, params) {
+    constructor(ss, router, params, fb) {
         this.ss = ss;
         this.router = router;
         this.currentPage = 1;
         this.pageSize = 10;
         this.pageCount = 0;
         this.dateShow = 0;
+        this.loading = 0;
+        this.additionalNumError = 0;
+        this.showForm = fb.group({
+            'additionalNumControl': [''],
+        });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -38,6 +45,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.range = -1;
+        this.additionalNumControl = this.showForm.controls['additionalNumControl'];
     }
     onShowDate(event) {
         event.stopPropagation();
@@ -150,15 +158,72 @@ let ShowDetailComponent = class ShowDetailComponent {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
         this.prizesParams.currentPage = this.currentPage;
         this.prizesParams.pageSize = this.pageSize;
         this.ss.showList(this.prizesParams).subscribe(data => {
+            this.loading = 0;
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;
                 this.page = data.data.page;
                 this.prizesParams.range = -1;
             }
         }, error => this.handleError);
+    }
+    onAddTotal(tl) {
+        if (this.loading) {
+            return false;
+        }
+        if (this.checkTotal(tl)) {
+            this.loading = 0;
+            return false;
+        }
+        this.loading = 1;
+        let data = {};
+        data.cRPId = this.prizesParams.cRPId;
+        data.cRPDId = this.prizesParams.cRPId;
+        data.fileName = this.prizesParams.fileName;
+        data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
+        this.ss.addTotal(data).subscribe(data => {
+            this.loading = 0;
+            if (data.error.state !== 0) {
+                tl.addStatus = 2;
+            }
+            else {
+                tl.addStatus = 1;
+            }
+            async_1.TimerWrapper.setTimeout(() => {
+                tl.addStatus = 0;
+                this.getTotalList();
+            }, 2000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event, tl) {
+        event.stopPropagation();
+        if (event.keyCode == 13) {
+            this.onAddTotal(tl);
+        }
+    }
+    // onAddCancal(tl) {
+    //     tl.additionalNum = '';
+    //     tl.addTotalShow = 0;
+    //     tl.addStatus = 0;
+    //     tl.additionalNumError = 0;
+    // }
+    checkTotal(tl) {
+        if (tl.additionalNum === '') {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        if (!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)) {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        tl.additionalNumError = 0;
+        return false;
     }
     errorAlert(data) {
         if (data.error.state !== 0) {
@@ -168,6 +233,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         return true;
     }
     handleError(error) {
+        this.loading = 0;
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';
         console.error(errMsg); // log to console instead
@@ -185,13 +251,13 @@ ShowDetailComponent = __decorate([
         selector: 'show-detail',
         templateUrl: 'reward/+show/detail/template.html',
         styleUrls: ['reward/+show/detail/style.min.css'],
-        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS],
         host: {
             '(click)': 'closeDatePicker($event)'
         }
     }), 
-    __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment])
+    __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
 //# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+show/detail/show.detail.component.js.map

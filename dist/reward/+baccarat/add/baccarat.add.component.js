@@ -185,6 +185,10 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         data.fileName = this.baccarat.fileName;
         data.additionalNum = +subinfo.additionalNum;
         this.bs.addTotal(data).subscribe(data => {
+            if (data.error.state !== 0) {
+                alert(data.error.msg);
+                return;
+            }
             alert('追加成功');
             subinfo.cRPDNum += +subinfo.additionalNum;
             // TimerWrapper.setTimeout(() => {

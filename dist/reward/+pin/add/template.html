@@ -1,4 +1,4 @@
-<form class="" (ngSubmit)="onSubmit()" [ngFormModel]="psForm">
+<form class="" (ngSubmit)="onSubmit($event)" *ngIf="!loading"  [ngFormModel]="psForm">
 <div class="reward-edit reward-pin">
 	<div class="zs-bar tc">
 		<a [routerLink]="['/']" class="zs-back"></a>
@@ -166,10 +166,10 @@
 							<span class="text-danger">*</span>库存：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt"   [readonly]="pinProgram.cRPId" type="text" pattern="^(([123456789]\d)(\.\d+)?|100000)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt"   [readonly]="pinProgram.cRPId" type="text" pattern="^[1-9][0-9]{0,6}$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
 
 							<div class="re-add-num" *ngIf="pinProgram.cRPId">
-								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" placeholder="输入1~100,000的数字">
+								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" pattern="^[1-9][0-9]{0,6}$" required [ngFormControl]="psForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
 								<span (click)="onAddTotal()"></span>
 							</div>
 							<!-- <a href="" class="re-date-tip">+添加到期提醒</a>
@@ -181,6 +181,9 @@
 							</div> -->
 						</div>
 						<div class="text-danger" *ngIf="totalRewards.hasError('pattern')">
+							输入1~100,000的数字,实际输入超出范围的数字,或者字母
+						</div>
+						<div class="text-danger" *ngIf="additionalNumControl.hasError('pattern')">
 							输入1~100,000的数字,实际输入超出范围的数字,或者字母
 						</div>
 					</div>

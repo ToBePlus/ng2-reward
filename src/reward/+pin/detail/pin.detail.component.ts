@@ -1,4 +1,4 @@
-import {Component,Input} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
 import {TimerWrapper} from '@angular/core/src/facade/async';
@@ -48,6 +48,7 @@ export class PinDetailComponent {
     pageCount: number = 0;
 
     dateShow: any = 0;
+    loading: number = 0;
 
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
         this.id = +params.getParam('id'); //获取URL中的ID
@@ -79,7 +80,7 @@ export class PinDetailComponent {
     }
 
     moment(date) {
-      if (date == null) return '';
+        if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
     }
 
@@ -97,20 +98,20 @@ export class PinDetailComponent {
         }
     }
     pageChanged(page) {
-      this.currentPage = page.page;
-      this.pageSize = page.itemsPerPage;
-      this.search();
+        this.currentPage = page.page;
+        this.pageSize = page.itemsPerPage;
+        this.search();
     }
 
     onDownload() {
         let search = new URLSearchParams();
         let status = '0';
-        if(this.prizesParams.sendStatus==2){
-          if(this.prizesParams.verifyStatus==2){
-            status = '2';
-          } else {
-            status = '1';
-          }
+        if (this.prizesParams.sendStatus == 2) {
+            if (this.prizesParams.verifyStatus == 2) {
+                status = '2';
+            } else {
+                status = '1';
+            }
         }
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', this.prizesParams.cRPId);
@@ -118,7 +119,7 @@ export class PinDetailComponent {
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
         search.set('projectId', this.prizesParams.projectId);
-        return downLoadBase+'?'+ search;
+        return downLoadBase + '?' + search;
     }
 
     onDoneDownload(dId) {
@@ -126,7 +127,7 @@ export class PinDetailComponent {
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', dId);
         search.set('cRPStatus', '1');
-        return downLoadBase+'?'+ search;
+        return downLoadBase + '?' + search;
     }
 
     onExchangeDownload(dId) {
@@ -134,7 +135,7 @@ export class PinDetailComponent {
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', dId);
         search.set('cRPStatus', '2');
-        return downLoadBase+'?'+ search;
+        return downLoadBase + '?' + search;
     }
 
     onSearch() {
@@ -142,8 +143,8 @@ export class PinDetailComponent {
     }
 
     onDelete() {
-        if(!confirm('是否删除该奖励?')){
-          return;
+        if (!confirm('是否删除该奖励?')) {
+            return;
         }
         this.ps.delete(this.id).subscribe(data => {
             if (this.errorAlert(data)) {
@@ -153,9 +154,9 @@ export class PinDetailComponent {
     }
 
     onState() {
-      if(!confirm('是否变更该奖励状态?')){
-        return;
-      }
+        if (!confirm('是否变更该奖励状态?')) {
+            return;
+        }
         this.ps.putState(this.id, this.state === 1 ? 2 : 1).subscribe(data => {
             if (this.errorAlert(data)) {
                 alert('奖励状态变更成功');
@@ -211,16 +212,28 @@ export class PinDetailComponent {
                 this.pinList = data.data;
                 this.prizesParams = data.param;
                 this.prizesParams.range = -1;
-                this.currentPage= +this.prizesParams.currentPage;
-                this.pageSize=+this.prizesParams.pageSize;
-                this.pageCount=+this.prizesParams.pageCount;
+                this.currentPage = +this.prizesParams.currentPage;
+                this.pageSize = +this.prizesParams.pageSize;
+                this.pageCount = +this.prizesParams.pageCount;
             }
         }, error => this.handleError);
     }
 
     onAddTotal(tl) {
-        tl.additionalNum = +tl.additionalNum;
-        this.ps.addTotal(tl).subscribe(data => {
+        if (this.loading) {
+            return false;
+        }
+        if (this.checkTotal(tl)) {
+            this.loading = 0;
+            return false;
+        }
+        this.loading = 1;
+        let data: any = {};
+        data.cRPId = this.prizesParams.cRPId;
+        data.cRPDId = this.prizesParams.cRPId;
+        data.fileName = this.prizesParams.fileName;
+        data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
+        this.ps.addTotal(data).subscribe(data => {
             if (data.error.state !== 0) {
                 tl.addStatus = 2;
             } else {
@@ -230,13 +243,26 @@ export class PinDetailComponent {
             TimerWrapper.setTimeout(() => {
                 tl.addStatus = 0;
                 this.getTotalList();
-            }, 5000);
+            }, 2000);
         }, error => this.handleError);
     }
     onEnterAddTotal(event, data) {
         if (event.keyCode == 13) {
             this.onAddTotal(data);
         }
+    }
+
+    checkTotal(tl) {
+        if (tl.additionalNum === '') {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        if (!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)) {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        tl.additionalNumError = 0;
+        return false;
     }
 
 

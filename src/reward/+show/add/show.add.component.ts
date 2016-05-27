@@ -27,7 +27,7 @@ const URL = baseUrl + '/medias/uploadBackgroundImage';
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
     pipes: [TextTohtmlPipe],
     host: {
-        '(click)': 'closeDatePicker($event)'
+        '(click)': 'closeDatePicker($event)',
     }
 })
 
@@ -49,7 +49,9 @@ export class ShowAddComponent {
     basicProgress: number = 0;
     basicResp: Object;
     uploadFile: any;
+
     totalRewards: any;
+    additionalNumControl: any;
 
     dateShow: any = 0;
 
@@ -75,8 +77,11 @@ export class ShowAddComponent {
             'cRPRate': [1],
             'cRPRateContent': [''],
             'totalRewards': [''],
+            'additionalNumControl': [''],
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
+        this.additionalNumControl = this.psForm.controls['additionalNumControl'];
+
         //初始化数据
         this.basicResp = {};
         this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
@@ -133,12 +138,22 @@ export class ShowAddComponent {
     }
 
     onAddTotal() {
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
         let data: any = {};
         data.cRPId = this.program.cRPId;
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
-        data.additionalNum = +this.additionalNum;
+        data.additionalNum = isNaN(+this.additionalNum)?0:+this.additionalNum;
+        console.log(data);
         this.ss.addTotal(data).subscribe(data => {
+          this.loading = 0;
+          if (data.error.state !== 0) {
+              alert(data.error.msg);
+              return;
+          }
           this.program.totalRewards += +this.additionalNum;
             alert('追加成功');
             // TimerWrapper.setTimeout(() => {
@@ -177,6 +192,7 @@ export class ShowAddComponent {
     }
 
     private handleError(error: any) {
+        this.loading = 0;
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';
         console.error(errMsg); // log to console instead

@@ -1,4 +1,4 @@
-<form class="" (ngSubmit)="onSubmit()" [ngFormModel]="psForm">
+<form class="" (ngSubmit)="onSubmit()" *ngIf="!loading" [ngFormModel]="psForm">
 <div class="reward-edit reward-pin">
 	<div class="zs-bar tc">
 		<a [routerLink]="['../../']" class="zs-back"></a>
@@ -99,10 +99,10 @@
 							<span class="text-danger">*</span>发放总量：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="^[1-9][0-9]{0,6}$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="program.cRPId">
-								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum"  placeholder="输入1~100,000的数字">
-								<span (click)="onAddTotal()"></span>
+								<input type="text" (keyup)="!additionalNumControl.hasError('required')&&!additionalNumControl.hasError('pattern')&&onEnterAddTotal($event)" [(ngModel)]="additionalNum" pattern="^[1-9][0-9]{0,6}$" required [ngFormControl]="psForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
+								<button class="add-btn" (click)="onAddTotal()" [disabled]="additionalNumControl.hasError('required')||additionalNumControl.hasError('pattern')"></button>
 							</div>
 							<!-- <a href="" class="re-date-tip">+添加到期提醒</a> -->
 							<!-- <div class="zs-b-des">
@@ -113,6 +113,9 @@
 							</div> -->
 						</div>
 						<div class="text-danger" *ngIf="totalRewards.hasError('pattern')">
+							输入1~100,000的数字,实际输入超出范围的数字,或者字母
+						</div>
+						<div class="text-danger" *ngIf="additionalNumControl.hasError('pattern')">
 							输入1~100,000的数字,实际输入超出范围的数字,或者字母
 						</div>
 					</div>

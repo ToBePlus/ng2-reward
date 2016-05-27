@@ -28,6 +28,7 @@ let PinDetailComponent = class PinDetailComponent {
         this.pageSize = 10;
         this.pageCount = 0;
         this.dateShow = 0;
+        this.loading = 0;
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -186,8 +187,20 @@ let PinDetailComponent = class PinDetailComponent {
         }, error => this.handleError);
     }
     onAddTotal(tl) {
-        tl.additionalNum = +tl.additionalNum;
-        this.ps.addTotal(tl).subscribe(data => {
+        if (this.loading) {
+            return false;
+        }
+        if (this.checkTotal(tl)) {
+            this.loading = 0;
+            return false;
+        }
+        this.loading = 1;
+        let data = {};
+        data.cRPId = this.prizesParams.cRPId;
+        data.cRPDId = this.prizesParams.cRPId;
+        data.fileName = this.prizesParams.fileName;
+        data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
+        this.ps.addTotal(data).subscribe(data => {
             if (data.error.state !== 0) {
                 tl.addStatus = 2;
             }
@@ -198,13 +211,25 @@ let PinDetailComponent = class PinDetailComponent {
             async_1.TimerWrapper.setTimeout(() => {
                 tl.addStatus = 0;
                 this.getTotalList();
-            }, 5000);
+            }, 2000);
         }, error => this.handleError);
     }
     onEnterAddTotal(event, data) {
         if (event.keyCode == 13) {
             this.onAddTotal(data);
         }
+    }
+    checkTotal(tl) {
+        if (tl.additionalNum === '') {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        if (!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)) {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        tl.additionalNumError = 0;
+        return false;
     }
     errorAlert(data) {
         if (data.error.state !== 0) {

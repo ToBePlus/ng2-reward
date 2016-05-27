@@ -76,7 +76,7 @@
 .re-message .msg-day { display:inline-block; position:relative; top:-1px; font-size:0; width:84px; height:25px; border:1px solid #cecece;}
 .re-message .msg-day input { display:block; height:23px; font-size:12px; text-align: center; margin:0 auto; line-height: 23px; border:none; border-left:1px solid #cecece; border-right:1px solid #cecece; width:34px; }
 .re-message .msg-day span,
-.re-add-num span { position:absolute; display:block; width:24px; top:0; height:23px; background:url(./../../reward/images/reward_ico.png) no-repeat; cursor:pointer;}
+.re-add-num span,.re-add-num .add-btn {border: 0; position:absolute; display:block; width:24px; top:0; height:23px; background:url(./../../reward/images/reward_ico.png) no-repeat; cursor:pointer;}
 .re-message .msg-day span.minus { background-position:-203px -108px;  left:0px; }
 .re-message .msg-day span.plus { background-position:-241px -108px;  right:0px; }
 .re-message .msg-day span.minus:hover { background-position:-203px -142px;  left:0; }
@@ -166,8 +166,8 @@
 
 .re-add-num { position:relative; display:inline-block; width:180px; height:25px; line-height: 23px; border:1px solid #cecece; background:#eee; vertical-align: middle; margin:0 0 0 15px;}
 .re-add-num input { display:block; width:154px; height:100%; border:none; padding:0 13px;  font-size:12px;}
-.re-add-num span { width:25px; border-left:1px solid #cecece; background-position:-241px -108px;  right:0px;}
-.re-add-num span:hover { background-position:-241px -142px;  right:0;  }
+.re-add-num span,.re-add-num .add-btn { width:25px; border-left:1px solid #cecece; background-position:-241px -108px;  right:0px;}
+.re-add-num span:hover,.re-add-num .add-btn:hover { background-position:-241px -142px;  right:0;  }
 .re-form .re-convert .re-convert-ops > a.re-date-tip { margin-left:17px; display:inline-block; vertical-align: middle; text-decoration: none; }
 .rd-mid-edit { font-size:18px; color:#f97373; min-height:36px; line-height: 36px; text-align: center;}
 

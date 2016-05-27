@@ -121,13 +121,13 @@
 						<div>
 							<span>核验码总量</span>
 							<span class="c-blue">{{tl.totalNum}}</span>
-							<span class="s-ico s-ico-add" title="追加核验码" (click)="tl.addTotalShow=1"></span>
+							<span class="s-ico s-ico-add" title="追加核验码" (click)="tl.addTotalShow=!tl.addTotalShow"></span>
 						</div>
             <div class="add-total-block" *ngIf="tl.addTotalShow">
               <h5>追加核验码</h5>
               <input type="text" style="width:100px;margin-right:10px;" autofocus="autofocus" class="inputtxt input-157" placeholder="1-100,000的数字" [(ngModel)]="tl.additionalNum" (keyup)="onEnterAddTotal($event,tl)">
                 <a class="rd-btn-inline" style="width:40px;" (click)="onAddTotal(tl)">确认</a>
-                <a class="rd-btn-link-inline" (click)="tl.additionalNum='';tl.addTotalShow=0">取消</a>
+                <a class="rd-btn-link-inline" (click)="tl.additionalNum = '';tl.addTotalShow = 0;tl.addStatus = 0;tl.additionalNumError = 0;">取消</a>
             </div>
             <div class="alert alert-success add-total-tip" *ngIf="tl.addStatus==1">
               追加成功!
@@ -135,6 +135,9 @@
             <div class="alert alert-danger add-total-tip" *ngIf="tl.addStatus==2">
               追加失败!
             </div>
+						<div class="alert alert-danger add-total-tip" *ngIf="tl.additionalNumError">
+							输入1~100,000的数字,实际输入超出范围的数字,或者字母
+						</div>
 						<div>
 							<span>已发放总量</span>
 							<span class="c-green">{{tl.senderNum}}</span>

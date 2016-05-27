@@ -2,12 +2,13 @@ import {Component} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
 import 'rxjs/Rx';
+import {TimerWrapper} from '@angular/core/src/facade/async';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {baseUrl} from '../../services/config';
 import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
-
+import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import {ShowProgram, ShowService} from '../Show.service';
 import {Validators} from '../../services/Validators';
 
@@ -20,7 +21,7 @@ const downLoadBase = baseUrl + '/rewardManage/show/export';
     selector: 'show-detail',
     templateUrl: 'reward/+show/detail/template.html',
     styleUrls: ['reward/+show/detail/style.min.css'],
-    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES, FORM_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS],
     host: {
         '(click)': 'closeDatePicker($event)'
@@ -29,6 +30,7 @@ const downLoadBase = baseUrl + '/rewardManage/show/export';
 
 
 export class ShowDetailComponent {
+    showForm: ControlGroup;
     errorMessage: any;
     id: number;
     state: number;
@@ -47,8 +49,16 @@ export class ShowDetailComponent {
     pageCount: number = 0;
 
     dateShow: any = 0;
+    additionalNumControl: any;
 
-    constructor(private ss: ShowService, private router: Router, params: RouteSegment) {
+    loading: number = 0;
+    additionalNumError: number = 0;
+
+    constructor(private ss: ShowService, private router: Router, params: RouteSegment, fb: FormBuilder) {
+        this.showForm = fb.group({
+            'additionalNumControl': [''],
+        })
+
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -59,6 +69,8 @@ export class ShowDetailComponent {
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.range = -1;
+
+        this.additionalNumControl = this.showForm.controls['additionalNumControl'];
     }
 
     onShowDate(event) {
@@ -76,7 +88,7 @@ export class ShowDetailComponent {
     };
 
     moment(date) {
-      if (date == null) return '';
+        if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
     }
 
@@ -95,9 +107,9 @@ export class ShowDetailComponent {
     }
 
     pageChanged(page) {
-      this.currentPage = page.page;
-      this.pageSize = page.itemsPerPage;
-      this.search();
+        this.currentPage = page.page;
+        this.pageSize = page.itemsPerPage;
+        this.search();
     }
 
 
@@ -185,15 +197,74 @@ export class ShowDetailComponent {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
         this.prizesParams.currentPage = this.currentPage;
         this.prizesParams.pageSize = this.pageSize;
         this.ss.showList(this.prizesParams).subscribe(data => {
+            this.loading = 0;
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;
                 this.page = data.data.page;
                 this.prizesParams.range = -1;
             }
         }, error => this.handleError);
+    }
+
+    onAddTotal(tl) {
+        if (this.loading) {
+            return false;
+        }
+        if (this.checkTotal(tl)) {
+            this.loading = 0;
+            return false;
+        }
+        this.loading = 1;
+        let data: any = {};
+        data.cRPId = this.prizesParams.cRPId;
+        data.cRPDId = this.prizesParams.cRPId;
+        data.fileName = this.prizesParams.fileName;
+        data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
+        this.ss.addTotal(data).subscribe(data => {
+            this.loading = 0;
+            if (data.error.state !== 0) {
+                tl.addStatus = 2;
+            } else {
+                tl.addStatus = 1;
+            }
+            TimerWrapper.setTimeout(() => {
+                tl.addStatus = 0;
+                this.getTotalList();
+            }, 2000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event, tl) {
+        event.stopPropagation();
+        if (event.keyCode == 13) {
+            this.onAddTotal(tl);
+        }
+    }
+
+    // onAddCancal(tl) {
+    //     tl.additionalNum = '';
+    //     tl.addTotalShow = 0;
+    //     tl.addStatus = 0;
+    //     tl.additionalNumError = 0;
+    // }
+
+    checkTotal(tl){
+      if(tl.additionalNum===''){
+        tl.additionalNumError = 1;
+        return true;
+      }
+      if(!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)){
+        tl.additionalNumError = 1;
+        return true;
+      }
+      tl.additionalNumError = 0;
+      return false;
     }
 
     errorAlert(data) {
@@ -205,6 +276,7 @@ export class ShowDetailComponent {
     }
 
     private handleError(error: any) {
+        this.loading = 0;
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';
         console.error(errMsg); // log to console instead

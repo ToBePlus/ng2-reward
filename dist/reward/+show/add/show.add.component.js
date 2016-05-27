@@ -54,8 +54,10 @@ let ShowAddComponent = class ShowAddComponent {
             'cRPRate': [1],
             'cRPRateContent': [''],
             'totalRewards': [''],
+            'additionalNumControl': [''],
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
+        this.additionalNumControl = this.psForm.controls['additionalNumControl'];
         //初始化数据
         this.basicResp = {};
         this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
@@ -103,12 +105,22 @@ let ShowAddComponent = class ShowAddComponent {
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
     }
     onAddTotal() {
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
         let data = {};
         data.cRPId = this.program.cRPId;
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
-        data.additionalNum = +this.additionalNum;
+        data.additionalNum = isNaN(+this.additionalNum) ? 0 : +this.additionalNum;
+        console.log(data);
         this.ss.addTotal(data).subscribe(data => {
+            this.loading = 0;
+            if (data.error.state !== 0) {
+                alert(data.error.msg);
+                return;
+            }
             this.program.totalRewards += +this.additionalNum;
             alert('追加成功');
             // TimerWrapper.setTimeout(() => {
@@ -143,6 +155,7 @@ let ShowAddComponent = class ShowAddComponent {
         }, error => { this.errorMessage = error; this.loading = 0; });
     }
     handleError(error) {
+        this.loading = 0;
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';
         console.error(errMsg); // log to console instead
@@ -166,7 +179,7 @@ ShowAddComponent = __decorate([
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
         pipes: [Text_to_html_1.TextTohtmlPipe],
         host: {
-            '(click)': 'closeDatePicker($event)'
+            '(click)': 'closeDatePicker($event)',
         }
     }), 
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
