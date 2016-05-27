@@ -133,7 +133,7 @@
 							<a href="/word/checkcode.xlsx" >下载模板文件</a>
 						</div>
 					</div>
-          <div class="advance advance-show" *ngIf="!uploadFileXls?.error&&!baccarat.fileName&&baccarat.cRPGenerateType === 2">
+          <div class="advance advance-show" *ngIf="!uploadFileXls?.error&&!baccarat.fileName&&baccarat.cRPGenerateType === 2&&baccarat.cRPCodeType = 2">
 						<div class="re-upload">
 							<div  class="re-upload">
 								<input type="file" name="fileName" [disabled]="baccarat.cRPId"  [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >
@@ -151,7 +151,7 @@
 						</div>
 						<div class="re-tip">请下载模板文件，按照要求上传导入码库</div>
 					</div>
-					<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&baccarat.cRPGenerateType === 2">
+					<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&baccarat.cRPGenerateType === 2&&baccarat.cRPCodeType = 2">
 						<div class="clearfix">
 							<span>已上传</span>
 							<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
@@ -160,7 +160,7 @@
 						</div>
 						<div class="re-tip">成功导入 {{uploadFileXls?.data.num}}个核验码</div>
 					</div>
-					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&baccarat.cRPGenerateType === 2">
+					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&baccarat.cRPGenerateType === 2&&baccarat.cRPCodeType = 2">
 						<div class="clearfix">
 							<span>{{uploadFileXls?.error.msg}}</span>
 							<span class="fr upload-op" *ngIf="baccarat.cRPId" (click)="onDelFileName()">重新上传</span>
