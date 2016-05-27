@@ -58,11 +58,9 @@ export class PinDetailComponent {
         this.projectsParams.queryType = 1;
         this.prizesParams = {};
         this.prizesParams.cRPId = this.id;
+        this.prizesParams.cRPDId = '';
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
-        // this.prizesParams.projectId = 0;
-        // this.prizesParams.currentPage = 1;
-        // this.prizesParams.pageSize = 10;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
@@ -176,6 +174,10 @@ export class PinDetailComponent {
             if (this.errorAlert(data)) {
                 this.info = data.data;
                 this.state = this.info.cRPStatus;
+                // if(this.info.subInfo&&this.info.subInfo.length>0){
+                //   this.prizesParams.cRPDId = this.info.subInfo[0].cRPDId;
+                // }
+
             }
         }, error => this.handleError);
     }
@@ -215,6 +217,7 @@ export class PinDetailComponent {
                 this.currentPage = +this.prizesParams.currentPage;
                 this.pageSize = +this.prizesParams.pageSize;
                 this.pageCount = +this.prizesParams.pageCount;
+
             }
         }, error => this.handleError);
     }

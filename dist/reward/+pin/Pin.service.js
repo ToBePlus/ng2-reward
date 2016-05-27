@@ -137,6 +137,7 @@ let PinService = class PinService {
     pinList(params) {
         let search = new http_1.URLSearchParams();
         search.set('cRPId', params.cRPId + '');
+        search.set('cRPDId', params.cRPDId + '');
         search.set('sendStatus', params.sendStatus + '');
         search.set('verifyStatus', params.verifyStatus + '');
         search.set('startDate', params.startDate);

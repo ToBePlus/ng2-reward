@@ -60,6 +60,17 @@
 							</div>
 						</div>
 					</div>
+					<div class="rx-condition">
+						<div class="rx-cond-label">奖品筛选</div>
+						<div>
+							<div class="s-input">
+								<select [(ngModel)]="prizesParams.cRPDId">
+									<option value="">全部</option>
+									<option [value]="si.cRPDId" *ngFor="let si of info?.subInfo">{{si.cRPDName}}</option>
+								</select>
+							</div>
+						</div>
+					</div>
 					<div class="rx-cond-op">
 						<button class="rd-btn" (click)="onSearch()">查找</button>
 					</div>
