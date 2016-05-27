@@ -181,7 +181,7 @@
 						<div class="re-label">通知规则：</div>
 						<div>
 							<div class="re-msg-ops">
-								<input class="re-ckb" type="checkbox" [(ngModel)]="baccarat.cRPNoticeNow" [ngFormControl]="bsForm.controls['cRPNoticeNow']" id="ckb-msg-notice"> <label for="ckb-msg-notice">获奖后立即通知（短信¥0.50元/条，发送（库存）份奖励需¥5,000元）</label>
+								<input class="re-ckb" type="checkbox" [(ngModel)]="baccarat.cRPNoticeNow" [ngFormControl]="bsForm.controls['cRPNoticeNow']" id="ckb-msg-notice"> <label for="ckb-msg-notice">获奖后立即通知（短信¥0.50元/条，发送（{{baccarat.cRPGenerateType === 1?baccarat.totalRewards:uploadFileXls?.data.num}}）份奖励需¥{{baccarat.cRPGenerateType === 1?baccarat.totalRewards*0.5:uploadFileXls?.data.num*0.5}}元）</label>
 							</div>
 							<textarea name="" id="" cols="30" rows="10" [(ngModel)]="baccarat.cRPNoticeNowContent" [ngFormControl]="bsForm.controls['cRPNoticeNowContent']"></textarea>
 							<div class="re-msg-ops">
