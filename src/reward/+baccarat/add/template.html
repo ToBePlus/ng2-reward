@@ -22,17 +22,17 @@
 						<div *ngFor="let subinfo of baccarat.subInfo, let i = index">
 							<div class="inputs">
 								<input class="inputtxt input-163" type="text" [(ngModel)]="subinfo.cRPDName" required placeholder="最多显示6个字">
-								<input class="inputtxt input-80" type="text" [(ngModel)]="subinfo.cRPDNum" pattern="^[1-9][0-9]{0,6}$" required [ngFormControl]="subForm.controls['cRPDNum']"  >份
+								<input class="inputtxt input-80" type="text" [(ngModel)]="subinfo.cRPDNum" pattern="^[1-9][0-9]{0,6}$" >份
 								<div class="re-add-num" *ngIf="baccarat.cRPId">
-									<input type="text" (keyup)="onEnterAddTotal($event,subinfo)" [(ngModel)]="subinfo.additionalNum" pattern="^[1-9][0-9]{0,6}$" required [ngFormControl]="subForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
+									<input type="text" (keyup)="onEnterAddTotal($event,subinfo)" [(ngModel)]="subinfo.additionalNum" pattern="^[1-9][0-9]{0,6}$"  placeholder="输入1~100,000的数字">
 									<span (click)="onAddTotal(subinfo)"></span>
 								</div>
 								<span (click)="subinfo.advanceSetShow=!subinfo.advanceSetShow">高级设置</span>
 							</div>
-							<div class="text-danger" *ngIf="cRPDNum.hasError('pattern')">
+							<div class="text-danger" *ngIf="subinfo.cRPDNumError">
 								输入1~100,000的数字,实际输入超出范围的数字,或者字母
 							</div>
-							<div class="text-danger" *ngIf="additionalNumControl.hasError('pattern')">
+							<div class="text-danger" *ngIf="subinfo.additionalNumError">
 								输入1~100,000的数字,实际输入超出范围的数字,或者字母
 							</div>
 							<div class="advance " *ngIf="subinfo.advanceSetShow">
