@@ -60,7 +60,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="rx-condition">
+					<div class="rx-condition" *ngIf="info?.cRPExchangeType">
 						<div class="rx-cond-label">奖品筛选</div>
 						<div>
 							<div class="s-input">
@@ -130,7 +130,7 @@
 				<div class="s-items">
 					<div class="s-item" *ngFor="let tl of totalList">
 						<div>
-							<span>核验码总量</span>
+							<span>{{info?.cRPExchangeType===2?tl.cRPDName:'核验码总量'}}</span>
 							<span class="c-blue">{{tl.totalNum}}</span>
 							<span class="s-ico s-ico-add" title="追加核验码" (click)="tl.addTotalShow=!tl.addTotalShow"></span>
 						</div>
