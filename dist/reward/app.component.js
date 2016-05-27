@@ -10,15 +10,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
-const home_component_1 = require('./controllers/home/home.component');
-const create_component_1 = require('./controllers/create/create.component');
-const show_add_component_1 = require('./controllers/show/add/show.add.component');
-const show_detail_component_1 = require('./controllers/show/detail/show.detail.component');
-const pin_add_component_1 = require('./controllers/pin/add/pin.add.component');
-const pin_detail_component_1 = require('./controllers/pin/detail/pin.detail.component');
-const account_add_component_1 = require('./controllers/account/add/account.add.component');
-const account_list_component_1 = require('./controllers/account/list/account.list.component');
-const baccarat_add_component_1 = require('./controllers/baccarat/add/baccarat.add.component');
+const home_component_1 = require('./+home/home.component');
+const create_component_1 = require('./+create/create.component');
+const show_add_component_1 = require('./+show/add/show.add.component');
+const show_detail_component_1 = require('./+show/detail/show.detail.component');
+const pin_add_component_1 = require('./+pin/add/pin.add.component');
+const pin_detail_component_1 = require('./+pin/detail/pin.detail.component');
+const account_add_component_1 = require('./+account/add/account.add.component');
+const account_list_component_1 = require('./+account/list/account.list.component');
+const baccarat_add_component_1 = require('./+baccarat/add/baccarat.add.component');
 let AppComponent = class AppComponent {
     constructor(router) {
         this.router = router;
@@ -54,4 +54,4 @@ AppComponent = __decorate([
     __metadata('design:paramtypes', [router_1.Router])
 ], AppComponent);
 exports.AppComponent = AppComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2f3Z5yL8.tmp/0/src/reward/app.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/app.component.js.map

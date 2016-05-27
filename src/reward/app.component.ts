@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import {ROUTER_DIRECTIVES, ROUTER_PROVIDERS, Router, Routes} from '@angular/router';
 
-import {HomeComponent} from './controllers/home/home.component';
-import {CreateComponent} from './controllers/create/create.component';
-import {ShowAddComponent} from './controllers/show/add/show.add.component';
-import {ShowDetailComponent} from './controllers/show/detail/show.detail.component';
-import {PinAddComponent} from './controllers/pin/add/pin.add.component';
-import {PinDetailComponent} from './controllers/pin/detail/pin.detail.component';
-import {AccountAddComponent} from './controllers/account/add/account.add.component';
-import {AccountListComponent} from './controllers/account/list/account.list.component';
-import {BaccaratAddComponent} from './controllers/baccarat/add/baccarat.add.component';
+import {HomeComponent} from './+home/home.component';
+import {CreateComponent} from './+create/create.component';
+import {ShowAddComponent} from './+show/add/show.add.component';
+import {ShowDetailComponent} from './+show/detail/show.detail.component';
+import {PinAddComponent} from './+pin/add/pin.add.component';
+import {PinDetailComponent} from './+pin/detail/pin.detail.component';
+import {AccountAddComponent} from './+account/add/account.add.component';
+import {AccountListComponent} from './+account/list/account.list.component';
+import {BaccaratAddComponent} from './+baccarat/add/baccarat.add.component';
 
 
 
