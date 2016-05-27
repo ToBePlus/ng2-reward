@@ -37,6 +37,7 @@ let PinAddComponent = class PinAddComponent {
         };
         this.fileProgress = 0;
         this.dateShow = 0;
+        this.additionalNumError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.psForm = fb.group({
@@ -130,12 +131,21 @@ let PinAddComponent = class PinAddComponent {
         }
     }
     onAddTotal() {
+        if (this.loading) {
+            return false;
+        }
+        if (this.checkTotal(this.additionalNum)) {
+            this.loading = 0;
+            return false;
+        }
+        this.loading = 1;
         let data = {};
         data.cRPId = this.pinProgram.cRPId;
         data.cRPDId = this.pinProgram.cRPId;
         data.fileName = this.pinProgram.fileName;
         data.additionalNum = +this.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
+            this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
@@ -153,6 +163,18 @@ let PinAddComponent = class PinAddComponent {
         if (event.keyCode == 13) {
             this.onAddTotal();
         }
+    }
+    checkTotal(additionalNum) {
+        if (additionalNum === '') {
+            this.additionalNumError = 1;
+            return true;
+        }
+        if (!/^[1-9][0-9]{0,6}$/.test(additionalNum)) {
+            this.additionalNumError = 1;
+            return true;
+        }
+        this.additionalNumError = 0;
+        return false;
     }
     onSubmit() {
         if (!this.psForm.valid) {

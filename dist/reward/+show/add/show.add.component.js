@@ -114,7 +114,6 @@ let ShowAddComponent = class ShowAddComponent {
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
         data.additionalNum = isNaN(+this.additionalNum) ? 0 : +this.additionalNum;
-        console.log(data);
         this.ss.addTotal(data).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {

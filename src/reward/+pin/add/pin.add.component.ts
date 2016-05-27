@@ -1,4 +1,4 @@
-import {Component, Input, Output,NgZone} from '@angular/core';
+import {Component, Input, Output, NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
@@ -14,18 +14,18 @@ import {PinProgram, PinService} from '../Pin.service';
 import {Validators} from '../../services/Validators';
 import {TextTohtmlPipe} from '../../pipe/Text.to.html';
 
-const URL = baseUrl+'/medias/uploadBackgroundImage';
+const URL = baseUrl + '/medias/uploadBackgroundImage';
 
-const FILE_URL = baseUrl+'/rewardManage/uploadCheckCode';
+const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
 
 
 @Component({
     selector: 'pin-add',
     templateUrl: 'reward/+pin/add/template.html',
     styleUrls: ['reward/+pin/add/style.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES,UPLOAD_DIRECTIVES,DATEPICKER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS, JSONP_PROVIDERS],
-    pipes:[TextTohtmlPipe],
+    pipes: [TextTohtmlPipe],
     host: {
         '(click)': 'closeDatePicker($event)'
     }
@@ -58,6 +58,7 @@ export class PinAddComponent {
     uploadFileXls: any;
 
     dateShow: any = 0;
+    additionalNumError: any = 0;
 
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -106,7 +107,7 @@ export class PinAddComponent {
     }
 
     moment(date) {
-      if (date == null) return '';
+        if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
     }
 
@@ -127,54 +128,63 @@ export class PinAddComponent {
     }
 
     handleUpload(data): void {
-      if (data.response) {
-        this.uploadFile = JSON.parse(data.response);
-        this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
-        this.basicResp = data;
-      }
-      this.zone.run(() => {
-          this.basicProgress = data.progress.percent;
-      });
+        if (data.response) {
+            this.uploadFile = JSON.parse(data.response);
+            this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
+            this.basicResp = data;
+        }
+        this.zone.run(() => {
+            this.basicProgress = data.progress.percent;
+        });
     }
 
     handleFileUpload(data): void {
-      if (data.response) {
-        this.uploadFileXls = JSON.parse(data.response);
-        if(this.uploadFileXls.error.state===0){
-          this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+        if (data.response) {
+            this.uploadFileXls = JSON.parse(data.response);
+            if (this.uploadFileXls.error.state === 0) {
+                this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+            }
+            this.fileResp = data;
         }
-        this.fileResp = data;
-      }
-      this.zone.run(() => {
-          this.fileProgress = data.progress.percent;
-      });
+        this.zone.run(() => {
+            this.fileProgress = data.progress.percent;
+        });
     }
 
-    onDelFileName(){
-      this.pinProgram.fileName='';
-      this.fileProgress=0;
-      this.uploadFileXls = {};
+    onDelFileName() {
+        this.pinProgram.fileName = '';
+        this.fileProgress = 0;
+        this.uploadFileXls = {};
     }
 
-    getImg(){
-      if(this.pinProgram.cRPBackgroundAdd&&this.pinProgram.cRPBackgroundShow){
-        return 'url(\'/'+this.pinProgram.cRPBackgroundAdd+'\') no-repeat center center';
-      }
+    getImg() {
+        if (this.pinProgram.cRPBackgroundAdd && this.pinProgram.cRPBackgroundShow) {
+            return 'url(\'/' + this.pinProgram.cRPBackgroundAdd + '\') no-repeat center center';
+        }
     }
 
     onAddTotal() {
-        let data:any = {};
+        if (this.loading) {
+            return false;
+        }
+        if (this.checkTotal(this.additionalNum)) {
+            this.loading = 0;
+            return false;
+        }
+        this.loading = 1;
+        let data: any = {};
         data.cRPId = this.pinProgram.cRPId;
         data.cRPDId = this.pinProgram.cRPId;
         data.fileName = this.pinProgram.fileName;
         data.additionalNum = +this.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
-          if (data.error.state !== 0) {
-              alert(data.error.msg);
-              return;
-          }
-          alert('追加成功');
-          this.pinProgram.totalRewards += +this.additionalNum;
+          this.loading = 0;
+            if (data.error.state !== 0) {
+                alert(data.error.msg);
+                return;
+            }
+            alert('追加成功');
+            this.pinProgram.totalRewards += +this.additionalNum;
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -188,13 +198,26 @@ export class PinAddComponent {
         }
     }
 
+    checkTotal(additionalNum) {
+        if (additionalNum === '') {
+            this.additionalNumError = 1;
+            return true;
+        }
+        if (!/^[1-9][0-9]{0,6}$/.test(additionalNum)) {
+            this.additionalNumError = 1;
+            return true;
+        }
+        this.additionalNumError = 0;
+        return false;
+    }
+
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
         }
-        if(this.loading){
-          return false;
+        if (this.loading) {
+            return false;
         }
         this.loading = 1;
         this.ps.add(this.pinProgram).subscribe(data => {
@@ -207,7 +230,7 @@ export class PinAddComponent {
             alert('成功');
             this.toHome();
         },
-            error => { this.errorMessage = <any>error; alert(error) ;this.loading = 0;});
+            error => { this.errorMessage = <any>error; alert(error); this.loading = 0; });
     }
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure
