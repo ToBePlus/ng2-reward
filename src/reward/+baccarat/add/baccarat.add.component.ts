@@ -53,7 +53,7 @@ export class BaccaratAddComponent {
     dateShow:any;
     currentPage:any;
 
-    constructor(private ps: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
+    constructor(private bs: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.subForm = fb.group({
@@ -180,7 +180,7 @@ export class BaccaratAddComponent {
 
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id)) return;
-        this.ps.getOne(this.id).subscribe(data => this.setPsForm(data));
+        this.bs.getOne(this.id).subscribe(data => this.setPsForm(data));
     }
 
     setPsForm(data) {
@@ -198,7 +198,7 @@ export class BaccaratAddComponent {
             return false;
         }
         this.loading = 1;
-        this.ps.add(this.baccarat).subscribe(data => {
+        this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
@@ -210,11 +210,40 @@ export class BaccaratAddComponent {
             error => { this.errorMessage = <any>error; alert(error); this.loading = 0; });
     }
 
+    onAddTotal(subinfo) {
+        let data:any = {};
+        data.cRPId = this.baccarat.cRPId;
+        data.cRPDId = subinfo.cRPDId;
+        data.fileName = this.baccarat.fileName;
+        data.additionalNum = +subinfo.additionalNum;
+        this.bs.addTotal(data).subscribe(data => {
+          alert('追加成功');
+          subinfo.cRPDNum += +subinfo.additionalNum;
+            // TimerWrapper.setTimeout(() => {
+            //   tl.addStatus = 0;
+            //   this.getTotalList();
+            // }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event,subinfo) {
+        event.stopPropagation();
+        if (event.keyCode == 13) {
+            this.onAddTotal(subinfo);
+        }
+    }
+
     onAddSubInfo() {
         if (this.baccarat.subInfo.length > 7) {
             return;
         }
         this.baccarat.subInfo.push({});
+    }
+
+    private handleError(error: any) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable.throw(errMsg);
     }
 
     toHome() {

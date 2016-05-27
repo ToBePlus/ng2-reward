@@ -12,6 +12,7 @@ const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 require('rxjs/Rx');
+const Observable_1 = require('rxjs/Observable');
 const http_2 = require('@angular/http');
 const common_1 = require('@angular/common');
 const moment = require('moment');
@@ -23,8 +24,8 @@ const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const URL = config_1.baseUrl + '/medias/uploadBackgroundImage';
 const FILE_URL = config_1.baseUrl + '/rewardManage/uploadCheckCode';
 let BaccaratAddComponent = class BaccaratAddComponent {
-    constructor(ps, router, fb, params) {
-        this.ps = ps;
+    constructor(bs, router, fb, params) {
+        this.bs = bs;
         this.router = router;
         this.options = {
             url: URL
@@ -151,7 +152,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id))
             return;
-        this.ps.getOne(this.id).subscribe(data => this.setPsForm(data));
+        this.bs.getOne(this.id).subscribe(data => this.setPsForm(data));
     }
     setPsForm(data) {
         this.baccarat = data.data;
@@ -167,7 +168,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             return false;
         }
         this.loading = 1;
-        this.ps.add(this.baccarat).subscribe(data => {
+        this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
@@ -177,11 +178,38 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             this.toHome();
         }, error => { this.errorMessage = error; alert(error); this.loading = 0; });
     }
+    onAddTotal(subinfo) {
+        let data = {};
+        data.cRPId = this.baccarat.cRPId;
+        data.cRPDId = subinfo.cRPDId;
+        data.fileName = this.baccarat.fileName;
+        data.additionalNum = +subinfo.additionalNum;
+        this.bs.addTotal(data).subscribe(data => {
+            alert('追加成功');
+            subinfo.cRPDNum += +subinfo.additionalNum;
+            // TimerWrapper.setTimeout(() => {
+            //   tl.addStatus = 0;
+            //   this.getTotalList();
+            // }, 5000);
+        }, error => this.handleError);
+    }
+    onEnterAddTotal(event, subinfo) {
+        event.stopPropagation();
+        if (event.keyCode == 13) {
+            this.onAddTotal(subinfo);
+        }
+    }
     onAddSubInfo() {
         if (this.baccarat.subInfo.length > 7) {
             return;
         }
         this.baccarat.subInfo.push({});
+    }
+    handleError(error) {
+        // In a real world app, we might use a remote logging infrastructure
+        let errMsg = error.message || 'Server error';
+        console.error(errMsg); // log to console instead
+        return Observable_1.Observable.throw(errMsg);
     }
     toHome() {
         this.router.navigate(['/']);

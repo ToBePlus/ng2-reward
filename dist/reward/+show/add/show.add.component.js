@@ -109,8 +109,8 @@ let ShowAddComponent = class ShowAddComponent {
         data.fileName = this.program.fileName;
         data.additionalNum = +this.additionalNum;
         this.ss.addTotal(data).subscribe(data => {
-            alert('追加成功');
             this.program.totalRewards += +this.additionalNum;
+            alert('追加成功');
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -118,6 +118,7 @@ let ShowAddComponent = class ShowAddComponent {
         }, error => this.handleError);
     }
     onEnterAddTotal(event) {
+        event.stopPropagation();
         if (event.keyCode == 13) {
             this.onAddTotal();
         }

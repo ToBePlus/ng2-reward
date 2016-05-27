@@ -166,7 +166,7 @@
 							<span class="text-danger">*</span>库存：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt"   [readonly]="pinProgram.cRPId" type="text" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt"   [readonly]="pinProgram.cRPId" type="text" pattern="^(([123456789]\d)(\.\d+)?|100000)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
 
 							<div class="re-add-num" *ngIf="pinProgram.cRPId">
 								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" placeholder="输入1~100,000的数字">

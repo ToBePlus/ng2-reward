@@ -110,6 +110,19 @@ export class BaccaratService {
         return this.http.get(URL).map(res => res.json()).catch(this.handleError);
     }
 
+    /**
+     * 追加数量
+     * @param  {[type]} data [description]
+     * @return {[type]}      [description]
+     */
+    addTotal(data){
+      let URL = baseUrl+'/rewardManage/nums/append';
+      let body = JSON.stringify(data);
+      let headers = new Headers({ 'Content-Type': 'application/json' });
+      let options = new RequestOptions({ headers: headers });
+      return this.http.post(URL, body, options).map(res => res.json()).catch(this.handleError);
+    }
+
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';
