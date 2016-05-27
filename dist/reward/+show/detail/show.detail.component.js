@@ -24,7 +24,7 @@ let ShowDetailComponent = class ShowDetailComponent {
     constructor(ss, router, params) {
         this.ss = ss;
         this.router = router;
-        this.currentPage = 0;
+        this.currentPage = 1;
         this.pageSize = 10;
         this.pageCount = 0;
         this.dateShow = 0;
@@ -71,8 +71,10 @@ let ShowDetailComponent = class ShowDetailComponent {
             this.prizesParams.endDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
         }
     }
-    pageChanged(event) {
-        console.log(event);
+    pageChanged(page) {
+        this.currentPage = page.page;
+        this.pageSize = page.itemsPerPage;
+        this.search();
     }
     onDownload() {
         let search = new http_1.URLSearchParams();
@@ -148,6 +150,8 @@ let ShowDetailComponent = class ShowDetailComponent {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
+        this.prizesParams.currentPage = this.currentPage;
+        this.prizesParams.pageSize = this.pageSize;
         this.ss.showList(this.prizesParams).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;

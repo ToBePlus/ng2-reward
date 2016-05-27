@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,Input} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
 import {TimerWrapper} from '@angular/core/src/facade/async';
@@ -43,7 +43,7 @@ export class PinDetailComponent {
     pinList: any;
     page: any;
 
-    currentPage: number = 0;
+    currentPage: number = 1;
     pageSize: number = 10;
     pageCount: number = 0;
 
@@ -60,8 +60,8 @@ export class PinDetailComponent {
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
         // this.prizesParams.projectId = 0;
-        this.prizesParams.currentPage = 0;
-        this.prizesParams.pageSize = 10;
+        // this.prizesParams.currentPage = 1;
+        // this.prizesParams.pageSize = 10;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
@@ -77,10 +77,6 @@ export class PinDetailComponent {
         event.stopPropagation();
         this.dateShow = 0;
     }
-
-    public setPage(pageNo: number): void {
-        this.currentPage = pageNo;
-    };
 
     moment(date) {
       if (date == null) return '';
@@ -100,10 +96,10 @@ export class PinDetailComponent {
             this.prizesParams.endDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
         }
     }
-
-
-    pageChanged(event) {
-        console.log(event);
+    pageChanged(page) {
+      this.currentPage = page.page;
+      this.pageSize = page.itemsPerPage;
+      this.search();
     }
 
     onDownload() {
@@ -208,6 +204,8 @@ export class PinDetailComponent {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
+        this.prizesParams.currentPage = this.currentPage;
+        this.prizesParams.pageSize = this.pageSize;
         this.ps.pinList(this.prizesParams).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.pinList = data.data;

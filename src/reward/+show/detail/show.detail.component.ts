@@ -42,7 +42,7 @@ export class ShowDetailComponent {
     showList: any;
     page: any;
 
-    currentPage: number = 0;
+    currentPage: number = 1;
     pageSize: number = 10;
     pageCount: number = 0;
 
@@ -94,8 +94,10 @@ export class ShowDetailComponent {
         }
     }
 
-    pageChanged(event) {
-        console.log(event);
+    pageChanged(page) {
+      this.currentPage = page.page;
+      this.pageSize = page.itemsPerPage;
+      this.search();
     }
 
 
@@ -183,6 +185,8 @@ export class ShowDetailComponent {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
+        this.prizesParams.currentPage = this.currentPage;
+        this.prizesParams.pageSize = this.pageSize;
         this.ss.showList(this.prizesParams).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;
