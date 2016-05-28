@@ -27,7 +27,7 @@
 				<div class="ra-fields">
 					<label for="">
 						<div><span class="text-danger">*</span>登录密码</div>
-						<input type="password" ngControl="password" pattern="" [(ngModel)]="subAccount.cRCUPassword">
+						<input type="password" ngControl="password" pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,8}$" [(ngModel)]="subAccount.cRCUPassword">
 					</label>
 				</div>
 				<div class="ra-fields">

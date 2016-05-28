@@ -74,9 +74,9 @@ export class PinAddComponent {
             'cRPBackgroundShow': [0],
             'cRPDesc': [''],
             'cRPDescShow': [0],
-            'cRPValidDate': [moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD')],
-            'cRPValidStartDate': [moment().format('YYYY-MM-DD')],
-            'cRPValidEndDate': [moment().format('YYYY-MM-DD')],
+            // 'cRPValidDate': [moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD')],
+            // 'cRPValidStartDate': [moment().format('YYYY-MM-DD')],
+            // 'cRPValidEndDate': [moment().format('YYYY-MM-DD')],
             'cRPValidType': [-1],
             'cRPRate': [1],
             'cRPRateContent': ['', Validators.ratio],
@@ -95,7 +95,7 @@ export class PinAddComponent {
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
         this.cRPRateContent = this.psForm.controls['cRPRateContent'];
-        this.pinProgram = new PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
+        this.pinProgram = new PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, '', moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
     }
 
     onShowDate(event) {
@@ -126,7 +126,6 @@ export class PinAddComponent {
         this.pinProgram = data.data;
         this.pinProgram.cRPValidStartDate = this.moment(this.pinProgram.cRPValidStartDate);
         this.pinProgram.cRPValidEndDate = this.moment(this.pinProgram.cRPValidEndDate);
-
     }
 
     handleUpload(data): void {
