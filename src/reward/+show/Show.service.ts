@@ -104,7 +104,8 @@ export class ShowService {
      showList(params){
       let search = new URLSearchParams();
       search.set('cRPId', params.cRPId);
-      if(params.range!==-1){
+      search.set('range', params.range);
+      if(params.range!='-1'){
         search.set('startDate', params.startDate);
         search.set('endDate', params.endDate);
       }

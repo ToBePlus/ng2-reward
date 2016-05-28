@@ -250,6 +250,12 @@ export class BaccaratAddComponent {
       this.baccarat.subInfo.splice(i,1);
     }
 
+    getTotal(){
+      let total:number = 0;
+      this.baccarat.subInfo.forEach(item=>total += item.cRPDNum);
+      return total||0;
+    }
+
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';

@@ -214,6 +214,11 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     onDeleteSubInfo(i) {
         this.baccarat.subInfo.splice(i, 1);
     }
+    getTotal() {
+        let total = 0;
+        this.baccarat.subInfo.forEach(item => total += item.cRPDNum);
+        return total || 0;
+    }
     handleError(error) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';

@@ -208,7 +208,9 @@ export class ShowDetailComponent {
             if (this.errorAlert(data)) {
                 this.showList = data.data.list;
                 this.page = data.data.page;
-                this.prizesParams.range = -1;
+                this.currentPage = +this.page.currentPage;
+                this.pageSize = +this.page.pageSize;
+                this.pageCount = +this.page.pageCount;
             }
         }, error => this.handleError);
     }

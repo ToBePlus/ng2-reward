@@ -177,7 +177,6 @@ let PinDetailComponent = class PinDetailComponent {
             if (this.errorAlert(data)) {
                 this.pinList = data.data;
                 this.prizesParams = data.param;
-                this.prizesParams.range = -1;
                 this.currentPage = +this.prizesParams.currentPage;
                 this.pageSize = +this.prizesParams.pageSize;
                 this.pageCount = +this.prizesParams.pageCount;

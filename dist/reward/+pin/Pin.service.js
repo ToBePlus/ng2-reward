@@ -85,6 +85,8 @@ let PinService = class PinService {
         data.cRPSubtitleShow = data.cRPSubtitleShow ? 1 : 0;
         data.cRPBackgroundShow = data.cRPBackgroundShow ? 1 : 0;
         data.cRPDescShow = data.cRPDescShow ? 1 : 0;
+        data.cRPNoticeNow = data.cRPNoticeNow ? 1 : 0;
+        data.cRPValidNotice = data.cRPValidNotice ? 1 : 0;
         let body = JSON.stringify(data);
         let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         let options = new http_1.RequestOptions({ headers: headers });
@@ -138,12 +140,13 @@ let PinService = class PinService {
         let search = new http_1.URLSearchParams();
         search.set('cRPId', params.cRPId + '');
         search.set('cRPDId', params.cRPDId + '');
-        search.set('sendStatus', params.sendStatus + '');
-        search.set('verifyStatus', params.verifyStatus + '');
-        if (params.range !== -1) {
+        if (params.range != '-1') {
             search.set('startDate', params.startDate);
             search.set('endDate', params.endDate);
         }
+        search.set('range', params.range + '');
+        search.set('sendStatus', params.sendStatus + '');
+        search.set('verifyStatus', params.verifyStatus + '');
         search.set('projectId', params.projectId + '');
         search.set('currentPage', params.currentPage + '');
         search.set('pageSize', params.pageSize + '');

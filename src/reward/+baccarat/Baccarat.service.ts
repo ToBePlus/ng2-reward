@@ -39,6 +39,8 @@ export class BaccaratService {
         data.cRPSubtitleShow = data.cRPSubtitleShow ? 1 : 0;
         data.cRPBackgroundShow = data.cRPBackgroundShow ? 1 : 0;
         data.cRPDescShow = data.cRPDescShow ? 1 : 0;
+        data.cRPNoticeNow = data.cRPNoticeNow ? 1 : 0;
+        data.cRPValidNotice = data.cRPValidNotice ? 1 : 0;
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });

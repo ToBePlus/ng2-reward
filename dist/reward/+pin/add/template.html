@@ -111,19 +111,19 @@
 				<!-- 奖励规则 end -->
 				<!-- 奖品兑换方式 -->
 				<div class="lengend">奖品兑换方式</div>
-				<div class="re-convert">
+				<div class="re-convert" >
 					<div class="re-form-field">
 						<div class="re-label">码类型：</div>
-						<div class="re-convert-ops re-convert-code">
+						<div class="re-convert-ops re-convert-code" [class.disabled]="pinProgram.cRPId">
   							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCode" [checked]="pinProgram.cRPCodeType === 1" (click)="pinProgram.cRPCodeType = 1"  id="convert-code-1"> <label for="convert-code-1">一人一码</label>
   							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCode" [checked]="pinProgram.cRPCodeType === 2" (click)="pinProgram.cRPCodeType = 2;pinProgram.cRPValidType=-1;" id="convert-code-2"> <label for="convert-code-2">通用码</label>
               <input class="inputtxt input-70" type="text" maxlength="8" *ngIf="pinProgram.cRPCodeType === 2" [(ngModel)]="pinProgram.cRPCodeCommon"  [ngFormControl]="psForm.controls['cRPCodeCommon']" >
 							<span>输入6-8位数字与英文字母的组合，如 SALE20</span>
 						</div>
 					</div>
-					<div class="re-form-field" *ngIf="pinProgram.cRPCodeType === 1" >
+					<div class="re-form-field"  *ngIf="pinProgram.cRPCodeType === 1" >
 						<div class="re-label">生成方式：</div>
-						<div class="re-convert-ops re-convert-create" >
+						<div class="re-convert-ops re-convert-create" [class.disabled]="pinProgram.cRPId" >
 							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCreate" [checked]="pinProgram.cRPGenerateType === 1" (click)="pinProgram.cRPGenerateType = 1"  id="convert-create-1"> <label for="convert-create-1">系统生成</label>
 							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCreate" [checked]="pinProgram.cRPGenerateType === 2" (click)="pinProgram.cRPGenerateType = 2" id="convert-create-2"> <label for="convert-create-2">导入码库</label>
 							<a href="/word/checkcode.xlsx" *ngIf="pinProgram.cRPGenerateType === 2">下载模板文件</a>
@@ -154,7 +154,7 @@
 							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">重新上传</span>
 							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">删除</span>
 						</div>
-						<div class="re-tip">成功导入 {{uploadFileXls?.data.num}}个核验码</div>
+						<div class="re-tip">成功导入 {{uploadFileXls?.data?.num}}个核验码</div>
 					</div>
 					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&pinProgram.cRPGenerateType === 2">
 						<div class="clearfix">
@@ -169,7 +169,7 @@
 							<span class="text-danger">*</span>库存：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt"   [readonly]="pinProgram.cRPId" type="text" pattern="^([1-9][0-9]{0,5}|1000000)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt" [disabled]="pinProgram.cRPId" type="text" pattern="^([1-9][0-9]{0,5}|1000000)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="pinProgram.cRPId">
 								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" placeholder="输入1~100,000的数字">
 								<button type="button" class="add-btn" (click)="onAddTotal()" ></button>
@@ -198,7 +198,7 @@
 						<div class="re-label">通知规则：</div>
 						<div>
 							<div class="re-msg-ops">
-								<input class="re-ckb" type="checkbox" [(ngModel)]="pinProgram.cRPNoticeNow" [ngFormControl]="psForm.controls['cRPNoticeNow']" id="ckb-msg-notice"> <label for="ckb-msg-notice">获奖后立即通知（短信¥0.50元/条，发送（{{pinProgram.cRPGenerateType === 1?pinProgram.totalRewards:uploadFileXls?.data.num}}）份奖励需¥{{pinProgram.cRPGenerateType === 1?pinProgram.totalRewards*0.5:uploadFileXls?.data.num*0.5}}元）</label>
+								<input class="re-ckb" type="checkbox" [(ngModel)]="pinProgram.cRPNoticeNow" [ngFormControl]="psForm.controls['cRPNoticeNow']" id="ckb-msg-notice"> <label for="ckb-msg-notice">获奖后立即通知（短信¥0.50元/条，发送（{{pinProgram.cRPGenerateType === 1?(pinProgram.totalRewards||0):(uploadFileXls?.data?.num||0)}}）份奖励需¥{{pinProgram.cRPGenerateType === 1?(pinProgram.totalRewards||0)*0.5:(uploadFileXls?.data?.num||0)*0.5}}元）</label>
 							</div>
 							<textarea name="" id="" cols="30" rows="10" maxlength="1000" [(ngModel)]="pinProgram.cRPNoticeNowContent" [ngFormControl]="psForm.controls['cRPNoticeNowContent']" >
               </textarea>
