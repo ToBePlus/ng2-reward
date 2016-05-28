@@ -259,7 +259,7 @@ export class ShowDetailComponent {
         tl.additionalNumError = 1;
         return true;
       }
-      if(!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)){
+      if(!/^([1-9][0-9]{0,5}|1000000)$/.test(tl.additionalNum)){
         tl.additionalNumError = 1;
         return true;
       }

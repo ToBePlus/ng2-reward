@@ -1,3 +1,4 @@
+
 .state-btn{
   color: #fff;
   background: #8ccb6b;
@@ -15,7 +16,7 @@
       color: #383838;
       width: 34px;
       height: 34px;
-      margin: 11px 0;
+      // margin: 11px 0;
       background: url(./../../reward/images/reward_ico.png) no-repeat;
       cursor: pointer;
       background-position: -277px -8px;
@@ -28,8 +29,13 @@
       color: #383838;
       width: 34px;
       height: 34px;
-      margin: 11px 0;
+      // margin: 11px 0;
       background: url(./../../reward/images/reward_ico.png) no-repeat;
       cursor: pointer;
       background-position: -277px -55px;
+}
+.zs-bar{
+  .edit-btn,.del-btn{
+    margin: 11px 0;
+  }
 }

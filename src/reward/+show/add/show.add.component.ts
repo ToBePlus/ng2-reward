@@ -154,7 +154,8 @@ export class ShowAddComponent {
               return;
           }
           this.program.totalRewards += +this.additionalNum;
-            alert('追加成功');
+          this.additionalNum = null;
+            alert('新增成功');
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();

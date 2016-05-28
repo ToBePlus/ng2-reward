@@ -157,4 +157,4 @@ ShowService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], ShowService);
 exports.ShowService = ShowService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+show/Show.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+show/Show.service.js.map

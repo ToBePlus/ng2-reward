@@ -150,8 +150,9 @@ let PinAddComponent = class PinAddComponent {
                 alert(data.error.msg);
                 return;
             }
-            alert('追加成功');
+            alert('新增成功');
             this.pinProgram.totalRewards += +this.additionalNum;
+            this.additionalNum = null;
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -169,7 +170,7 @@ let PinAddComponent = class PinAddComponent {
             this.additionalNumError = 1;
             return true;
         }
-        if (!/^[1-9][0-9]{0,6}$/.test(additionalNum)) {
+        if (!/^([1-9][0-9]{0,5}|1000000)$/.test(additionalNum)) {
             this.additionalNumError = 1;
             return true;
         }
@@ -223,4 +224,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+pin/add/pin.add.component.js.map

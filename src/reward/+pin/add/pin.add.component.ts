@@ -183,8 +183,9 @@ export class PinAddComponent {
                 alert(data.error.msg);
                 return;
             }
-            alert('追加成功');
+            alert('新增成功');
             this.pinProgram.totalRewards += +this.additionalNum;
+            this.additionalNum = null;
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -203,7 +204,7 @@ export class PinAddComponent {
             this.additionalNumError = 1;
             return true;
         }
-        if (!/^[1-9][0-9]{0,6}$/.test(additionalNum)) {
+        if (!/^([1-9][0-9]{0,5}|1000000)$/.test(additionalNum)) {
             this.additionalNumError = 1;
             return true;
         }

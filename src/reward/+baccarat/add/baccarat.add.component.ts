@@ -221,8 +221,9 @@ export class BaccaratAddComponent {
               alert(data.error.msg);
               return;
           }
-          alert('追加成功');
+          alert('新增成功');
           subinfo.cRPDNum += +subinfo.additionalNum;
+          subinfo.additionalNum = '';
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -241,6 +242,10 @@ export class BaccaratAddComponent {
             return;
         }
         this.baccarat.subInfo.push({});
+    }
+
+    onDeleteSubInfo(i){
+      this.baccarat.subInfo.splice(i,1);
     }
 
     private handleError(error: any) {

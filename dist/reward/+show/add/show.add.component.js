@@ -121,7 +121,8 @@ let ShowAddComponent = class ShowAddComponent {
                 return;
             }
             this.program.totalRewards += +this.additionalNum;
-            alert('追加成功');
+            this.additionalNum = null;
+            alert('新增成功');
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -184,4 +185,4 @@ ShowAddComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+show/add/show.add.component.js.map

@@ -139,7 +139,7 @@ export class ShowAddComponent {
         data.fileName = this.program.fileName;
         data.additionalNum = +this.additionalNum;
         this.ss.addTotal(data).subscribe(data => {
-            alert('追加成功');
+            alert('新增成功');
             this.program.totalRewards += +this.additionalNum;
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;

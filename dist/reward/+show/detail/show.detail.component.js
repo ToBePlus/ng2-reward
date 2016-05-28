@@ -218,7 +218,7 @@ let ShowDetailComponent = class ShowDetailComponent {
             tl.additionalNumError = 1;
             return true;
         }
-        if (!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)) {
+        if (!/^([1-9][0-9]{0,5}|1000000)$/.test(tl.additionalNum)) {
             tl.additionalNumError = 1;
             return true;
         }
@@ -260,4 +260,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+show/detail/show.detail.component.js.map

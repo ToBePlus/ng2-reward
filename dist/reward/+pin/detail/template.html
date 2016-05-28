@@ -42,7 +42,7 @@
 							<div class="rd-btn" [class.active]="prizesParams.sendStatus==2" (click)="prizesParams.sendStatus=2">已发放</div>
 						</div>
 					</div>
-					<div class="rx-condition">
+					<div class="rx-condition" *ngIf="prizesParams.sendStatus==2">
 						<div class="rx-cond-label">兑换状态</div>
 						<div>
 							<div class="rd-btn" [class.active]="prizesParams.verifyStatus==0" (click)="prizesParams.verifyStatus=0">全部</div>
@@ -141,10 +141,10 @@
                 <a class="rd-btn-link-inline" (click)="tl.additionalNum = '';tl.addTotalShow = 0;tl.addStatus = 0;tl.additionalNumError = 0;">取消</a>
             </div>
             <div class="alert alert-success add-total-tip" *ngIf="tl.addStatus==1">
-              追加成功!
+              新增成功!
             </div>
             <div class="alert alert-danger add-total-tip" *ngIf="tl.addStatus==2">
-              追加失败!
+              新增失败!
             </div>
 						<div class="alert alert-danger add-total-tip" *ngIf="tl.additionalNumError">
 							输入1~100,000的数字,实际输入超出范围的数字,或者字母

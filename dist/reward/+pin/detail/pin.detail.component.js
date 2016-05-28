@@ -222,7 +222,7 @@ let PinDetailComponent = class PinDetailComponent {
             tl.additionalNumError = 1;
             return true;
         }
-        if (!/^[1-9][0-9]{0,6}$/.test(tl.additionalNum)) {
+        if (!/^([1-9][0-9]{0,5}|1000000)$/.test(tl.additionalNum)) {
             tl.additionalNumError = 1;
             return true;
         }
@@ -263,4 +263,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map

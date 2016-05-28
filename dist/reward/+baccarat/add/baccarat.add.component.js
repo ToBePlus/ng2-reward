@@ -189,8 +189,9 @@ let BaccaratAddComponent = class BaccaratAddComponent {
                 alert(data.error.msg);
                 return;
             }
-            alert('追加成功');
+            alert('新增成功');
             subinfo.cRPDNum += +subinfo.additionalNum;
+            subinfo.additionalNum = '';
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
@@ -208,6 +209,9 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             return;
         }
         this.baccarat.subInfo.push({});
+    }
+    onDeleteSubInfo(i) {
+        this.baccarat.subInfo.splice(i, 1);
     }
     handleError(error) {
         // In a real world app, we might use a remote logging infrastructure
@@ -236,4 +240,4 @@ BaccaratAddComponent = __decorate([
     __metadata('design:paramtypes', [Baccarat_service_1.BaccaratService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], BaccaratAddComponent);
 exports.BaccaratAddComponent = BaccaratAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-2JaFNAP8.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map
