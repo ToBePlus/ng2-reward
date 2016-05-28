@@ -36,6 +36,8 @@
 				<div class="zs-empty-img"></div>
 				<div class="zs-empty-txt">当前未创建核验子账号</div>
 			</div>
+			<pagination (pageChanged)="pageChanged($event)" [totalItems]="pageCount" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" class="pagination-sm"
+						[boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" firstText="首页" lastText="结束页" previousText="上一页" nextText="下一页"></pagination>
 		</div>
 	</div>
 </div>

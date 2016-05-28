@@ -14,25 +14,25 @@
 			<div class="ra-form">
 				<div class="ra-fields">
 					<label for="">
-						<div>账号名称 <span>＋从员工账号中添加</span></div>
-						<input type="text" [(ngModel)]="subAccount.cRCUName">
+						<div><span class="text-danger">*</span>账号名称 <span hidden>＋从员工账号中添加</span></div>
+						<input type="text" ngControl="name" required [(ngModel)]="subAccount.cRCUName">
 					</label>
 				</div>
 				<div class="ra-fields">
 					<label for="">
-						<div>登录邮箱</div>
-						<input type="text" [(ngModel)]="subAccount.cRCUEmail">
+						<div><span class="text-danger">*</span>登录邮箱</div>
+						<input type="text" ngControl="email" pattern="^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$" required [(ngModel)]="subAccount.cRCUEmail">
 					</label>
 				</div>
 				<div class="ra-fields">
 					<label for="">
-						<div>登录密码</div>
-						<input type="password" [(ngModel)]="subAccount.cRCUPassword">
+						<div><span class="text-danger">*</span>登录密码</div>
+						<input type="password" ngControl="password" pattern="" [(ngModel)]="subAccount.cRCUPassword">
 					</label>
 				</div>
 				<div class="ra-fields">
 					<label for="">
-						<div>确认密码</div>
+						<div><span class="text-danger">*</span>确认密码</div>
 						<input type="password" [(ngModel)]="checkPwd">
 					</label>
 				</div>

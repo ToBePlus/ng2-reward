@@ -13,14 +13,23 @@ const common_1 = require('@angular/common');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 require('rxjs/Rx');
+const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const Account_service_1 = require('../Account.service');
 let AccountListComponent = class AccountListComponent {
     constructor(as, router) {
         this.as = as;
         this.router = router;
+        this.currentPage = 1;
+        this.pageSize = 10;
+        this.pageCount = 0;
         this.params = {};
         this.params.currentPage = 0;
         this.params.pageSize = 10;
+    }
+    pageChanged(page) {
+        this.currentPage = page.page;
+        this.pageSize = page.itemsPerPage;
+        this.getList();
     }
     ngOnInit() {
         this.getList();
@@ -59,7 +68,7 @@ AccountListComponent = __decorate([
         selector: 'account-list',
         templateUrl: 'reward/+account/list/template.html',
         styleUrls: ['reward/+account/list/style.min.css'],
-        directives: [router_1.ROUTER_DIRECTIVES, common_1.CORE_DIRECTIVES, common_1.NgFor, common_1.NgSwitch, common_1.NgSwitchWhen, common_1.NgSwitchDefault],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, router_1.ROUTER_DIRECTIVES, common_1.CORE_DIRECTIVES, common_1.NgFor, common_1.NgSwitch, common_1.NgSwitchWhen, common_1.NgSwitchDefault],
         providers: [Account_service_1.AccountService, http_1.HTTP_PROVIDERS]
     }), 
     __metadata('design:paramtypes', [Account_service_1.AccountService, router_1.Router])

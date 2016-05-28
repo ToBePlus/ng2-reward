@@ -5,6 +5,7 @@ import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
 import * as moment from 'moment';
+import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 import {AccountService} from '../Account.service';
 import {Validators} from '../../services/Validators';
@@ -13,7 +14,7 @@ import {Validators} from '../../services/Validators';
     selector: 'account-list',
     templateUrl:'reward/+account/list/template.html',
     styleUrls:['reward/+account/list/style.min.css'],
-    directives: [ROUTER_DIRECTIVES,CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault],
+    directives: [PAGINATION_DIRECTIVES,ROUTER_DIRECTIVES,CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault],
     providers: [AccountService,HTTP_PROVIDERS]
 })
 
@@ -22,10 +23,22 @@ export class AccountListComponent{
   params:any;
   errorMessage:any;
   page:any;
+
+
+  currentPage: number = 1;
+  pageSize: number = 10;
+  pageCount: number = 0;
+
   constructor(private as: AccountService, private router: Router) {
     this.params = {};
     this.params.currentPage = 0;
     this.params.pageSize = 10;
+  }
+
+  pageChanged(page) {
+      this.currentPage = page.page;
+      this.pageSize = page.itemsPerPage;
+      this.getList();
   }
 
   ngOnInit(){

@@ -107,8 +107,8 @@
 								<td>{{psl.cRCode}}</td>
 								<td>{{psl.cRStatus!==0?'已发放':'-'}}</td>
 								<td>{{psl.cRStatus===2?'已兑换':'未兑换'}}</td>
-								<td>{{psl.cRSendTime|date:'yyyy/MM/dd'}}</td>
-								<td>{{psl.groupName}}{{psl.cREntityName}}</td>
+								<td>{{moment(psl.cRSendTime)}}</td>
+								<td>{{psl.groupName}}{{psl.entityName}}</td>
 								<td>{{psl.cRMobile||'-'}}</td>
 								<td>{{psl.cRVerifyTime|date:'yyyy/MM/dd'}}</td>
 								<td>{{psl.userName||'-'}}</td>
@@ -125,7 +125,7 @@
 			<div class="zs-border rx-side">
 				<div class="s-header tc">
 					<h1>{{info?.cRPName}}</h1>
-					<p>创建时间<span>{{info?.cRPCreateDate|date:'yMMdd'}}</span></p>
+					<p>创建时间<span>{{moment(info?.cRPCreateDate)}}</span></p>
 				</div>
 				<div class="s-items">
 					<div class="s-item" *ngFor="let tl of totalList">

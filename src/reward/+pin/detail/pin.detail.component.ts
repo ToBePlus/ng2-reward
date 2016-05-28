@@ -104,16 +104,11 @@ export class PinDetailComponent {
     onDownload() {
         let search = new URLSearchParams();
         let status = '0';
-        if (this.prizesParams.sendStatus == 2) {
-            if (this.prizesParams.verifyStatus == 2) {
-                status = '2';
-            } else {
-                status = '1';
-            }
-        }
+
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', this.prizesParams.cRPId);
-        search.set('cRPStatus', status);
+        search.set('sendStatus', this.prizesParams.sendStatus);
+        search.set('verifyStatus', this.prizesParams.verifyStatus);
         search.set('startDate', this.prizesParams.startDate);
         search.set('endDate', this.prizesParams.endDate);
         search.set('projectId', this.prizesParams.projectId);
@@ -124,7 +119,7 @@ export class PinDetailComponent {
         let search = new URLSearchParams();
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', dId);
-        search.set('cRPStatus', '1');
+        search.set('sendStatus', '2');
         return downLoadBase + '?' + search;
     }
 
@@ -132,7 +127,7 @@ export class PinDetailComponent {
         let search = new URLSearchParams();
         search.set('cRPId', this.prizesParams.cRPId);
         search.set('cRPDId', dId);
-        search.set('cRPStatus', '2');
+        search.set('verifyStatus', '2');
         return downLoadBase + '?' + search;
     }
 
