@@ -9,8 +9,9 @@ textarea::-moz-placeholder {color:#9a9a9a;}
 input:-ms-input-placeholder,
 textarea:-ms-input-placeholder {color:#9a9a9a;}
 a:hover, a:active, a:focus, a:visited { text-decoration: none;  }
-input[disabled]{
+input[disabled],div.disabled,span.disabled,a.disabled{
   background: #d3d3d3;
+  cursor: default;
 }
 .fl { float:left;  }
 .fr { float:right;  }

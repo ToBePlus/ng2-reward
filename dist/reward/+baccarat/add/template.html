@@ -1,7 +1,7 @@
 <form class="" (ngSubmit)="onSubmit($event)" [ngFormModel]="bsForm">
 <div class="reward-edit">
 	<div class="zs-bar tc">
-		<a [routerLink]="['/']" class="zs-back"></a>
+		<a (click)="goBack()" class="zs-back"></a>
 		{{baccarat.cRPId?'修改大转盘型奖励':'新建大转盘型奖励'}}
 		<button class="rd-save" [disabled]="loading" type="submit"></button>
 	</div>
@@ -21,13 +21,13 @@
 						<div class="re-label"><span class="text-danger">*</span>奖励名称：</div>
 						<div *ngFor="let subinfo of baccarat.subInfo, let i = index">
 							<div class="inputs">
-								<input class="inputtxt input-163" type="text" maxlength="6" [(ngModel)]="subinfo.cRPDName" required placeholder="最多显示6个字">
+								<input class="inputtxt input-163" type="text" maxlength="6" [(ngModel)]="subinfo.cRPDName" [disabled]="baccarat.cRPId" required placeholder="最多显示6个字">
 								<input class="inputtxt input-80" type="text"  maxlength="8" [(ngModel)]="subinfo.cRPDNum" [disabled]="baccarat.cRPId" placeholder="请输入奖品数量" >份
 								<div class="re-add-num" *ngIf="baccarat.cRPId">
 									<input type="text" (keyup)="onEnterAddTotal($event,subinfo)" [(ngModel)]="subinfo.additionalNum"  placeholder="输入1~100,000的数字">
 									<span (click)="onAddTotal(subinfo)"></span>
 								</div>
-								<span (click)="subinfo.advanceSetShow=!subinfo.advanceSetShow">高级设置</span>
+								<span (click)="!baccarat.cRPId&&subinfo.advanceSetShow=!subinfo.advanceSetShow" [class.disabled]="baccarat.cRPId">高级设置</span>
 								<a class="del-btn" (click)="onDeleteSubInfo(i)" *ngIf="i>2"></a>
 							</div>
 							<div class="text-danger" *ngIf="subinfo.cRPDNumError">
@@ -63,7 +63,7 @@
 								<div class="re-tip">请使用200*90比例的的PNG,JPG透明图片，小于2M</div>
 							</div>
 						</div>
-						<div class="add-prize" (click)="onAddSubInfo()"><span>+添加奖品</span></div>
+						<div [class.disabled]="baccarat.cRPId" class="add-prize" (click)="!baccarat.cRPId&&onAddSubInfo()"><span>+添加奖品</span></div>
 					</div>
 					<div class="re-form-field">
 						<div class="re-label">活动说明：<input class="re-ckb" type="checkbox" [(ngModel)]="baccarat.cRPDescShow" [ngFormControl]="bsForm.controls['cRPDescShow']" id="ckb-des"> <label for="ckb-des">显示</label></div>

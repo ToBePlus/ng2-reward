@@ -1,6 +1,6 @@
 <div class="reward-detail reward-detail-pin">
 	<div class="zs-bar tc">
-		<a [routerLink]="['/']" class="zs-back"></a>
+		<a (click)="goBack()" class="zs-back"></a>
 		{{info?.cRPName}}
 		<span class="pull-right state-btn" [class.state-btn-stop]="info?.cRPStatus!=1" (click)="onState()">{{info?.cRPStatus==1?'发放中':'暂停中'}}</span>
 		<a class="pull-right del-btn" (click)="onDelete()"></a>
@@ -88,7 +88,7 @@
 			<div class="zs-border rx-side">
 				<div class="s-header tc">
 					<h1>{{info?.cRPName}}</h1>
-					<p>创建时间<span>{{info?.cRPCreateDate|date:'YYYY-MM-DD'}}</span></p>
+					<p>创建时间<span>{{info?.cRPCreateDate|date:'yMMdd'}}</span></p>
 				</div>
 				<div class="s-items">
 					<div class="s-item" *ngFor="let tl of totalList">
