@@ -14,9 +14,9 @@
 					<div class="rx-condition">
 						<div class="rx-cond-label">发放日期</div>
 						<div class="th-datepicker-block re-rule-pin">
-							<div class="rd-btn" [class.active]="prizesParams.range===-1" (click)="onSetRange()">全部</div>
+							<div class="rd-btn" [class.active]="prizesParams.range===-1" (click)="onSetRange(-1)">全部</div>
 							<div class="s-input tc th-datepicker-range " (click)="onShowDate($event)">
-								<input type="text" readonly  name="name" class="inputtxt" [value]="prizesParams.startDate+'~'+prizesParams.endDate" style="width:170px" value="">
+								<input type="text" readonly  name="name" class="inputtxt" [value]="(prizesParams.startDate||'')+'~'+(prizesParams.endDate||'')" style="width:170px" value="">
 								<div class="tc th-datepicker-tip" (click)="$event.stopPropagation()" *ngIf="dateShow" >
 									<div class="th-datepicker" >
 										<datepicker [ngModel]="prizesParams.startDate" (ngModelChange)="prizesParams.startDate = moment($event)"  [showWeeks]="true"></datepicker>

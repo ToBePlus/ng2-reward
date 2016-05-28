@@ -118,8 +118,10 @@ let ShowService = class ShowService {
     showList(params) {
         let search = new http_1.URLSearchParams();
         search.set('cRPId', params.cRPId);
-        search.set('startDate', params.startDate);
-        search.set('endDate', params.endDate);
+        if (params.range !== -1) {
+            search.set('startDate', params.startDate);
+            search.set('endDate', params.endDate);
+        }
         search.set('projectId', params.projectId);
         let URL = config_1.baseUrl + '/rewardManage/show/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);

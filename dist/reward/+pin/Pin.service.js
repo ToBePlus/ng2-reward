@@ -140,8 +140,10 @@ let PinService = class PinService {
         search.set('cRPDId', params.cRPDId + '');
         search.set('sendStatus', params.sendStatus + '');
         search.set('verifyStatus', params.verifyStatus + '');
-        search.set('startDate', params.startDate);
-        search.set('endDate', params.endDate);
+        if (params.range !== -1) {
+            search.set('startDate', params.startDate);
+            search.set('endDate', params.endDate);
+        }
         search.set('projectId', params.projectId + '');
         search.set('currentPage', params.currentPage + '');
         search.set('pageSize', params.pageSize + '');
