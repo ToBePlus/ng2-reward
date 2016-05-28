@@ -164,7 +164,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
-        if (this.before(this.prizesParams.cRPValidEndDate, this.prizesParams.cRPValidStartDate)) {
+        if (this.before(this.prizesParams.endDate, this.prizesParams.startDate)) {
             this.timeError = 1;
             return false;
         }

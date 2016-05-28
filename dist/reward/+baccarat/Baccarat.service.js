@@ -12,9 +12,9 @@ const core_1 = require('@angular/core');
 const http_1 = require('@angular/http');
 const Observable_1 = require('rxjs/Observable');
 const config_1 = require('../services/config');
-const PinAddUrl = config_1.baseUrl + '/rewardManage/turntable/add';
-const PinEditUrl = config_1.baseUrl + '/rewardManage/turntable/edit';
-const PinInfoUrl = config_1.baseUrl + '/rewardManage/info/query/';
+const BaccaratAddUrl = config_1.baseUrl + '/rewardManage/turntable/add';
+const BaccaratEditUrl = config_1.baseUrl + '/rewardManage/turntable/edit';
+const BaccaratInfoUrl = config_1.baseUrl + '/rewardManage/info/query/';
 let BaccaratService = class BaccaratService {
     constructor(http) {
         this.http = http;
@@ -22,20 +22,20 @@ let BaccaratService = class BaccaratService {
     ngOnInit() {
     }
     getOne(id) {
-        return this.http.get(PinInfoUrl + id).map(res => res.json()).catch(this.handleError);
+        return this.http.get(BaccaratInfoUrl + id).map(res => res.json()).catch(this.handleError);
     }
     /**
-     * 新增和修改核验型奖励
+     * 新增和修改大转盘奖励
      * @param  {[object]} data [插入数据]
      * @return {[Observables]}      [observables 数据]
      */
     add(data) {
         let URL;
         if (data.cRPId === null || data.cRPId === undefined || isNaN(data.cRPId)) {
-            URL = PinAddUrl; //新增
+            URL = BaccaratAddUrl; //新增
         }
         else {
-            URL = PinEditUrl; //修改
+            URL = BaccaratEditUrl; //修改
         }
         //加工数据
         data.cRPNameShow = data.cRPNameShow ? 1 : 0;
@@ -44,6 +44,11 @@ let BaccaratService = class BaccaratService {
         data.cRPDescShow = data.cRPDescShow ? 1 : 0;
         data.cRPNoticeNow = data.cRPNoticeNow ? 1 : 0;
         data.cRPValidNotice = data.cRPValidNotice ? 1 : 0;
+        let items = [];
+        data.subInfo.forEach(item => {
+            items.push({ cRPDNum: item.cRPDNum, cRPDName: item.cRPDName, cRPDSubtitle: item.cRPDSubtitle, cRPBackgroundAdd: item.cRPBackgroundAdd });
+        });
+        data.subInfo = items;
         let body = JSON.stringify(data);
         let headers = new http_1.Headers({ 'Content-Type': 'application/json' });
         let options = new http_1.RequestOptions({ headers: headers });

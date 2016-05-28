@@ -3,9 +3,9 @@ import {Http, Response, URLSearchParams, Headers, RequestOptions } from '@angula
 import { Observable } from 'rxjs/Observable';
 import {baseUrl} from '../services/config';
 
-const PinAddUrl = baseUrl + '/rewardManage/turntable/add';
-const PinEditUrl = baseUrl + '/rewardManage/turntable/edit';
-const PinInfoUrl = baseUrl + '/rewardManage/info/query/';
+const BaccaratAddUrl = baseUrl + '/rewardManage/turntable/add';
+const BaccaratEditUrl = baseUrl + '/rewardManage/turntable/edit';
+const BaccaratInfoUrl = baseUrl + '/rewardManage/info/query/';
 
 @Injectable()
 export class BaccaratService {
@@ -19,20 +19,20 @@ export class BaccaratService {
     }
 
     getOne(id) {
-        return this.http.get(PinInfoUrl + id).map(res => res.json()).catch(this.handleError);
+        return this.http.get(BaccaratInfoUrl + id).map(res => res.json()).catch(this.handleError);
     }
 
     /**
-     * 新增和修改核验型奖励
+     * 新增和修改大转盘奖励
      * @param  {[object]} data [插入数据]
      * @return {[Observables]}      [observables 数据]
      */
     add(data) {
         let URL;
         if (data.cRPId === null || data.cRPId === undefined || isNaN(data.cRPId)) {
-            URL = PinAddUrl //新增
+            URL = BaccaratAddUrl //新增
         } else {
-            URL = PinEditUrl//修改
+            URL = BaccaratEditUrl//修改
         }
         //加工数据
         data.cRPNameShow = data.cRPNameShow ? 1 : 0;
@@ -41,6 +41,11 @@ export class BaccaratService {
         data.cRPDescShow = data.cRPDescShow ? 1 : 0;
         data.cRPNoticeNow = data.cRPNoticeNow ? 1 : 0;
         data.cRPValidNotice = data.cRPValidNotice ? 1 : 0;
+        let items = [];
+        data.subInfo.forEach(item=>{
+          items.push({cRPDNum:item.cRPDNum,cRPDName:item.cRPDName,cRPDSubtitle:item.cRPDSubtitle,cRPBackgroundAdd:item.cRPBackgroundAdd});
+        })
+        data.subInfo = items;
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
         let options = new RequestOptions({ headers: headers });
