@@ -71,6 +71,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             'cRPValidNoticeDay': [3],
             'cRPValidNoticeContent': ['奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
         });
+        this.cRPRateContent = this.bsForm.controls['cRPRateContent'];
     }
     ngOnInit() {
         this.baccarat = {};

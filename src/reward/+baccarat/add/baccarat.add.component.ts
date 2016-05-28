@@ -52,6 +52,7 @@ export class BaccaratAddComponent {
 
     dateShow:any;
     currentPage:any;
+    cRPRateContent:any;
 
     constructor(private bs: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -90,6 +91,7 @@ export class BaccaratAddComponent {
             'cRPValidNoticeDay': [3],
             'cRPValidNoticeContent': ['奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
         });
+        this.cRPRateContent = this.bsForm.controls['cRPRateContent'];
 
     }
 

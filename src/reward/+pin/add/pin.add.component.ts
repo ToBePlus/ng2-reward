@@ -59,6 +59,7 @@ export class PinAddComponent {
 
     dateShow: any = 0;
     additionalNumError: any = 0;
+    cRPRateContent: any = 0;
 
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -93,6 +94,7 @@ export class PinAddComponent {
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
+        this.cRPRateContent = this.psForm.controls['cRPRateContent'];
         this.pinProgram = new PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
     }
 

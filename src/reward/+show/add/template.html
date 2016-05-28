@@ -126,8 +126,11 @@
 						</div>
 						<div class="re-rule-cbks">
 							<input class="re-ckb re-ckb-radio" type="radio" name="cRPRate" [checked]="program.cRPRate===2"  (click)="program.cRPRate=2" id="rule-type-2"> <label for="rule-type-2">自定义比例</label>
-							<input class="inputtxt input-71" name="cRPRateContent" pattern="^((\d|[123456789]\d)(\.\d+)?|100)$" [ngFormControl]="psForm.controls['cRPRateContent']" [(ngModel)]="program.cRPRateContent" type="text">%
+							<input class="inputtxt input-71" [disabled]="program.cRPRate===1" name="cRPRateContent" pattern="^(([1-9][0-9]{0,1}(\.\d+)?)|100)$" [ngFormControl]="psForm.controls['cRPRateContent']" [(ngModel)]="program.cRPRateContent" type="text">%
 							<span>输入1～100的数字</span>
+						</div>
+						<div class="text-danger" *ngIf="cRPRateContent.hasError('pattern')">
+							输入1~100的数字,实际输入超出范围的数字,或者字母
 						</div>
 					</div>
 				</div>

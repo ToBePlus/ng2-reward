@@ -52,6 +52,7 @@ export class ShowAddComponent {
 
     totalRewards: any;
     additionalNumControl: any;
+    cRPRateContent: any;
 
     dateShow: any = 0;
 
@@ -81,6 +82,7 @@ export class ShowAddComponent {
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
+        this.cRPRateContent = this.psForm.controls['cRPRateContent'];
 
         //初始化数据
         this.basicResp = {};

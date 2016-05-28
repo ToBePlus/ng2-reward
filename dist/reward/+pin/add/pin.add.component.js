@@ -38,6 +38,7 @@ let PinAddComponent = class PinAddComponent {
         this.fileProgress = 0;
         this.dateShow = 0;
         this.additionalNumError = 0;
+        this.cRPRateContent = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.psForm = fb.group({
@@ -70,6 +71,7 @@ let PinAddComponent = class PinAddComponent {
         });
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
+        this.cRPRateContent = this.psForm.controls['cRPRateContent'];
         this.pinProgram = new Pin_service_1.PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, moment().format('YYYY-MM-DD') + '-' + moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
     }
     onShowDate(event) {
