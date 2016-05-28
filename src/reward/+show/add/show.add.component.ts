@@ -104,6 +104,10 @@ export class ShowAddComponent {
         return moment(date).format('YYYY-MM-DD');
     }
 
+    momentDate(date):Date {
+        return moment(date).toDate();
+    }
+
     ngOnInit() {
         this.getProgram();
     }
@@ -138,7 +142,7 @@ export class ShowAddComponent {
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
 
     }
-
+    addTotaError:any=0;
     onAddTotal() {
         if (this.loading) {
             return false;
@@ -149,6 +153,12 @@ export class ShowAddComponent {
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
         data.additionalNum = isNaN(+this.additionalNum)?0:+this.additionalNum;
+        if(data.additionalNum==0){
+          this.addTotaError = 1;
+          return false;
+        }else{
+          this.addTotaError = 0;
+        }
         this.ss.addTotal(data).subscribe(data => {
           this.loading = 0;
           if (data.error.state !== 0) {
@@ -171,10 +181,21 @@ export class ShowAddComponent {
         }
     }
 
+    before(start,end){
+        return moment(start).isBefore(end);
+    }
+    timeError:any;
+
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
+        }
+        if(this.before(this.program.cRPValidEndDate,this.program.cRPValidStartDate)){
+          this.timeError = 1;
+          return false;
+        }else{
+          this.timeError = 0;
         }
         if (this.loading) {
             return false;

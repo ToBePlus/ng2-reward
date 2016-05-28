@@ -33,6 +33,7 @@ let ShowAddComponent = class ShowAddComponent {
         };
         this.basicProgress = 0;
         this.dateShow = 0;
+        this.addTotaError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
@@ -76,6 +77,9 @@ let ShowAddComponent = class ShowAddComponent {
             return '';
         return moment(date).format('YYYY-MM-DD');
     }
+    momentDate(date) {
+        return moment(date).toDate();
+    }
     ngOnInit() {
         this.getProgram();
     }
@@ -115,6 +119,13 @@ let ShowAddComponent = class ShowAddComponent {
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
         data.additionalNum = isNaN(+this.additionalNum) ? 0 : +this.additionalNum;
+        if (data.additionalNum == 0) {
+            this.addTotaError = 1;
+            return false;
+        }
+        else {
+            this.addTotaError = 0;
+        }
         this.ss.addTotal(data).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {
@@ -136,10 +147,20 @@ let ShowAddComponent = class ShowAddComponent {
             this.onAddTotal();
         }
     }
+    before(start, end) {
+        return moment(start).isBefore(end);
+    }
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
+        }
+        if (this.before(this.program.cRPValidEndDate, this.program.cRPValidStartDate)) {
+            this.timeError = 1;
+            return false;
+        }
+        else {
+            this.timeError = 0;
         }
         if (this.loading) {
             return false;

@@ -107,6 +107,10 @@ export class PinAddComponent {
         return moment(date).format('YYYY-MM-DD');
     }
 
+    momentDate(date):Date {
+        return moment(date).toDate();
+    }
+
     ngOnInit() {
         this.getPinProgram();
     }
@@ -164,7 +168,13 @@ export class PinAddComponent {
         data.cRPId = this.pinProgram.cRPId;
         data.cRPDId = this.pinProgram.cRPId;
         data.fileName = this.pinProgram.fileName;
-        data.additionalNum = +this.additionalNum;
+        data.additionalNum = isNaN(+this.additionalNum)?0:+this.additionalNum;
+        if(data.additionalNum==0){
+          this.addTotaError = 1;
+          return false;
+        }else{
+          this.addTotaError = 0;
+        }
         this.ps.addTotal(data).subscribe(data => {
           alert('新增成功');
           this.pinProgram.totalRewards += +this.additionalNum;
@@ -181,10 +191,21 @@ export class PinAddComponent {
         }
     }
 
+    before(start,end){
+        return moment(start).isBefore(end);
+    }
+    timeError:any;
+
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
+        }
+        if(this.before(this.baccarat.cRPValidEndDate,this.baccarat.cRPValidStartDate)){
+          this.timeError = 1;
+          return false;
+        }else{
+          this.timeError = 0;
         }
         if(this.loading){
           return false;

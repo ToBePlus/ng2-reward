@@ -134,6 +134,10 @@ export class BaccaratAddComponent {
         return moment(date).format('YYYY-MM-DD');
     }
 
+    momentDate(date):Date {
+        return moment(date).toDate();
+    }
+
     onSetRange(range) {
         this.baccarat.range = range;
         if (range < 91) {
@@ -191,10 +195,21 @@ export class BaccaratAddComponent {
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
     }
 
+    before(start,end){
+        return moment(start).isBefore(end);
+    }
+    timeError:any;
+
     onSubmit() {
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
+        }
+        if(this.before(this.baccarat.cRPValidEndDate,this.baccarat.cRPValidStartDate)){
+          this.timeError = 1;
+          return false;
+        }else{
+          this.timeError = 0;
         }
         if (this.loading) {
             return false;
@@ -211,13 +226,19 @@ export class BaccaratAddComponent {
         },
             error => { this.errorMessage = <any>error; alert(error); this.loading = 0; });
     }
-
+    addTotaError:any=0;
     onAddTotal(subinfo) {
         let data:any = {};
         data.cRPId = this.baccarat.cRPId;
         data.cRPDId = subinfo.cRPDId;
         data.fileName = this.baccarat.fileName;
-        data.additionalNum = +subinfo.additionalNum;
+        data.additionalNum = isNaN(+subinfo.additionalNum)?0:+subinfo.additionalNum;
+        if(data.additionalNum==0){
+          subinfo.addTotaError = 1;
+          return false;
+        }else{
+          subinfo.addTotaError = 0;
+        }
         this.bs.addTotal(data).subscribe(data => {
           if (data.error.state !== 0) {
               alert(data.error.msg);

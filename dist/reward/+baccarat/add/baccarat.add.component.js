@@ -35,6 +35,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             url: FILE_URL
         };
         this.fileProgress = 0;
+        this.addTotaError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.subForm = fb.group({
@@ -107,6 +108,9 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             return '';
         return moment(date).format('YYYY-MM-DD');
     }
+    momentDate(date) {
+        return moment(date).toDate();
+    }
     onSetRange(range) {
         this.baccarat.range = range;
         if (range < 91) {
@@ -160,10 +164,20 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
     }
+    before(start, end) {
+        return moment(start).isBefore(end);
+    }
     onSubmit() {
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
+        }
+        if (this.before(this.baccarat.cRPValidEndDate, this.baccarat.cRPValidStartDate)) {
+            this.timeError = 1;
+            return false;
+        }
+        else {
+            this.timeError = 0;
         }
         if (this.loading) {
             return false;
@@ -184,7 +198,14 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         data.cRPId = this.baccarat.cRPId;
         data.cRPDId = subinfo.cRPDId;
         data.fileName = this.baccarat.fileName;
-        data.additionalNum = +subinfo.additionalNum;
+        data.additionalNum = isNaN(+subinfo.additionalNum) ? 0 : +subinfo.additionalNum;
+        if (data.additionalNum == 0) {
+            subinfo.addTotaError = 1;
+            return false;
+        }
+        else {
+            subinfo.addTotaError = 0;
+        }
         this.bs.addTotal(data).subscribe(data => {
             if (data.error.state !== 0) {
                 alert(data.error.msg);

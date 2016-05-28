@@ -92,6 +92,7 @@
 									</div>
 								</div>
 							</div>
+							<div *ngIf="timeError" style="height: 30px;line-height: 30px;" class="text-danger">结束时间大于开始时间</div>
 					</div>
 					</div>
 					<div class="re-form-field">
@@ -101,8 +102,8 @@
 						<div class="re-convert-ops re-convert-lib">
 							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="^([1-9][0-9]{0,5}|1000000)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="program.cRPId">
-								<input type="text" (keyup)="!additionalNumControl.hasError('required')&&!additionalNumControl.hasError('pattern')&&onEnterAddTotal($event)" [(ngModel)]="additionalNum" pattern="^([1-9][0-9]{0,5}|1000000)$" required [ngFormControl]="psForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
-								<button class="add-btn" (click)="onAddTotal()" [disabled]="additionalNumControl.hasError('required')||additionalNumControl.hasError('pattern')"></button>
+								<input type="text" (keyup)="!additionalNumControl.hasError('required')&&!additionalNumControl.hasError('pattern')&&onEnterAddTotal($event)" [(ngModel)]="additionalNum" pattern="^([1-9][0-9]{0,5}|1000000)$" [ngFormControl]="psForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
+								<button class="add-btn" (click)="onAddTotal()" [disabled]="additionalNumControl.hasError('pattern')"></button>
 							</div>
 							<!-- <a href="" class="re-date-tip">+添加到期提醒</a> -->
 							<!-- <div class="zs-b-des">
@@ -113,10 +114,13 @@
 							</div> -->
 						</div>
 						<div class="text-danger" *ngIf="totalRewards.hasError('pattern')">
-							输入1~100,000的数字,实际输入超出范围的数字,或者字母
+							输入不符合规则,请输入1~100,000的整数
 						</div>
 						<div class="text-danger" *ngIf="additionalNumControl.hasError('pattern')">
-							输入1~100,000的数字,实际输入超出范围的数字,或者字母
+							输入不符合规则,请输入1~100,000的整数
+						</div>
+						<div class="text-danger" *ngIf="addTotaError">
+							输入不符合规则,请输入1~100,000的整数
 						</div>
 					</div>
 					<div class="re-form-field" >

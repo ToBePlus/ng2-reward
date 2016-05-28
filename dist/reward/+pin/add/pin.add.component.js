@@ -39,6 +39,7 @@ let PinAddComponent = class PinAddComponent {
         this.dateShow = 0;
         this.additionalNumError = 0;
         this.cRPRateContent = 0;
+        this.timeError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.psForm = fb.group({
@@ -86,6 +87,9 @@ let PinAddComponent = class PinAddComponent {
         if (date == null)
             return '';
         return moment(date).format('YYYY-MM-DD');
+    }
+    momentDate(date) {
+        return moment(date).toDate();
     }
     ngOnInit() {
         this.getPinProgram();
@@ -179,10 +183,20 @@ let PinAddComponent = class PinAddComponent {
         this.additionalNumError = 0;
         return false;
     }
+    before(start, end) {
+        return moment(start).isBefore(end);
+    }
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
+        }
+        if (this.before(this.pinProgram.cRPValidEndDate, this.pinProgram.cRPValidStartDate)) {
+            this.timeError = 1;
+            return false;
+        }
+        else {
+            this.timeError = 0;
         }
         if (this.loading) {
             return false;

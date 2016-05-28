@@ -87,9 +87,13 @@ export class ShowDetailComponent {
         this.currentPage = pageNo;
     };
 
-    moment(date) {
+    moment(date,format = 'YYYY-MM-DD') {
         if (date == null) return '';
-        return moment(date).format('YYYY-MM-DD');
+        return moment(date).format(format);
+    }
+
+    momentDate(date):Date {
+        return moment(date).toDate();
     }
 
     onSetRange(range) {
@@ -193,9 +197,19 @@ export class ShowDetailComponent {
         }, error => this.handleError);
     }
 
+    before(start,end){
+        return moment(start).isBefore(end);
+    }
+    timeError:any;
     search() {
         if (this.prizesParams.projectId === undefined) {
             return;
+        }
+        if(this.before(this.prizesParams.cRPValidEndDate,this.prizesParams.cRPValidStartDate)){
+          this.timeError = 1;
+          return false;
+        }else{
+          this.timeError = 0;
         }
         if (this.loading) {
             return false;

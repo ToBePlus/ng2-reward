@@ -60,6 +60,7 @@ export class PinAddComponent {
     dateShow: any = 0;
     additionalNumError: any = 0;
     cRPRateContent: any = 0;
+    timeError: any = 0;
 
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -111,6 +112,10 @@ export class PinAddComponent {
     moment(date) {
         if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
+    }
+
+    momentDate(date):Date {
+        return moment(date).toDate();
     }
 
     ngOnInit() {
@@ -213,15 +218,26 @@ export class PinAddComponent {
         return false;
     }
 
+    before(start,end){
+        return moment(start).isBefore(end);
+    }
+
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
         }
+        if(this.before(this.pinProgram.cRPValidEndDate,this.pinProgram.cRPValidStartDate)){
+          this.timeError = 1;
+          return false;
+        }else{
+          this.timeError = 0;
+        }
         if (this.loading) {
             return false;
         }
         this.loading = 1;
+
         this.ps.add(this.pinProgram).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {

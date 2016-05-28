@@ -25,6 +25,7 @@
 										<datepicker [ngModel]="prizesParams.endDate" (ngModelChange)="prizesParams.endDate = moment($event)" [showWeeks]="true"></datepicker>
 									</div>
 								</div>
+								<div *ngIf="timeError" style="height: 30px;line-height: 30px;" class="text-danger">结束时间大于开始时间</div>
 							</div>
 							<div class="rd-btn" [class.active]="prizesParams.range=='7'" (click)="onSetRange('7')">本周</div>
 							<div class="rd-btn" [class.active]="prizesParams.range=='30'" (click)="onSetRange('30')">本月</div>
@@ -72,7 +73,7 @@
 						<tbody *ngIf="showList">
 							<tr *ngFor="let psl of showList;let i = index;">
 								<td>{{i+1}}</td>
-								<td>{{psl.cRSendTime|date:'yyyy/MM/dd'}}</td>
+								<td>{{moment(psl.cRSendTime,'YYYY-MM-DD HH:mm')}}</td>
 								<td>{{psl.groupName}}{{psl.cREntityName}}</td>
 								<td>{{psl.cRMobile}}</td>
 							</tr>
@@ -110,7 +111,7 @@
               新增失败!
             </div>
 						<div class="alert alert-danger add-total-tip" *ngIf="tl.additionalNumError">
-							输入1~100,000的数字,实际输入超出范围的数字,或者字母
+							输入不符合规则,请输入1~100,000的整数
 						</div>
 						<div>
 							<span>已发放总量</span>

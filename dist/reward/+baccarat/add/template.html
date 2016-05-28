@@ -31,10 +31,13 @@
 								<a class="del-btn" (click)="onDeleteSubInfo(i)" *ngIf="i>2"></a>
 							</div>
 							<div class="text-danger" *ngIf="subinfo.cRPDNumError">
-								输入1~100,000的数字,实际输入超出范围的数字,或者字母
+								输入不符合规则,请输入1~100,000的整数
 							</div>
 							<div class="text-danger" *ngIf="subinfo.additionalNumError">
-								输入1~100,000的数字,实际输入超出范围的数字,或者字母
+								输入不符合规则,请输入1~100,000的整数
+							</div>
+							<div class="text-danger" *ngIf="subinfo.addTotaError">
+								输入不符合规则,请输入1~100,000的整数
 							</div>
 							<div class="advance " *ngIf="subinfo.advanceSetShow">
 								<div class="re-subtit">
@@ -98,6 +101,7 @@
                     </div>
                   </div>
                 </div>
+								<div *ngIf="timeError" style="height: 30px;line-height: 30px;" class="text-danger">结束时间大于开始时间</div>
 						</div>
 					</div>
 					<div class="re-form-field">
