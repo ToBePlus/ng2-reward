@@ -201,6 +201,7 @@ export class BaccaratAddComponent {
     timeError:any;
 
     onSubmit() {
+        let error:number =0;
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
@@ -210,6 +211,16 @@ export class BaccaratAddComponent {
           return false;
         }else{
           this.timeError = 0;
+        }
+        this.baccarat.subInfo.forEach(item=>{
+          this.checkNum(item.cRPDNum,item);
+          if(item.numberError){
+            error+=1;
+            return false;
+          }
+        })
+        if(error){
+          return false;
         }
         if (this.loading) {
             return false;
@@ -275,6 +286,14 @@ export class BaccaratAddComponent {
       let total:number = 0;
       this.baccarat.subInfo.forEach(item=>total += item.cRPDNum);
       return total||0;
+    }
+
+    checkNum(data,target){
+      if(/^([1-9][0-9]{0,5}|1000000)$/.test(data)){
+        target.numberError = 0;
+      }else{
+        target.numberError = 1;
+      }
     }
 
     private handleError(error: any) {

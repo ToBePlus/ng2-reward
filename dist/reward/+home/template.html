@@ -34,9 +34,9 @@
 				<div>
 					<h1><i class="coupons-ico-pin"></i>核验型优惠券</h1>
 					<div>
-						<div class="rd-coupon" [class.coupon-bar-run]="tl.cRPStatus===1" *ngFor="let tl of typelist|groupType:2; let idx = index;trackBy:trackByTypelist">
+						<div class="rd-coupon"  *ngFor="let tl of typelist|groupType:2; let idx = index;trackBy:trackByTypelist">
 							<a [routerLink]="['/pin/detail',{id:tl.cRPId,state:tl.cRPStatus}]">
-								<div class="coupon-bar" [class.rd-coupon-over]="tl.cRPStatus===3"></div>
+								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1" [class.rd-coupon-over]="tl.cRPStatus==3"></div>
 								<div class="coupon-name" [ngStyle]="{'background':getImg(tl)}">{{tl.cRPName}}</div>
 								<div class="coupon-status" [ngSwitch]="tl.cRPStatus">
 										<span class="coupon-status-pause" *ngSwitchWhen="2">暂停中</span>
@@ -54,9 +54,9 @@
 				<div>
 					<h1><i class="coupons-ico-baccarat"></i>大转盘</h1>
 					<div>
-						<div class="rd-coupon" [class.coupon-bar-run]="tl.cRPStatus===1" *ngFor="let tl of typelist|groupType:3; let idx = index;trackBy:trackByTypelist">
+						<div class="rd-coupon" *ngFor="let tl of typelist|groupType:3; let idx = index;trackBy:trackByTypelist">
 							<a [routerLink]="[tl.cRPExchangeType==1?'/show/detail':'/pin/detail',{id:tl.cRPId,state:tl.cRPStatus}]">
-								<div class="coupon-bar" [class.rd-coupon-over]="tl.cRPStatus===3"></div>
+								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1"[class.rd-coupon-over]="tl.cRPStatus==3"></div>
 								<div class="coupon-name" [ngStyle]="{'background':getImg(tl)}">{{tl.cRPName}}</div>
 								<div class="coupon-status" [ngSwitch]="tl.cRPStatus">
 										<span class="coupon-status-pause" *ngSwitchWhen="2">暂停中</span>

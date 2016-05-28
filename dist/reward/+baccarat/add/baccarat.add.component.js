@@ -168,6 +168,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         return moment(start).isBefore(end);
     }
     onSubmit() {
+        let error = 0;
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
@@ -178,6 +179,16 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         }
         else {
             this.timeError = 0;
+        }
+        this.baccarat.subInfo.forEach(item => {
+            this.checkNum(item.cRPDNum, item);
+            if (item.numberError) {
+                error += 1;
+                return false;
+            }
+        });
+        if (error) {
+            return false;
         }
         if (this.loading) {
             return false;
@@ -239,6 +250,14 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         let total = 0;
         this.baccarat.subInfo.forEach(item => total += item.cRPDNum);
         return total || 0;
+    }
+    checkNum(data, target) {
+        if (/^([1-9][0-9]{0,5}|1000000)$/.test(data)) {
+            target.numberError = 0;
+        }
+        else {
+            target.numberError = 1;
+        }
     }
     handleError(error) {
         // In a real world app, we might use a remote logging infrastructure
