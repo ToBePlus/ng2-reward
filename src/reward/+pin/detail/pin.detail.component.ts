@@ -113,8 +113,8 @@ export class PinDetailComponent {
         search.set('cRPDId', this.prizesParams.cRPDId);
         search.set('sendStatus', this.prizesParams.sendStatus);
         search.set('verifyStatus', this.prizesParams.verifyStatus);
-        search.set('startDate', this.prizesParams.startDate);
-        search.set('endDate', this.prizesParams.endDate);
+        search.set('startDate', this.prizesParams.startDate||'');
+        search.set('endDate', this.prizesParams.endDate||'');
         search.set('projectId', this.prizesParams.projectId);
         return downLoadBase + '?' + search;
     }

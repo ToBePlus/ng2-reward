@@ -225,7 +225,7 @@ export class PinAddComponent {
     before(start,end){
         return moment(start).isBefore(end);
     }
-
+    totalRewardsError:number = 0;
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
@@ -236,6 +236,12 @@ export class PinAddComponent {
           return false;
         }else{
           this.timeError = 0;
+        }
+        if(this.pinProgram.cRPGenerateType==1&&this.pinProgram.totalRewards==null){
+          this.totalRewardsError = 1;
+          return false
+        }else{
+          this.totalRewardsError = 0;
         }
         if (this.loading) {
             return false;

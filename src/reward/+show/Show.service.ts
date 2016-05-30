@@ -105,9 +105,11 @@ export class ShowService {
       let search = new URLSearchParams();
       search.set('cRPId', params.cRPId);
       search.set('range', params.range);
-      if(params.range!='-1'){
-        search.set('startDate', params.startDate);
-        search.set('endDate', params.endDate);
+      search.set('startDate', params.startDate);
+      search.set('endDate', params.endDate);
+      if(params.range=='-1'){
+        search.set('startDate', '');
+        search.set('endDate', '');
       }
       search.set('projectId', params.projectId);
       let URL = baseUrl+'/rewardManage/show/list';

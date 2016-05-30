@@ -17,7 +17,7 @@ export class PinProgram {
 }
 
 export class PinParams {
-    constructor(public cRPId?: number, public startDate?: string, public endDate?: string, public projectId?: number, public currentPage?: number, public pageSize?: number,public status?:number) {
+    constructor(public cRPId?: number, public startDate?: string, public endDate?: string, public projectId?: number, public currentPage?: number, public pageSize?: number, public status?: number) {
 
     }
 }
@@ -73,7 +73,7 @@ export class PinService {
      * @return {[Observables]}  [observables 数据]
      */
     delete(id) {
-        let URL = baseUrl+'/rewardManage/status/edit';
+        let URL = baseUrl + '/rewardManage/status/edit';
         let data = { cRPId: id, cRPStatus: 0 };//0删除,1发放中,2暂停中
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -87,7 +87,7 @@ export class PinService {
      * @return {[type]}       [observables 数据]
      */
     putState(id, state) {
-        let URL = baseUrl+'/rewardManage/status/edit';
+        let URL = baseUrl + '/rewardManage/status/edit';
         let data = { cRPId: id, cRPStatus: state };//0删除,1发放中,2暂停中
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -103,7 +103,7 @@ export class PinService {
         let search = new URLSearchParams();
         search.set('cRPId', params.cRPId);
         search.set('queryType', params.queryType);
-        let URL = baseUrl+'/rewardManage/projects/list';
+        let URL = baseUrl + '/rewardManage/projects/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -113,19 +113,21 @@ export class PinService {
      */
     pinList(params) {
         let search = new URLSearchParams();
-        search.set('cRPId', params.cRPId+'');
-        search.set('cRPDId', params.cRPDId+'');
-        if(params.range!='-1'){
-          search.set('startDate', params.startDate);
-          search.set('endDate', params.endDate);
+        search.set('cRPId', params.cRPId + '');
+        search.set('cRPDId', params.cRPDId + '');
+        search.set('startDate', params.startDate);
+        search.set('endDate', params.endDate);
+        if (params.range == '-1') {
+            search.set('startDate', '');
+            search.set('endDate', '');
         }
-        search.set('range', params.range+'');
-        search.set('sendStatus', params.sendStatus+'');
-        search.set('verifyStatus', params.verifyStatus+'');
-        search.set('projectId', params.projectId+'');
-        search.set('currentPage', params.currentPage+'');
-        search.set('pageSize', params.pageSize+'');
-        let URL = baseUrl+'/rewardManage/check/list';
+        search.set('range', params.range + '');
+        search.set('sendStatus', params.sendStatus + '');
+        search.set('verifyStatus', params.verifyStatus + '');
+        search.set('projectId', params.projectId + '');
+        search.set('currentPage', params.currentPage + '');
+        search.set('pageSize', params.pageSize + '');
+        let URL = baseUrl + '/rewardManage/check/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -134,7 +136,7 @@ export class PinService {
      * @return {[Observables]}   [observables 数据]
      */
     totalList(id) {
-        let URL = baseUrl+'/rewardManage/check/total/' + id;
+        let URL = baseUrl + '/rewardManage/check/total/' + id;
         return this.http.get(URL).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -142,12 +144,12 @@ export class PinService {
      * @param  {[type]} data [description]
      * @return {[type]}      [description]
      */
-    addTotal(data){
-      let URL = baseUrl+'/rewardManage/nums/append';
-      let body = JSON.stringify(data);
-      let headers = new Headers({ 'Content-Type': 'application/json' });
-      let options = new RequestOptions({ headers: headers });
-      return this.http.post(URL, body, options).map(res => res.json()).catch(this.handleError);
+    addTotal(data) {
+        let URL = baseUrl + '/rewardManage/nums/append';
+        let body = JSON.stringify(data);
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+        return this.http.post(URL, body, options).map(res => res.json()).catch(this.handleError);
     }
 
     private handleError(error: any) {

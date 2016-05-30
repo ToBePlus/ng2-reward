@@ -153,7 +153,7 @@
 						</div>
 						<div class="re-tip">请下载模板文件，按照要求上传导入码库</div>
 					</div>
-					<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&pinProgram.cRPGenerateType === 2">
+					<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&pinProgram.cRPGenerateType === 2&&pinProgram.cRPCodeType === 1">
 						<div class="clearfix">
 							<span>已上传</span>
 							<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
@@ -162,7 +162,7 @@
 						</div>
 						<div class="re-tip">成功导入 {{uploadFileXls?.data?.num}}个核验码</div>
 					</div>
-					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&pinProgram.cRPGenerateType === 2">
+					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&pinProgram.cRPGenerateType === 2&&pinProgram.cRPCodeType === 1">
 						<div class="clearfix">
 							<span>{{uploadFileXls?.error.msg}}</span>
 							<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">重新上传</span>
@@ -175,7 +175,7 @@
 							<span class="text-danger">*</span>库存：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt" [disabled]="pinProgram.cRPId" type="text" pattern="^([1-9][0-9]{0,5}|1000000)$"  required [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt" [disabled]="pinProgram.cRPId" type="text" pattern="^([1-9][0-9]{0,5}|1000000)$"  [(ngModel)]="pinProgram.totalRewards" [ngFormControl]="psForm.controls['totalRewards']" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="pinProgram.cRPId">
 								<input type="text" (keyup)="onEnterAddTotal($event)" [(ngModel)]="additionalNum" placeholder="输入1~100,000的数字">
 								<button type="button" class="add-btn" (click)="onAddTotal()" ></button>
@@ -192,6 +192,9 @@
 							输入不符合规则,请输入1~100,000的整数
 						</div>
 						<div class="text-danger" *ngIf="addTotaError">
+							输入不符合规则,请输入1~100,000的整数
+						</div>
+						<div class="text-danger" *ngIf="totalRewardsError">
 							输入不符合规则,请输入1~100,000的整数
 						</div>
 					</div>

@@ -31,7 +31,7 @@ export class AccountListComponent{
 
   constructor(private as: AccountService, private router: Router) {
     this.params = {};
-    this.params.currentPage = 0;
+    this.params.currentPage = 1;
     this.params.pageSize = 10;
   }
 
@@ -46,6 +46,8 @@ export class AccountListComponent{
   }
 
   getList(){
+    this.params.currentPage = this.currentPage;
+    this.params.pageSize = this.pageSize;
     this.as.list(this.params).subscribe(data=>this.setList(data),error=>this.errorMessage)
   }
 
@@ -65,9 +67,12 @@ export class AccountListComponent{
         alert(data.error.msg);
         return;
     }
-    this.params = data.params;
+    // this.params = data.params;
     this.list=data.data.list;
     this.page=data.data.page;
+    this.currentPage = +data.data.page.currentPage;
+    this.pageSize = +data.data.page.pageSize;
+    this.pageCount = +data.data.page.pageCount;
   }
 
   toHome(){

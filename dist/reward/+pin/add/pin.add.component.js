@@ -40,6 +40,7 @@ let PinAddComponent = class PinAddComponent {
         this.additionalNumError = 0;
         this.cRPRateContent = 0;
         this.timeError = 0;
+        this.totalRewardsError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
         this.psForm = fb.group({
@@ -203,6 +204,13 @@ let PinAddComponent = class PinAddComponent {
         else {
             this.timeError = 0;
         }
+        if (this.pinProgram.cRPGenerateType == 1 && this.pinProgram.totalRewards == null) {
+            this.totalRewardsError = 1;
+            return false;
+        }
+        else {
+            this.totalRewardsError = 0;
+        }
         if (this.loading) {
             return false;
         }
@@ -245,4 +253,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+pin/add/pin.add.component.js.map

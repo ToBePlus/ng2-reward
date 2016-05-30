@@ -86,10 +86,11 @@ let AccountService = class AccountService {
      * @param  {[object]} params [分页currentPage,pageSize]
      * @return {[Observables]}   [observables 数据]
      */
-    list(params) {
+    list(data) {
         let search = new http_1.URLSearchParams();
-        search.set('currentPage', params.currentPage + '');
-        search.set('pageSize', params.pageSize + '');
+        search.set('currentPage', data.currentPage);
+        search.set('pageSize', data.pageSize);
+        console.log(search);
         return this.http.get(searchUrl, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -113,4 +114,4 @@ AccountService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], AccountService);
 exports.AccountService = AccountService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+account/Account.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+account/Account.service.js.map

@@ -88,8 +88,8 @@ let PinDetailComponent = class PinDetailComponent {
         search.set('cRPDId', this.prizesParams.cRPDId);
         search.set('sendStatus', this.prizesParams.sendStatus);
         search.set('verifyStatus', this.prizesParams.verifyStatus);
-        search.set('startDate', this.prizesParams.startDate);
-        search.set('endDate', this.prizesParams.endDate);
+        search.set('startDate', this.prizesParams.startDate || '');
+        search.set('endDate', this.prizesParams.endDate || '');
         search.set('projectId', this.prizesParams.projectId);
         return downLoadBase + '?' + search;
     }
@@ -268,4 +268,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map

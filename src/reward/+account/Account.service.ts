@@ -81,10 +81,11 @@ export class AccountService {
      * @param  {[object]} params [分页currentPage,pageSize]
      * @return {[Observables]}   [observables 数据]
      */
-    list(params) {
+    list(data) {
         let search = new URLSearchParams();
-        search.set('currentPage', params.currentPage + '');
-        search.set('pageSize', params.pageSize + '');
+        search.set('currentPage', data.currentPage);
+        search.set('pageSize', data.pageSize);
+        console.log(search);
         return this.http.get(searchUrl, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**

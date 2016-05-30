@@ -180,11 +180,19 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.ss.showList(this.prizesParams).subscribe(data => {
             this.loading = 0;
             if (this.errorAlert(data)) {
-                this.showList = data.data.list;
-                this.page = data.data.page;
-                this.currentPage = +this.page.currentPage;
-                this.pageSize = +this.page.pageSize;
-                this.pageCount = +this.page.pageCount;
+                if (data.data != null) {
+                    this.showList = data.data.list;
+                    this.page = data.data.page;
+                    this.currentPage = +this.page.currentPage;
+                    this.pageSize = +this.page.pageSize;
+                    this.pageCount = +this.page.pageCount;
+                }
+                else {
+                    this.showList = [];
+                    this.currentPage = 1;
+                    this.pageSize = 10;
+                    this.pageCount = 0;
+                }
             }
         }, error => this.handleError);
     }
@@ -275,4 +283,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+show/detail/show.detail.component.js.map

@@ -142,4 +142,4 @@ BaccaratService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], BaccaratService);
 exports.BaccaratService = BaccaratService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+baccarat/Baccarat.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+baccarat/Baccarat.service.js.map

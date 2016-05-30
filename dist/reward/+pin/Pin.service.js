@@ -140,9 +140,11 @@ let PinService = class PinService {
         let search = new http_1.URLSearchParams();
         search.set('cRPId', params.cRPId + '');
         search.set('cRPDId', params.cRPDId + '');
-        if (params.range != '-1') {
-            search.set('startDate', params.startDate);
-            search.set('endDate', params.endDate);
+        search.set('startDate', params.startDate);
+        search.set('endDate', params.endDate);
+        if (params.range == '-1') {
+            search.set('startDate', '');
+            search.set('endDate', '');
         }
         search.set('range', params.range + '');
         search.set('sendStatus', params.sendStatus + '');
@@ -186,4 +188,4 @@ PinService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], PinService);
 exports.PinService = PinService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+pin/Pin.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+pin/Pin.service.js.map

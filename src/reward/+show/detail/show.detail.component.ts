@@ -220,11 +220,18 @@ export class ShowDetailComponent {
         this.ss.showList(this.prizesParams).subscribe(data => {
             this.loading = 0;
             if (this.errorAlert(data)) {
+              if(data.data!=null){
                 this.showList = data.data.list;
                 this.page = data.data.page;
                 this.currentPage = +this.page.currentPage;
                 this.pageSize = +this.page.pageSize;
                 this.pageCount = +this.page.pageCount;
+              }else{
+                this.showList = [];
+                this.currentPage = 1;
+                this.pageSize = 10;
+                this.pageCount = 0;
+              }
             }
         }, error => this.handleError);
     }

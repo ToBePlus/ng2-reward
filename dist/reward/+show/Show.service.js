@@ -119,9 +119,11 @@ let ShowService = class ShowService {
         let search = new http_1.URLSearchParams();
         search.set('cRPId', params.cRPId);
         search.set('range', params.range);
-        if (params.range != '-1') {
-            search.set('startDate', params.startDate);
-            search.set('endDate', params.endDate);
+        search.set('startDate', params.startDate);
+        search.set('endDate', params.endDate);
+        if (params.range == '-1') {
+            search.set('startDate', '');
+            search.set('endDate', '');
         }
         search.set('projectId', params.projectId);
         let URL = config_1.baseUrl + '/rewardManage/show/list';
@@ -160,4 +162,4 @@ ShowService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], ShowService);
 exports.ShowService = ShowService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-tYsXlf88.tmp/0/src/reward/+show/Show.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+show/Show.service.js.map
