@@ -86,7 +86,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.baccarat.cRPNoticeNowContent = '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}';
         this.baccarat.cRPValidNoticeContent = '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。';
         this.baccarat.cRPValidStartDate = moment().format('YYYY-MM-DD');
-        this.baccarat.cRPValidEndDate = moment().add(7, 'days').format('YYYY-MM-DD');
+        this.baccarat.cRPValidEndDate = moment().format('YYYY-MM-DD');
         this.baccarat.range = -1;
         this.baccarat.subInfo = [{}, {}, {}];
         this.getPinProgram();
