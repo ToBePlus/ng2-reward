@@ -58,7 +58,7 @@ export class PinDetailComponent {
         this.projectsParams.queryType = 1;
         this.prizesParams = {};
         this.prizesParams.cRPId = this.id;
-        this.prizesParams.cRPDId = '';
+        this.prizesParams.cRPDId = 0;
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
@@ -110,7 +110,7 @@ export class PinDetailComponent {
         let status = '0';
 
         search.set('cRPId', this.prizesParams.cRPId);
-        search.set('cRPDId', this.prizesParams.cRPId);
+        search.set('cRPDId', this.prizesParams.cRPDId);
         search.set('sendStatus', this.prizesParams.sendStatus);
         search.set('verifyStatus', this.prizesParams.verifyStatus);
         search.set('startDate', this.prizesParams.startDate);

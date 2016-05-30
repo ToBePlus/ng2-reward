@@ -1,10 +1,11 @@
 <div class="reward-detail reward-detail-pin">
 	<div class="zs-bar tc">
-		<a (click)="goBack()" class="zs-back"></a>
+		<a [routerLink]="['/']" class="zs-back"></a>
 		{{info?.cRPName}}
 		<span class="pull-right state-btn" [class.state-btn-stop]="info?.cRPStatus!=1" (click)="onState()">{{info?.cRPStatus==1?'发放中':'暂停中'}}</span>
 		<a class="pull-right del-btn" (click)="onDelete()"></a>
-		<a class="pull-right edit-btn" [routerLink]="['/pin/edit',{id:id}]"></a>
+		<a class="pull-right edit-btn" *ngIf="!info?.cRPExchangeType" [routerLink]="['/pin/edit',{id:id}]"></a>
+		<a class="pull-right edit-btn" *ngIf="info?.cRPExchangeType" [routerLink]="['/baccarat/edit',{id:id}]"></a>
 	</div>
 	<div class="rd-main">
 		<div class="rx-col">
@@ -66,7 +67,7 @@
 						<div>
 							<div class="s-input">
 								<select [(ngModel)]="prizesParams.cRPDId">
-									<option value="">全部</option>
+									<option value="0">全部</option>
 									<option [value]="si.cRPDId" *ngFor="let si of info?.subInfo">{{si.cRPDName}}</option>
 								</select>
 							</div>
