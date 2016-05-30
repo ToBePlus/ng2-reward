@@ -13,8 +13,9 @@ const http_1 = require('@angular/http');
 const Observable_1 = require('rxjs/Observable');
 const config_1 = require('../services/config');
 class PinProgram {
-    constructor(cRPId, cRPRewardType, cRPName, cRPNameShow, cRPSubtitle, cRPSubtitleShow, cRPBackgroundAdd, cRPBackgroundShow, cRPDesc, cRPDescShow, cRPValidDate, cRPValidStartDate, cRPValidEndDate, cRPValidType, cRPRate, cRPRateContent, totalRewards, cRPCodeType, cRPCodeCommon, cRPGenerateType, fileName, cRPNoticeNow, cRPNoticeNowContent, cRPValidNotice, cRPValidNoticeDay, cRPValidNoticeContent) {
+    constructor(cRPId, cRPDId, cRPRewardType, cRPName, cRPNameShow, cRPSubtitle, cRPSubtitleShow, cRPBackgroundAdd, cRPBackgroundShow, cRPDesc, cRPDescShow, cRPValidDate, cRPValidStartDate, cRPValidEndDate, cRPValidType, cRPRate, cRPRateContent, totalRewards, cRPCodeType, cRPCodeCommon, cRPGenerateType, fileName, cRPNoticeNow, cRPNoticeNowContent, cRPValidNotice, cRPValidNoticeDay, cRPValidNoticeContent) {
         this.cRPId = cRPId;
+        this.cRPDId = cRPDId;
         this.cRPRewardType = cRPRewardType;
         this.cRPName = cRPName;
         this.cRPNameShow = cRPNameShow;
@@ -188,4 +189,4 @@ PinService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], PinService);
 exports.PinService = PinService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+pin/Pin.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+pin/Pin.service.js.map

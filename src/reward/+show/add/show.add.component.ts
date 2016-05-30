@@ -150,18 +150,23 @@ export class ShowAddComponent {
         this.program = data.data;
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
-        console.log(this.program);
-
+        if(this.program.cRPDesc==null){
+          this.program.cRPDesc = this.program.cRPDesc.replace(/<br>/g,'\n');
+        }
+        if(this.program.cRPBackgroundAdd!=''){
+          this.uploadFile = {};
+          this.uploadFile.data = this.program.cRPBackgroundAdd;
+        }
     }
     addTotaError: any = 0;
-    onAddTotal() {
+    onAddTotal(tl) {
         if (this.loading) {
             return false;
         }
         this.loading = 1;
         let data: any = {};
         data.cRPId = this.program.cRPId;
-        data.cRPDId = this.program.cRPId;
+        data.cRPDId = this.program.subInfo[0].cRPDId;
         data.fileName = this.program.fileName;
         data.additionalNum = isNaN(+this.additionalNum) ? 0 : +this.additionalNum;
         if (data.additionalNum == 0) {
@@ -185,10 +190,10 @@ export class ShowAddComponent {
             // }, 5000);
         }, error => this.handleError);
     }
-    onEnterAddTotal(event) {
+    onEnterAddTotal(event,tl) {
         event.stopPropagation();
         if (event.keyCode == 13) {
-            this.onAddTotal();
+            this.onAddTotal(tl);
         }
     }
 
@@ -212,6 +217,9 @@ export class ShowAddComponent {
             return false;
         }
         this.loading = 1;
+        if(this.program.cRPDesc==null){
+          this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g,'<br>')
+        }
         this.ss.add(this.program).subscribe(
             data => {
                 this.loading = 0;

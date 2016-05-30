@@ -118,16 +118,22 @@ let ShowAddComponent = class ShowAddComponent {
         this.program = data.data;
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
-        console.log(this.program);
+        if (this.program.cRPDesc == null) {
+            this.program.cRPDesc = this.program.cRPDesc.replace(/<br>/g, '\n');
+        }
+        if (this.program.cRPBackgroundAdd != '') {
+            this.uploadFile = {};
+            this.uploadFile.data = this.program.cRPBackgroundAdd;
+        }
     }
-    onAddTotal() {
+    onAddTotal(tl) {
         if (this.loading) {
             return false;
         }
         this.loading = 1;
         let data = {};
         data.cRPId = this.program.cRPId;
-        data.cRPDId = this.program.cRPId;
+        data.cRPDId = this.program.subInfo[0].cRPDId;
         data.fileName = this.program.fileName;
         data.additionalNum = isNaN(+this.additionalNum) ? 0 : +this.additionalNum;
         if (data.additionalNum == 0) {
@@ -152,10 +158,10 @@ let ShowAddComponent = class ShowAddComponent {
             // }, 5000);
         }, error => this.handleError);
     }
-    onEnterAddTotal(event) {
+    onEnterAddTotal(event, tl) {
         event.stopPropagation();
         if (event.keyCode == 13) {
-            this.onAddTotal();
+            this.onAddTotal(tl);
         }
     }
     before(start, end) {
@@ -177,6 +183,9 @@ let ShowAddComponent = class ShowAddComponent {
             return false;
         }
         this.loading = 1;
+        if (this.program.cRPDesc == null) {
+            this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g, '<br>');
+        }
         this.ss.add(this.program).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {
@@ -218,4 +227,4 @@ ShowAddComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+show/add/show.add.component.js.map

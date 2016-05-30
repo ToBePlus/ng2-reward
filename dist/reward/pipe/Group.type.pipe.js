@@ -24,4 +24,4 @@ GroupTypePipe = __decorate([
     __metadata('design:paramtypes', [])
 ], GroupTypePipe);
 exports.GroupTypePipe = GroupTypePipe;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/pipe/Group.type.pipe.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/pipe/Group.type.pipe.js.map

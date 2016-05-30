@@ -249,8 +249,8 @@ export class ShowDetailComponent {
         this.loading = 1;
         let data: any = {};
         data.cRPId = this.prizesParams.cRPId;
-        data.cRPDId = this.prizesParams.cRPId;
-        data.fileName = this.prizesParams.fileName;
+        data.cRPDId = tl.cRPDId;
+        data.fileName = tl.fileName;
         data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
         this.ss.addTotal(data).subscribe(data => {
             this.loading = 0;

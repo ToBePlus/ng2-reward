@@ -48,7 +48,7 @@
 									</div>
 								</div>
 								<div *ngIf="uploadFile?.data" style="background: #f3f3f3;">
-									<span>已上传图片  {{basicResp?.originalName||pinProgram.cRPBackgroundAdd}}</span>
+									<span>已上传图片  {{basicResp?.originalName||uploadFile?.data}}</span>
 									<div class="re-upload re-upload-op">
 										<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
 										<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg()">删除</div>
@@ -177,7 +177,7 @@
 						<div class="clearfix">
 							<span>已上传</span>
 							<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
-							<div  class="re-upload re-upload-op" *ngIf="pinProgram.cRPId">
+							<div  class="re-upload re-upload-op">
 								<input type="file" name="fileName"  [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >
 								<div class="upload-op">重新上传</div><div class="upload-op"  (click)="onDelFileName()">删除</div>
 								<div class="re-progress clearfix" *ngIf="fileProgress">
@@ -196,7 +196,7 @@
 					<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&pinProgram.cRPGenerateType === 2&&pinProgram.cRPCodeType === 1">
 						<div class="clearfix">
 							<span>{{uploadFileXls?.error.msg}}</span>
-							<div  class="re-upload re-upload-op" *ngIf="pinProgram.cRPId">
+							<div  class="re-upload re-upload-op" >
 								<input type="file" name="fileName" [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >
 								<div class="upload-op">重新上传</div><div class="upload-op"  (click)="onDelFileName()">删除</div>
 								<div class="re-progress clearfix" *ngIf="fileProgress">

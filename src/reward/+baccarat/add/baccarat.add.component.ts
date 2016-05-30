@@ -200,6 +200,9 @@ export class BaccaratAddComponent {
         this.baccarat = data.data;
         this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
+        if(this.baccarat.cRPDesc==null){
+          this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br>/g,'\n');
+        }
     }
 
     before(start,end){
@@ -233,6 +236,9 @@ export class BaccaratAddComponent {
             return false;
         }
         this.loading = 1;
+        if(this.baccarat.cRPDesc==null){
+          this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g,'<br>');
+        }
         this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {

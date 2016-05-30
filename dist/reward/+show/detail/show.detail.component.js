@@ -209,8 +209,8 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.loading = 1;
         let data = {};
         data.cRPId = this.prizesParams.cRPId;
-        data.cRPDId = this.prizesParams.cRPId;
-        data.fileName = this.prizesParams.fileName;
+        data.cRPDId = tl.cRPDId;
+        data.fileName = tl.fileName;
         data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
         this.ss.addTotal(data).subscribe(data => {
             this.loading = 0;
@@ -285,4 +285,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+show/detail/show.detail.component.js.map

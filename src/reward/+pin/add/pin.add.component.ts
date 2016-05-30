@@ -34,7 +34,7 @@ const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
 export class PinAddComponent {
     zone: NgZone;
     psForm: ControlGroup;
-    pinProgram: PinProgram;
+    pinProgram: any;
     errorMessage: any;
     totalRewards: any;
     additionalNumControl: any;
@@ -98,7 +98,29 @@ export class PinAddComponent {
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
         this.cRPRateContent = this.psForm.controls['cRPRateContent'];
-        this.pinProgram = new PinProgram(null, 2, '', 1, '', 0, '', 0, '', 0, '', moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'), 0, 1, '', null, 1, '', 1, '', 0, '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。', 0, '3', '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。');
+        this.pinProgram = {};
+        this.pinProgram.cRPName = '';
+        this.pinProgram.cRPSubtitle = '';
+        this.pinProgram.cRPNameShow = 1;
+        this.pinProgram.cRPSubtitleShow = 0;
+        this.pinProgram.cRPBackgroundAdd = '';
+        this.pinProgram.cRPBackgroundShow = 0;
+        this.pinProgram.cRPDesc = '';
+        this.pinProgram.cRPDescShow = 0;
+        this.pinProgram.cRPValidType = -1;
+        this.pinProgram.cRPRate = 1;
+        this.pinProgram.cRPRateContent = null;
+        this.pinProgram.totalRewards = null;
+        this.pinProgram.cRPCodeType = 1;
+        this.pinProgram.cRPCodeCommon = '';
+        this.pinProgram.cRPGenerateType = 1;
+        this.pinProgram.cRPNoticeNow = 1;
+        this.pinProgram.cRPNoticeNowContent = '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。';
+        this.pinProgram.cRPValidNotice = 1;
+        this.pinProgram.cRPValidNoticeDay = 3;
+        this.pinProgram.cRPValidNoticeContent = '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。';
+        this.pinProgram.cRPValidStartDate = moment().format('YYYY-MM-DD');
+        this.pinProgram.cRPValidEndDate = moment().format('YYYY-MM-DD');
     }
 
     onShowDate(event) {
@@ -133,6 +155,13 @@ export class PinAddComponent {
         this.pinProgram = data.data;
         this.pinProgram.cRPValidStartDate = this.moment(this.pinProgram.cRPValidStartDate);
         this.pinProgram.cRPValidEndDate = this.moment(this.pinProgram.cRPValidEndDate);
+        if (this.pinProgram.cRPDesc == null) {
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br>/g, '\n');
+        }
+        if (this.pinProgram.cRPBackgroundAdd != '') {
+            this.uploadFile = {};
+            this.uploadFile.data = this.pinProgram.cRPBackgroundAdd;
+        }
     }
 
     handleUpload(data): void {
@@ -175,9 +204,9 @@ export class PinAddComponent {
     }
 
     onDelImg() {
-      this.pinProgram.cRPBackgroundAdd='';
-      this.basicProgress=0;
-      this.uploadFile=null;
+        this.pinProgram.cRPBackgroundAdd = '';
+        this.basicProgress = 0;
+        this.uploadFile = null;
     }
 
     getImg() {
@@ -197,7 +226,7 @@ export class PinAddComponent {
         this.loading = 1;
         let data: any = {};
         data.cRPId = this.pinProgram.cRPId;
-        data.cRPDId = this.pinProgram.cRPId;
+        data.cRPDId = this.pinProgram.subInfo[0].cRPDId;
         data.fileName = this.pinProgram.fileName;
         data.additionalNum = +this.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
@@ -262,7 +291,9 @@ export class PinAddComponent {
             return false;
         }
         this.loading = 1;
-
+        if (this.pinProgram.cRPDesc == null) {
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br>');
+        }
         this.ps.add(this.pinProgram).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {

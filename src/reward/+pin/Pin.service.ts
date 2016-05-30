@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import {baseUrl} from '../services/config';
 
 export class PinProgram {
-    constructor(public cRPId: number, public cRPRewardType: number, public cRPName?: string, public cRPNameShow?: number,
+    constructor(public cRPId?: number,public cRPDId?:number, public cRPRewardType?: number, public cRPName?: string, public cRPNameShow?: number,
         public cRPSubtitle?: string, public cRPSubtitleShow?: number, public cRPBackgroundAdd?: string,
         public cRPBackgroundShow?: number, public cRPDesc?: string, public cRPDescShow?: number,
         public cRPValidDate?: string, public cRPValidStartDate?: string, public cRPValidEndDate?: string,

@@ -16,6 +16,8 @@ import {Validators} from '../../services/Validators';
 
 const URL = baseUrl + '/ccs/medias/uploadBackgroundImage';
 
+const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
+
 const downLoadBase = baseUrl + '/rewardManage/check/export';
 
 @Component({
@@ -49,6 +51,12 @@ export class PinDetailComponent {
 
     dateShow: any = 0;
     loading: number = 0;
+
+    fileOptions: Object = {
+        url: FILE_URL
+    };
+    fileProgress: number = 0;
+    fileResp: Object;
 
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
         this.id = +params.getParam('id'); //获取URL中的ID
@@ -242,8 +250,8 @@ export class PinDetailComponent {
         this.loading = 1;
         let data: any = {};
         data.cRPId = this.prizesParams.cRPId;
-        data.cRPDId = this.prizesParams.cRPId;
-        data.fileName = this.prizesParams.fileName;
+        data.cRPDId = tl.cRPDId;
+        data.fileName = tl.fileName;
         data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
             if (data.error.state !== 0) {

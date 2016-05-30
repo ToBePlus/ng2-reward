@@ -20,6 +20,7 @@ const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
 const Pin_service_1 = require('../Pin.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
+const FILE_URL = config_1.baseUrl + '/rewardManage/uploadCheckCode';
 const downLoadBase = config_1.baseUrl + '/rewardManage/check/export';
 let PinDetailComponent = class PinDetailComponent {
     constructor(ps, router, params) {
@@ -30,6 +31,10 @@ let PinDetailComponent = class PinDetailComponent {
         this.pageCount = 0;
         this.dateShow = 0;
         this.loading = 0;
+        this.fileOptions = {
+            url: FILE_URL
+        };
+        this.fileProgress = 0;
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -201,8 +206,8 @@ let PinDetailComponent = class PinDetailComponent {
         this.loading = 1;
         let data = {};
         data.cRPId = this.prizesParams.cRPId;
-        data.cRPDId = this.prizesParams.cRPId;
-        data.fileName = this.prizesParams.fileName;
+        data.cRPDId = tl.cRPDId;
+        data.fileName = tl.fileName;
         data.additionalNum = isNaN(+tl.additionalNum) ? 0 : +tl.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
             if (data.error.state !== 0) {
@@ -272,4 +277,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map

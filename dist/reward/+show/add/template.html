@@ -49,7 +49,7 @@
 									</div>
 								</div>
 								<div *ngIf="uploadFile?.data" style="background: #f3f3f3;">
-									<span>已上传图片  {{basicResp?.originalName||pinProgram.cRPBackgroundAdd}}</span>
+									<span>已上传图片  {{basicResp?.originalName||uploadFile?.data}}</span>
 									<div class="re-upload re-upload-op">
 										<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
 										<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg()">删除</div>

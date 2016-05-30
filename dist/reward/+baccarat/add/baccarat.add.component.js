@@ -169,6 +169,9 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.baccarat = data.data;
         this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
+        if (this.baccarat.cRPDesc == null) {
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br>/g, '\n');
+        }
     }
     before(start, end) {
         return moment(start).isBefore(end);
@@ -200,6 +203,9 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             return false;
         }
         this.loading = 1;
+        if (this.baccarat.cRPDesc == null) {
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br>');
+        }
         this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;
             if (data.error.state !== 0) {
@@ -292,4 +298,4 @@ BaccaratAddComponent = __decorate([
     __metadata('design:paramtypes', [Baccarat_service_1.BaccaratService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], BaccaratAddComponent);
 exports.BaccaratAddComponent = BaccaratAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-1GxHBMum.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map
