@@ -87,18 +87,20 @@ export class ShowDetailComponent {
         this.currentPage = pageNo;
     };
 
-    moment(date,format = 'YYYY-MM-DD') {
+    moment(date, format = 'YYYY-MM-DD') {
         if (date == null) return '';
         return moment(date).format(format);
     }
 
-    momentDate(date):Date {
+    momentDate(date): Date {
         return moment(date).toDate();
     }
 
     onSetRange(range) {
         this.prizesParams.range = range;
-        if (range < 91) {
+        if (range == '-1') {
+
+        } else if (range < 91) {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         } else if (range === 'currentYear') {
@@ -197,19 +199,19 @@ export class ShowDetailComponent {
         }, error => this.handleError);
     }
 
-    before(start,end){
+    before(start, end) {
         return moment(start).isBefore(end);
     }
-    timeError:any;
+    timeError: any;
     search() {
         if (this.prizesParams.projectId === undefined) {
             return;
         }
-        if(this.before(this.prizesParams.endDate,this.prizesParams.startDate)){
-          this.timeError = 1;
-          return false;
-        }else{
-          this.timeError = 0;
+        if (this.before(this.prizesParams.endDate, this.prizesParams.startDate)) {
+            this.timeError = 1;
+            return false;
+        } else {
+            this.timeError = 0;
         }
         if (this.loading) {
             return false;
@@ -220,18 +222,18 @@ export class ShowDetailComponent {
         this.ss.showList(this.prizesParams).subscribe(data => {
             this.loading = 0;
             if (this.errorAlert(data)) {
-              if(data.data!=null){
-                this.showList = data.data.list;
-                this.page = data.data.page;
-                this.currentPage = +this.page.currentPage;
-                this.pageSize = +this.page.pageSize;
-                this.pageCount = +this.page.pageCount;
-              }else{
-                this.showList = [];
-                this.currentPage = 1;
-                this.pageSize = 10;
-                this.pageCount = 0;
-              }
+                if (data.data != null) {
+                    this.showList = data.data.list;
+                    this.page = data.data.page;
+                    this.currentPage = +this.page.currentPage;
+                    this.pageSize = +this.page.pageSize;
+                    this.pageCount = +this.page.pageCount;
+                } else {
+                    this.showList = [];
+                    this.currentPage = 1;
+                    this.pageSize = 10;
+                    this.pageCount = 0;
+                }
             }
         }, error => this.handleError);
     }
@@ -277,17 +279,17 @@ export class ShowDetailComponent {
     //     tl.additionalNumError = 0;
     // }
 
-    checkTotal(tl){
-      if(tl.additionalNum===''){
-        tl.additionalNumError = 1;
-        return true;
-      }
-      if(!/^([1-9][0-9]{0,5}|1000000)$/.test(tl.additionalNum)){
-        tl.additionalNumError = 1;
-        return true;
-      }
-      tl.additionalNumError = 0;
-      return false;
+    checkTotal(tl) {
+        if (tl.additionalNum === '') {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        if (!/^([1-9][0-9]{0,5}|1000000)$/.test(tl.additionalNum)) {
+            tl.additionalNumError = 1;
+            return true;
+        }
+        tl.additionalNumError = 0;
+        return false;
     }
 
     errorAlert(data) {

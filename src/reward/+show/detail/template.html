@@ -60,7 +60,7 @@
 							<tr>
 								<th>序号</th>
 								<th>发放时间</th>
-								<th >发放来源
+								<th colspan="2">发放来源
 									<div class="zs-b-des">
 										<i></i>
 										<div>
@@ -75,7 +75,8 @@
 							<tr *ngFor="let psl of showList;let i = index;">
 								<td>{{i+1}}</td>
 								<td>{{moment(psl.cRSendTime,'YYYY-MM-DD HH:mm')}}</td>
-								<td>{{psl.groupName}}{{psl.cREntityName}}</td>
+								<td>{{psl.groupName}}</td>
+								<td>{{psl.cREntityName}}</td>
 								<td>{{psl.cRMobile}}</td>
 							</tr>
 						</tbody>

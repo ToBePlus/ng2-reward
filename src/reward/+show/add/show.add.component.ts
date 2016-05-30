@@ -72,8 +72,8 @@ export class ShowAddComponent {
             'cRPBackgroundShow': [0],
             'cRPDesc': [''],
             'cRPDescShow': [0],
-            'cRPValidStartDate': [moment().format('YYYY-MM-DD')],
-            'cRPValidEndDate': [moment().format('YYYY-MM-DD')],
+            'cRPValidStartDate': [''],
+            'cRPValidEndDate': [''],
             'cRPValidType': [-1],
             'cRPRate': [1],
             'cRPRateContent': [''],
@@ -86,7 +86,7 @@ export class ShowAddComponent {
 
         //初始化数据
         this.basicResp = {};
-        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
+        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, '', '');
     }
 
     onShowDate(event) {
@@ -150,6 +150,7 @@ export class ShowAddComponent {
         this.program = data.data;
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
+        console.log(this.program);
 
     }
     addTotaError: any = 0;

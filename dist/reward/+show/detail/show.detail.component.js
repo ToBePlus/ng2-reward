@@ -69,7 +69,9 @@ let ShowDetailComponent = class ShowDetailComponent {
     }
     onSetRange(range) {
         this.prizesParams.range = range;
-        if (range < 91) {
+        if (range == '-1') {
+        }
+        else if (range < 91) {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         }
