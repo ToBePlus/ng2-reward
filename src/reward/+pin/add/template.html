@@ -34,7 +34,7 @@
 						<div>
 							<div class="advance advance-base advance-show">
 								<div class="re-tip">请使用200*90比例的的PNG,JPG透明图片，小于2M</div>
-								<div *ngIf="!pinProgram.cRPBackgroundAdd" class="re-upload">
+								<div *ngIf="!uploadFile" class="re-upload">
 									<input type="file"accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
 									<div class="rd-btn">选择文件</div>
 									<div class="re-progress clearfix" *ngIf="basicProgress">
@@ -47,10 +47,15 @@
 										</div>
 									</div>
 								</div>
-								<div *ngIf="pinProgram.cRPBackgroundAdd" style="background: #f3f3f3;">
+								<div *ngIf="uploadFile?.data" style="background: #f3f3f3;">
 									<span>已上传图片  {{basicResp?.originalName||pinProgram.cRPBackgroundAdd}}</span>
-									<a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';basicProgress=0;">重新上传</a>
-                  <a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';basicProgress=0;">删除</a>
+									<a class="upload-op" (click)="basicProgress=0;basicResp.done=false;">重新上传</a>
+                  <a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';basicProgress=0;uploadFile={};">删除</a>
+								</div>
+								<div *ngIf="uploadFile?.error" style="background: #f3f3f3;">
+									<span>{{uploadFile.error.msg}}</span>
+									<a class="upload-op" (click)="basicProgress=0;basicResp.done=false;">重新上传</a>
+                  <a class="upload-op" (click)="pinProgram.cRPBackgroundAdd='';basicProgress=0;uploadFile={};">删除</a>
 								</div>
 							</div>
 						</div>
@@ -130,7 +135,7 @@
 							<a href="/word/checkcode.xlsx" *ngIf="pinProgram.cRPGenerateType === 2">下载模板文件</a>
 						</div>
 					</div>
-					<div class="advance advance-show" *ngIf="!uploadFileXls?.error&&!pinProgram.fileName&&pinProgram.cRPGenerateType === 2">
+					<div class="advance advance-show" *ngIf="!uploadFileXls?.error&&!pinProgram.fileName&&pinProgram.cRPGenerateType === 2&&pinProgram.cRPCodeType === 1">
 						<div class="re-upload">
 							<div  class="re-upload">
 								<input type="file" name="fileName" [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >

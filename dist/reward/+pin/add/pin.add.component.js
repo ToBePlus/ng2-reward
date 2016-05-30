@@ -105,14 +105,19 @@ let PinAddComponent = class PinAddComponent {
         this.pinProgram.cRPValidEndDate = this.moment(this.pinProgram.cRPValidEndDate);
     }
     handleUpload(data) {
-        if (data.response) {
-            this.uploadFile = JSON.parse(data.response);
-            this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
-            this.basicResp = data;
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
         }
-        this.zone.run(() => {
-            this.basicProgress = data.progress.percent;
-        });
+        else {
+            if (data.response) {
+                this.uploadFile = JSON.parse(data.response);
+                this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
+                this.basicResp = data;
+            }
+            this.zone.run(() => {
+                this.basicProgress = data.progress.percent;
+            });
+        }
     }
     handleFileUpload(data) {
         if (data.response) {

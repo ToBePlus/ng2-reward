@@ -134,6 +134,9 @@ export class PinAddComponent {
     }
 
     handleUpload(data): void {
+      if(data.size>2*1024*1024){
+        this.uploadFile = {error:{state:2,msg:'上传图片大小不超过2M'}};
+      }else{
         if (data.response) {
             this.uploadFile = JSON.parse(data.response);
             this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
@@ -142,6 +145,7 @@ export class PinAddComponent {
         this.zone.run(() => {
             this.basicProgress = data.progress.percent;
         });
+      }
     }
 
     handleFileUpload(data): void {
