@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input,NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
 import {TimerWrapper} from '@angular/core/src/facade/async';
@@ -52,13 +52,18 @@ export class PinDetailComponent {
     dateShow: any = 0;
     loading: number = 0;
 
+    uploadFile: any;
+
     fileOptions: Object = {
         url: FILE_URL
     };
     fileProgress: number = 0;
     fileResp: Object;
 
+    uploadFileXls: any;
+    zone:any;
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
+      this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -287,6 +292,24 @@ export class PinDetailComponent {
 
     checkUploadFile(){
       return this.info.cRPCodeType === 1&&this.info.cRPGenerateType === 2;
+    }
+
+    handleFileUpload(data,tl): void {
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
+        } else {
+            if (data.response) {
+                this.uploadFileXls = JSON.parse(data.response);
+                if (this.uploadFileXls.error.state === 0) {
+                    tl.fileName = this.uploadFileXls.data.filePath;
+                }
+                this.fileResp = data;
+                this.fileProgress = 0;
+            }
+            this.zone.run(() => {
+                this.fileProgress = data.progress.percent;
+            });
+        }
     }
 
 

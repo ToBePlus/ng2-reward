@@ -35,6 +35,7 @@ let PinDetailComponent = class PinDetailComponent {
             url: FILE_URL
         };
         this.fileProgress = 0;
+        this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -242,6 +243,24 @@ let PinDetailComponent = class PinDetailComponent {
     }
     checkUploadFile() {
         return this.info.cRPCodeType === 1 && this.info.cRPGenerateType === 2;
+    }
+    handleFileUpload(data, tl) {
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
+        }
+        else {
+            if (data.response) {
+                this.uploadFileXls = JSON.parse(data.response);
+                if (this.uploadFileXls.error.state === 0) {
+                    tl.fileName = this.uploadFileXls.data.filePath;
+                }
+                this.fileResp = data;
+                this.fileProgress = 0;
+            }
+            this.zone.run(() => {
+                this.fileProgress = data.progress.percent;
+            });
+        }
     }
     errorAlert(data) {
         if (data.error.state !== 0) {

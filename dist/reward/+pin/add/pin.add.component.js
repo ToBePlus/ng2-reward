@@ -160,7 +160,7 @@ let PinAddComponent = class PinAddComponent {
                     this.pinProgram.fileName = this.uploadFileXls.data.filePath;
                 }
                 this.fileResp = data;
-                this.basicProgress = 0;
+                this.fileProgress = 0;
             }
             this.zone.run(() => {
                 this.fileProgress = data.progress.percent;
