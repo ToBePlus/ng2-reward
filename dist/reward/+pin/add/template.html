@@ -141,7 +141,7 @@
 				<div class="lengend">奖品兑换方式</div>
 				<div class="re-convert" >
 					<div class="re-form-field">
-						<div class="re-label">码类型：</div>
+						<div class="re-label"><span class="text-danger">*</span>码类型：</div>
 						<div class="re-convert-ops re-convert-code" >
   							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCode" [checked]="pinProgram.cRPCodeType === 1" (click)="pinProgram.cRPCodeType = 1"  id="convert-code-1"> <label [class.disabled]="pinProgram.cRPId" for="convert-code-1">一人一码</label>
   							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCode" [checked]="pinProgram.cRPCodeType === 2" (click)="pinProgram.cRPCodeType = 2;pinProgram.cRPValidType=-1;" id="convert-code-2"> <label [class.disabled]="pinProgram.cRPId" for="convert-code-2">通用码</label>
@@ -150,7 +150,7 @@
 						</div>
 					</div>
 					<div class="re-form-field"  *ngIf="pinProgram.cRPCodeType === 1" >
-						<div class="re-label">生成方式：</div>
+						<div class="re-label"><span class="text-danger">*</span>生成方式：</div>
 						<div class="re-convert-ops re-convert-create" >
 							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCreate" [checked]="pinProgram.cRPGenerateType === 1" (click)="pinProgram.cRPGenerateType = 1"  id="convert-create-1"> <label [class.disabled]="pinProgram.cRPId" for="convert-create-1">系统生成</label>
 							<input class="re-ckb re-ckb-radio" [disabled]="pinProgram.cRPId" type="radio" name="convertCreate" [checked]="pinProgram.cRPGenerateType === 2" (click)="pinProgram.cRPGenerateType = 2" id="convert-create-2"> <label [class.disabled]="pinProgram.cRPId" for="convert-create-2">导入码库</label>
