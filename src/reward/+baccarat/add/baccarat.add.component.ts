@@ -311,7 +311,7 @@ export class BaccaratAddComponent {
     }
 
     checkNum(data,target){
-      if(/^([1-9][0-9]{0,5}|1000000)$/.test(data)){
+      if(/^([1-9][0-9]{0,5}|100000)$/.test(data)){
         target.numberError = 0;
       }else{
         target.numberError = 1;

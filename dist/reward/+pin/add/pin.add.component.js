@@ -222,7 +222,7 @@ let PinAddComponent = class PinAddComponent {
             this.additionalNumError = 1;
             return true;
         }
-        if (!/^([1-9][0-9]{0,5}|1000000)$/.test(additionalNum)) {
+        if (!/^([1-9][0-9]{0,5}|100000)$/.test(additionalNum)) {
             this.additionalNumError = 1;
             return true;
         }
