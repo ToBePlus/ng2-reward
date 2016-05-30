@@ -24,3 +24,51 @@
     }
   }
 }
+.preview-img-btn{
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  margin-left: 20px;
+  &:hover .preview-img-block{
+    display: block;
+  }
+}
+.preview-img-block{
+  display: none;
+  position: absolute;
+  z-index: 10;
+  left: 45px;
+  top: -260px;
+}
+.reward-title{
+  line-height: 46px;
+  text-align: center;
+  color:#fff;
+  font-size: 22px;
+}
+.reward-sub-title{
+  line-height: 40px;
+  text-align: center;
+  color:#fff;
+  font-size: 16px;
+}
+.reward-desc-title{
+  position: absolute;
+  top: 380px;
+  left: 28px;
+  color: #888;
+  width: 232px;
+  height: 95px;
+  text-align: center;
+  overflow: auto;
+}
+.reward-view{
+  background: url(./../../reward/images/coupon_normal.png);
+  display: inline-block;
+  width: 232px;
+  height: 84px;
+  position: absolute;
+  bottom: 250px;
+  left: 28px;
+}

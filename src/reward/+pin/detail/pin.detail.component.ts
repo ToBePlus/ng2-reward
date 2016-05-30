@@ -62,6 +62,9 @@ export class PinDetailComponent {
 
     uploadFileXls: any;
     zone:any;
+
+    baseUrl:string;
+
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
       this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
@@ -210,7 +213,9 @@ export class PinDetailComponent {
                 if (this.projectsList.length > 0 && this.prizesParams.projectId === undefined) {
                     this.prizesParams.projectId = this.projectsList[0].cPId;
                 }
-                this.search();
+                if (this.prizesParams.projectId !== undefined) {
+                  this.search();
+                }
             }
         }, error => this.handleError);
     }
@@ -221,9 +226,7 @@ export class PinDetailComponent {
     timeError:any;
 
     search() {
-        if (this.prizesParams.projectId === undefined) {
-            return;
-        }
+
         if(this.before(this.prizesParams.cRPValidEndDate,this.prizesParams.cRPValidStartDate)){
           this.timeError = 1;
           return false;

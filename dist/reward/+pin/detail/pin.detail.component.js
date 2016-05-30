@@ -166,7 +166,9 @@ let PinDetailComponent = class PinDetailComponent {
                 if (this.projectsList.length > 0 && this.prizesParams.projectId === undefined) {
                     this.prizesParams.projectId = this.projectsList[0].cPId;
                 }
-                this.search();
+                if (this.prizesParams.projectId !== undefined) {
+                    this.search();
+                }
             }
         }, error => this.handleError);
     }
@@ -174,9 +176,6 @@ let PinDetailComponent = class PinDetailComponent {
         return moment(start).isBefore(end);
     }
     search() {
-        if (this.prizesParams.projectId === undefined) {
-            return;
-        }
         if (this.before(this.prizesParams.cRPValidEndDate, this.prizesParams.cRPValidStartDate)) {
             this.timeError = 1;
             return false;

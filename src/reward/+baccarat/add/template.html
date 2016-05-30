@@ -71,9 +71,26 @@
 													<div class="re-progress-bar">
 														<div [ngStyle]="{ 'width': subinfo.basicProgress + '%' }"></div>
 													</div>
-													<span>{{subinfo.basicProgress||0 + '%'}}</span>
+													<span>{{(subinfo.basicProgress||0) + '%'}}</span>
 												</div>
 											</div>
+											<span class="preview-img-btn">预览
+												<div class="preview-img-block">
+													<div class="rd-preview fl">
+														<img src="reward/images/preview_block.png" alt="">
+														<div class="reward-view" [ngStyle]="{background:getImg(subinfo)}">
+															<div class="reward-title" >
+																	{{subinfo.cRPDName}}
+															</div>
+															<div class="reward-sub-title" >
+																	{{subinfo.cRPDSubtitle}}
+															</div>
+														</div>
+														<div class="reward-desc-title" *ngIf="baccarat.cRPDescShow"  [innerHTML]="baccarat.cRPDesc|textTohtml"  ><!---->
+														</div>
+													</div>
+												</div>
+											</span>
 										</div>
 									</div>
 									<div *ngIf="subinfo.uploadFile?.error" style="background: #f3f3f3;">

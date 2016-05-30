@@ -20,6 +20,7 @@ const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
 const config_1 = require('../../services/config');
 const Baccarat_service_1 = require('../Baccarat.service');
 const Validators_1 = require('../../services/Validators');
+const Text_to_html_1 = require('../../pipe/Text.to.html');
 const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
 const URL = config_1.baseUrl + '/medias/uploadBackgroundImage';
 const FILE_URL = config_1.baseUrl + '/rewardManage/uploadCheckCode';
@@ -73,6 +74,8 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             'cRPValidNoticeContent': ['奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
         });
         this.cRPRateContent = this.bsForm.controls['cRPRateContent'];
+        this.baseUrl = config_1.baseUrl;
+        console.log(config_1.baseUrl);
     }
     ngOnInit() {
         this.baccarat = {};
@@ -159,6 +162,9 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         sb.cRPBackgroundAdd = '';
         sb.basicProgress = 0;
         sb.uploadFile = null;
+    }
+    getImg(subinfo) {
+        return 'url(\'/' + subinfo.cRPBackgroundAdd + '\') no-repeat center center';
     }
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id))
@@ -291,6 +297,7 @@ BaccaratAddComponent = __decorate([
         styleUrls: ['reward/+baccarat/add/style.min.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES],
         providers: [Baccarat_service_1.BaccaratService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
+        pipes: [Text_to_html_1.TextTohtmlPipe],
         host: {
             '(click)': 'closeDatePicker($event)'
         }

@@ -36,15 +36,15 @@
 						</div>
 
 					</div>
-					<div class="rx-condition">
+					<!-- <div class="rx-condition">
 						<div class="rx-cond-label">发放状态</div>
 						<div>
 							<div class="rd-btn" [class.active]="prizesParams.sendStatus==0" (click)="prizesParams.sendStatus=0;prizesParams.verifyStatus=0;">全部</div>
 							<div class="rd-btn" [class.active]="prizesParams.sendStatus==1" (click)="prizesParams.sendStatus=1;prizesParams.verifyStatus=0;">未发放</div>
 							<div class="rd-btn" [class.active]="prizesParams.sendStatus==2" (click)="prizesParams.sendStatus=2">已发放</div>
 						</div>
-					</div>
-					<div class="rx-condition" *ngIf="prizesParams.sendStatus==2">
+					</div> -->
+					<div class="rx-condition" >
 						<div class="rx-cond-label">兑换状态</div>
 						<div>
 							<div class="rd-btn" [class.active]="prizesParams.verifyStatus==0" (click)="prizesParams.verifyStatus=0">全部</div>
