@@ -8,7 +8,7 @@ import * as moment from 'moment';
 import * as _ from 'lodash';
 import {baseUrl} from '../../services/config';
 import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
-
+import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 
 
 import {PinProgram, PinService, PinParams} from '../Pin.service';
@@ -22,7 +22,7 @@ const downLoadBase = baseUrl + '/rewardManage/check/export';
     selector: 'pin-detail',
     templateUrl: 'reward/+pin/detail/template.html',
     styleUrls: ['reward/+pin/detail/style.min.css'],
-    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES,UPLOAD_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS],
     host: {
         '(click)': 'closeDatePicker($event)'
@@ -275,6 +275,10 @@ export class PinDetailComponent {
         }
         tl.additionalNumError = 0;
         return false;
+    }
+
+    checkUploadFile(){
+      return this.info.cRPCodeType === 1&&this.info.cRPGenerateType === 2;
     }
 
 

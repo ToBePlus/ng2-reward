@@ -104,7 +104,7 @@ export class ShowAddComponent {
         return moment(date).format('YYYY-MM-DD');
     }
 
-    momentDate(date):Date {
+    momentDate(date): Date {
         return moment(date).toDate();
     }
 
@@ -114,14 +114,24 @@ export class ShowAddComponent {
 
 
     handleUpload(data): void {
-        if (data.response) {
-            this.uploadFile = JSON.parse(data.response);
-            this.program.cRPBackgroundAdd = this.uploadFile.data;
-            this.basicResp = data;
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
+        } else {
+            if (data.response) {
+                this.uploadFile = JSON.parse(data.response);
+                this.program.cRPBackgroundAdd = this.uploadFile.data;
+                this.basicResp = data;
+            }
+            this.zone.run(() => {
+                this.basicProgress = data.progress.percent;
+            });
         }
-        this.zone.run(() => {
-            this.basicProgress = data.progress.percent;
-        });
+    }
+
+    onDelImg() {
+        this.program.cRPBackgroundAdd = '';
+        this.basicProgress = 0;
+        this.uploadFile = null;
     }
 
     getImg() {
@@ -142,7 +152,7 @@ export class ShowAddComponent {
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
 
     }
-    addTotaError:any=0;
+    addTotaError: any = 0;
     onAddTotal() {
         if (this.loading) {
             return false;
@@ -152,21 +162,21 @@ export class ShowAddComponent {
         data.cRPId = this.program.cRPId;
         data.cRPDId = this.program.cRPId;
         data.fileName = this.program.fileName;
-        data.additionalNum = isNaN(+this.additionalNum)?0:+this.additionalNum;
-        if(data.additionalNum==0){
-          this.addTotaError = 1;
-          return false;
-        }else{
-          this.addTotaError = 0;
+        data.additionalNum = isNaN(+this.additionalNum) ? 0 : +this.additionalNum;
+        if (data.additionalNum == 0) {
+            this.addTotaError = 1;
+            return false;
+        } else {
+            this.addTotaError = 0;
         }
         this.ss.addTotal(data).subscribe(data => {
-          this.loading = 0;
-          if (data.error.state !== 0) {
-              alert(data.error.msg);
-              return;
-          }
-          this.program.totalRewards += +this.additionalNum;
-          this.additionalNum = null;
+            this.loading = 0;
+            if (data.error.state !== 0) {
+                alert(data.error.msg);
+                return;
+            }
+            this.program.totalRewards += +this.additionalNum;
+            this.additionalNum = null;
             alert('新增成功');
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
@@ -175,27 +185,27 @@ export class ShowAddComponent {
         }, error => this.handleError);
     }
     onEnterAddTotal(event) {
-      event.stopPropagation();
+        event.stopPropagation();
         if (event.keyCode == 13) {
             this.onAddTotal();
         }
     }
 
-    before(start,end){
+    before(start, end) {
         return moment(start).isBefore(end);
     }
-    timeError:any;
+    timeError: any;
 
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
         }
-        if(this.before(this.program.cRPValidEndDate,this.program.cRPValidStartDate)){
-          this.timeError = 1;
-          return false;
-        }else{
-          this.timeError = 0;
+        if (this.before(this.program.cRPValidEndDate, this.program.cRPValidStartDate)) {
+            this.timeError = 1;
+            return false;
+        } else {
+            this.timeError = 0;
         }
         if (this.loading) {
             return false;

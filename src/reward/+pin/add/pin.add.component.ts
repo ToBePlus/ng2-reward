@@ -61,6 +61,8 @@ export class PinAddComponent {
     additionalNumError: any = 0;
     cRPRateContent: any = 0;
     timeError: any = 0;
+    file: any;
+    image: any;
 
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -114,7 +116,7 @@ export class PinAddComponent {
         return moment(date).format('YYYY-MM-DD');
     }
 
-    momentDate(date):Date {
+    momentDate(date): Date {
         return moment(date).toDate();
     }
 
@@ -134,37 +136,48 @@ export class PinAddComponent {
     }
 
     handleUpload(data): void {
-      if(data.size>2*1024*1024){
-        this.uploadFile = {error:{state:2,msg:'上传图片大小不超过2M'}};
-      }else{
-        if (data.response) {
-            this.uploadFile = JSON.parse(data.response);
-            this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
-            this.basicResp = data;
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
+        } else {
+            if (data.response) {
+                this.uploadFile = JSON.parse(data.response);
+                this.pinProgram.cRPBackgroundAdd = this.uploadFile.data;
+                this.basicResp = data;
+            }
+            this.zone.run(() => {
+                this.basicProgress = data.progress.percent;
+            });
         }
-        this.zone.run(() => {
-            this.basicProgress = data.progress.percent;
-        });
-      }
     }
 
     handleFileUpload(data): void {
-        if (data.response) {
-            this.uploadFileXls = JSON.parse(data.response);
-            if (this.uploadFileXls.error.state === 0) {
-                this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
+        } else {
+            if (data.response) {
+                this.uploadFileXls = JSON.parse(data.response);
+                if (this.uploadFileXls.error.state === 0) {
+                    this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+                }
+                this.fileResp = data;
+                this.basicProgress = 0;
             }
-            this.fileResp = data;
+            this.zone.run(() => {
+                this.fileProgress = data.progress.percent;
+            });
         }
-        this.zone.run(() => {
-            this.fileProgress = data.progress.percent;
-        });
     }
 
     onDelFileName() {
         this.pinProgram.fileName = '';
         this.fileProgress = 0;
-        this.uploadFileXls = {};
+        this.uploadFileXls = null;
+    }
+
+    onDelImg() {
+      this.pinProgram.cRPBackgroundAdd='';
+      this.basicProgress=0;
+      this.uploadFile=null;
     }
 
     getImg() {
@@ -188,7 +201,7 @@ export class PinAddComponent {
         data.fileName = this.pinProgram.fileName;
         data.additionalNum = +this.additionalNum;
         this.ps.addTotal(data).subscribe(data => {
-          this.loading = 0;
+            this.loading = 0;
             if (data.error.state !== 0) {
                 alert(data.error.msg);
                 return;
@@ -222,26 +235,28 @@ export class PinAddComponent {
         return false;
     }
 
-    before(start,end){
+
+
+    before(start, end) {
         return moment(start).isBefore(end);
     }
-    totalRewardsError:number = 0;
+    totalRewardsError: number = 0;
     onSubmit() {
         if (!this.psForm.valid) {
             this.psForm.markAsTouched();
             return false;
         }
-        if(this.before(this.pinProgram.cRPValidEndDate,this.pinProgram.cRPValidStartDate)){
-          this.timeError = 1;
-          return false;
-        }else{
-          this.timeError = 0;
+        if (this.before(this.pinProgram.cRPValidEndDate, this.pinProgram.cRPValidStartDate)) {
+            this.timeError = 1;
+            return false;
+        } else {
+            this.timeError = 0;
         }
-        if(this.pinProgram.cRPGenerateType==1&&this.pinProgram.totalRewards==null){
-          this.totalRewardsError = 1;
-          return false
-        }else{
-          this.totalRewardsError = 0;
+        if (this.pinProgram.cRPGenerateType == 1 && this.pinProgram.totalRewards == null) {
+            this.totalRewardsError = 1;
+            return false
+        } else {
+            this.totalRewardsError = 0;
         }
         if (this.loading) {
             return false;

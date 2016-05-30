@@ -126,6 +126,8 @@ let ShowService = class ShowService {
             search.set('endDate', '');
         }
         search.set('projectId', params.projectId);
+        search.set('currentPage', params.currentPage + '');
+        search.set('pageSize', params.pageSize + '');
         let URL = config_1.baseUrl + '/rewardManage/show/list';
         return this.http.get(URL, { search: search }).map(res => res.json()).catch(this.handleError);
     }

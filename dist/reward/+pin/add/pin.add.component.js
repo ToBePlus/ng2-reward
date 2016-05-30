@@ -121,21 +121,32 @@ let PinAddComponent = class PinAddComponent {
         }
     }
     handleFileUpload(data) {
-        if (data.response) {
-            this.uploadFileXls = JSON.parse(data.response);
-            if (this.uploadFileXls.error.state === 0) {
-                this.pinProgram.fileName = this.uploadFileXls.data.filePath;
-            }
-            this.fileResp = data;
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
         }
-        this.zone.run(() => {
-            this.fileProgress = data.progress.percent;
-        });
+        else {
+            if (data.response) {
+                this.uploadFileXls = JSON.parse(data.response);
+                if (this.uploadFileXls.error.state === 0) {
+                    this.pinProgram.fileName = this.uploadFileXls.data.filePath;
+                }
+                this.fileResp = data;
+                this.basicProgress = 0;
+            }
+            this.zone.run(() => {
+                this.fileProgress = data.progress.percent;
+            });
+        }
     }
     onDelFileName() {
         this.pinProgram.fileName = '';
         this.fileProgress = 0;
-        this.uploadFileXls = {};
+        this.uploadFileXls = null;
+    }
+    onDelImg() {
+        this.pinProgram.cRPBackgroundAdd = '';
+        this.basicProgress = 0;
+        this.uploadFile = null;
     }
     getImg() {
         if (this.pinProgram.cRPBackgroundAdd && this.pinProgram.cRPBackgroundShow) {

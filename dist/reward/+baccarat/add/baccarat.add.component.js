@@ -154,6 +154,12 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.fileProgress = 0;
         this.uploadFileXls = {};
     }
+    onDelImg(i) {
+        let sb = this.baccarat.subInfo[i];
+        sb.cRPBackgroundAdd = '';
+        sb.basicProgress = 0;
+        sb.uploadFile = null;
+    }
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id))
             return;

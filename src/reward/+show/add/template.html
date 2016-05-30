@@ -34,8 +34,8 @@
 						<div class="re-label">自定义背景图：<input class="re-ckb" type="checkbox" [ngFormControl]="psForm.controls['cRPBackgroundShow']" [(ngModel)]="program.cRPBackgroundShow"  name="cRPBackgroundShow" id="ckb-bg"> <label for="ckb-bg">启用</label></div>
 						<div>
 							<div class="advance advance-base advance-show">
-								<div class="re-tip">请使用200*90比例的的PNG,JPG透明图片，小于2M</div>
-								<div *ngIf="!program.cRPBackgroundAdd" class="re-upload">
+								<div class="re-tip">请使用240*74比例的的PNG,JPG透明图片，小于2M</div>
+								<div *ngIf="!uploadFile" class="re-upload">
 									<input type="file" name="fileName" accept="image/gif,image/jpeg,image/png" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
 									<div class="rd-btn">选择文件</div>
 									<div class="re-progress clearfix" *ngIf="basicProgress">
@@ -48,13 +48,39 @@
 										</div>
 									</div>
 								</div>
-								<div *ngIf="program.cRPBackgroundAdd" style="background: #f3f3f3;">
-									<span>已上传图片  {{basicResp.originalName||program.cRPBackgroundAdd}}</span>
-									<a class="upload-op" (click)="program.cRPBackgroundAdd='';basicProgress=0;">重新上传</a>
-                  <a class="upload-op" (click)="program.cRPBackgroundAdd='';basicProgress=0;">删除</a>
+								<div *ngIf="uploadFile?.data" style="background: #f3f3f3;">
+									<span>已上传图片  {{basicResp?.originalName||pinProgram.cRPBackgroundAdd}}</span>
+									<div class="re-upload re-upload-op">
+										<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
+										<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg()">删除</div>
+										<div class="re-progress clearfix" *ngIf="basicProgress">
+											<div >
+												<span></span>
+												<div class="re-progress-bar">
+													<div [ngStyle]="{ 'width': basicProgress + '%' }"></div>
+												</div>
+												<span>{{basicProgress + '%'}}</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div *ngIf="uploadFile?.error" style="background: #f3f3f3;">
+									<span class="text-danger">{{uploadFile.error.msg}}</span>
+									<div class="re-upload re-upload-op">
+										<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleUpload($event)" >
+										<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg()">删除</div>
+										<div class="re-progress clearfix" *ngIf="basicProgress">
+											<div >
+												<span></span>
+												<div class="re-progress-bar">
+													<div [ngStyle]="{ 'width': basicProgress + '%' }"></div>
+												</div>
+												<span>{{basicProgress + '%'}}</span>
+											</div>
+										</div>
+									</div>
 								</div>
 							</div>
-
 						</div>
 					</div>
 

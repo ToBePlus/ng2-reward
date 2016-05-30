@@ -47,26 +47,53 @@
 									奖品副标题：<input class="inputtxt input-163" type="text" maxlength="12"  [(ngModel)]="subinfo.cRPDSubtitle" placeholder="最多显示12个字,显示在领奖页" >
 								</div>
 								<div class="advance advance-base advance-show">
-									<div *ngIf="!subinfo.uploadFile?.status" class="re-upload">
+									<div *ngIf="!subinfo.uploadFile" class="re-upload">
 										<input type="file" name="fileName" accept="image/gif,image/jpeg,image/png" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
 										<div class="rd-btn">选择文件</div>
 										<div class="re-progress clearfix">
 											<div >
 												<span></span>
-												<div class="re-progress-bar" *ngIf="subinfo.basicProgress>0">
+												<div class="re-progress-bar" *ngIf="subinfo.basicProgress">
 													<div [ngStyle]="{ 'width': (subinfo.basicProgress||0) + '%' }"></div>
 												</div>
 												<span>{{subinfo.basicProgress||0 + '%'}}</span>
 											</div>
 										</div>
 									</div>
-									<div *ngIf="subinfo.uploadFile?.status" style="background: #f3f3f3;">
-										<span>已上传图片  {{subinfo.basicResp.originalName}}</span>
-										<a class="upload-op" (click)="subinfo.uploadFile={};">重新上传</a>
-										<a class="upload-op" (click)="subinfo.uploadFile={};subinfo.cRPBackgroundAdd='';">删除</a>
+									<div *ngIf="subinfo.uploadFile?.data" style="background: #f3f3f3;">
+										<span>已上传图片  {{subinfo.basicResp?.originalName||subinfo.cRPBackgroundAdd}}</span>
+										<div class="re-upload re-upload-op">
+											<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
+											<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg(i)">删除</div>
+											<div class="re-progress clearfix" *ngIf="subinfo.basicProgress">
+												<div >
+													<span></span>
+													<div class="re-progress-bar">
+														<div [ngStyle]="{ 'width': subinfo.basicProgress + '%' }"></div>
+													</div>
+													<span>{{subinfo.basicProgress||0 + '%'}}</span>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div *ngIf="subinfo.uploadFile?.error" style="background: #f3f3f3;">
+										<span class="text-danger">{{subinfo.uploadFile.error.msg}}</span>
+										<div class="re-upload re-upload-op">
+											<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
+											<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg(i)">删除</div>
+											<div class="re-progress clearfix" *ngIf="subinfo.basicProgress">
+												<div >
+													<span></span>
+													<div class="re-progress-bar">
+														<div [ngStyle]="{ 'width': subinfo.basicProgress + '%' }"></div>
+													</div>
+													<span>{{subinfo.basicProgress||0 + '%'}}</span>
+												</div>
+											</div>
+										</div>
 									</div>
 								</div>
-								<div class="re-tip">请使用200*90比例的的PNG,JPG透明图片，小于2M</div>
+								<div class="re-tip">请使用240*74比例的的PNG,JPG透明图片，小于2M</div>
 							</div>
 						</div>
 						<div [class.disabled]="baccarat.cRPId" *ngIf="baccarat.subInfo.length<8" class="add-prize" (click)="!baccarat.cRPId&&onAddSubInfo()"><span>+添加奖品</span></div>

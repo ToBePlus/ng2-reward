@@ -136,7 +136,42 @@
 							<span class="c-blue">{{tl.totalNum}}</span>
 							<span class="s-ico s-ico-add" title="追加核验码" (click)="tl.addTotalShow=!tl.addTotalShow"></span>
 						</div>
-            <div class="add-total-block" *ngIf="tl.addTotalShow">
+						<div class="advance advance-show" *ngIf="!uploadFileXls?.error&&tl.addTotalShow&&checkUploadFile()">
+							<div class="re-upload">
+								<div  class="re-upload">
+									<input type="file" name="fileName" [ng-file-select]="fileOptions" (onUpload)="handleFileUpload($event)" >
+									<div class="rd-btn">选择文件</div>
+									<div class="re-progress clearfix" *ngIf="fileProgress">
+										<div >
+											<span></span>
+											<div class="re-progress-bar">
+												<div [ngStyle]="{ 'width': fileProgress + '%' }"></div>
+											</div>
+											<span>{{fileProgress + '%'}}</span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="re-tip">请下载模板文件，按照要求上传导入码库</div>
+						</div>
+						<div class="advance advance-result advance-suc" *ngIf="uploadFileXls?.error?.state===0&&tl.addTotalShow&&checkUploadFile()">
+							<div class="clearfix">
+								<span>已上传</span>
+								<span class="f-name">{{uploadFileXls?.data.filePath}}</span>
+								<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">重新上传</span>
+								<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">删除</span>
+							</div>
+							<div class="re-tip">成功导入 {{uploadFileXls?.data?.num}}个核验码</div>
+						</div>
+						<div class="advance advance-result advance-err" *ngIf="uploadFileXls?.error?.state>0&&tl.addTotalShow&&checkUploadFile()">
+							<div class="clearfix">
+								<span>{{uploadFileXls?.error.msg}}</span>
+								<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">重新上传</span>
+								<span class="fr upload-op" *ngIf="pinProgram.cRPId" (click)="onDelFileName()">删除</span>
+							</div>
+							<div class="re-tip">核验码需由字母和数字组合，6-12位</div>
+						</div>
+            <div class="add-total-block" *ngIf="tl.addTotalShow&&!checkUploadFile()">
               <h5>追加核验码</h5>
               <input type="text" style="width:100px;margin-right:10px;" autofocus="autofocus" class="inputtxt input-157" placeholder="1-100,000的数字" [(ngModel)]="tl.additionalNum" (keyup)="onEnterAddTotal($event,tl)">
                 <a class="rd-btn-inline" style="width:40px;" (click)="onAddTotal(tl)">确认</a>

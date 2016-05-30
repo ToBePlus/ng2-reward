@@ -17,6 +17,7 @@ const Observable_1 = require('rxjs/Observable');
 const moment = require('moment');
 const config_1 = require('../../services/config');
 const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
+const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
 const Pin_service_1 = require('../Pin.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
 const downLoadBase = config_1.baseUrl + '/rewardManage/check/export';
@@ -234,6 +235,9 @@ let PinDetailComponent = class PinDetailComponent {
         tl.additionalNumError = 0;
         return false;
     }
+    checkUploadFile() {
+        return this.info.cRPCodeType === 1 && this.info.cRPGenerateType === 2;
+    }
     errorAlert(data) {
         if (data.error.state !== 0) {
             alert(data.error.msg);
@@ -259,7 +263,7 @@ PinDetailComponent = __decorate([
         selector: 'pin-detail',
         templateUrl: 'reward/+pin/detail/template.html',
         styleUrls: ['reward/+pin/detail/style.min.css'],
-        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES],
+        directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS],
         host: {
             '(click)': 'closeDatePicker($event)'

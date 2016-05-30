@@ -44,6 +44,9 @@
 .re-form .re-upload .rd-btn { font-size:14px; width:105px; background:#00b598; border-radius:2px;  line-height: 28px; color: #fff;text-align: center;}
 .re-form .re-upload .rd-btn:hover { border:1px solid #00b598;color: #fff;}
 .re-form .re-upload input[type='file']:hover + .rd-btn { background:#fff; color:#00b598;}
+.re-form .re-upload-op input[type='file']{
+  width: 62px;
+}
 .re-form .re-upload .re-progress {  width:394px; font-size:0; vertical-align: middle; background:#f3f3f3; line-height: 25px; height:25px; margin-left:16px; padding: 6px 0 5px;}
 .re-form .re-upload .re-progress span { float:left; font-size:12px; line-height: 14px; }
 .re-form .re-upload .re-progress > span:first-child { width:160px; text-indent:13px; overflow:hidden;}

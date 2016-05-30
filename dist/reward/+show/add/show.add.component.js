@@ -84,14 +84,24 @@ let ShowAddComponent = class ShowAddComponent {
         this.getProgram();
     }
     handleUpload(data) {
-        if (data.response) {
-            this.uploadFile = JSON.parse(data.response);
-            this.program.cRPBackgroundAdd = this.uploadFile.data;
-            this.basicResp = data;
+        if (data.size > 2 * 1024 * 1024) {
+            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
         }
-        this.zone.run(() => {
-            this.basicProgress = data.progress.percent;
-        });
+        else {
+            if (data.response) {
+                this.uploadFile = JSON.parse(data.response);
+                this.program.cRPBackgroundAdd = this.uploadFile.data;
+                this.basicResp = data;
+            }
+            this.zone.run(() => {
+                this.basicProgress = data.progress.percent;
+            });
+        }
+    }
+    onDelImg() {
+        this.program.cRPBackgroundAdd = '';
+        this.basicProgress = 0;
+        this.uploadFile = null;
     }
     getImg() {
         if (this.program.cRPBackgroundAdd && this.program.cRPBackgroundShow) {
