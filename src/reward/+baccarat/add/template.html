@@ -22,7 +22,7 @@
 						<div class="re-label" *ngFor="let subinfo of baccarat.subInfo, let i = index">
 							<div class="inputs">
 								<input class="inputtxt input-163" type="text" maxlength="6" [(ngModel)]="subinfo.cRPDName" [disabled]="baccarat.cRPId" required placeholder="最多显示6个字">
-								<input class="inputtxt input-80" type="text"  maxlength="8" [ngModel]="subinfo.cRPDNum" [disabled]="baccarat.cRPId" (ngModelChange)="subinfo.cRPDNum = $event;checkNum($event,subinfo);" placeholder="请输入奖品数量" >份
+								<input class="inputtxt input-120" type="text"  maxlength="8" [ngModel]="subinfo.cRPDNum" [disabled]="baccarat.cRPId" (ngModelChange)="subinfo.cRPDNum = $event;checkNum($event,subinfo);" placeholder="请输入奖品数量" >份
 								<div class="re-add-num" *ngIf="baccarat.cRPId">
 									<input type="text" (keyup)="onEnterAddTotal($event,subinfo)" [(ngModel)]="subinfo.additionalNum"  placeholder="输入1~100,000的数字">
 									<span (click)="onAddTotal(subinfo)"></span>
@@ -44,7 +44,7 @@
 							</div>
 							<div class="advance " *ngIf="subinfo.advanceSetShow">
 								<div class="re-subtit">
-									奖品副标题：<input class="inputtxt input-163" type="text" maxlength="12"  [(ngModel)]="subinfo.cRPDSubtitle" placeholder="最多显示12个字,显示在领奖页" >
+									奖品副标题：<input class="inputtxt input-200" type="text" maxlength="12"  [(ngModel)]="subinfo.cRPDSubtitle" placeholder="最多显示12个字,显示在领奖页" >
 								</div>
 								<div class="advance advance-base advance-show">
 									<div *ngIf="!subinfo.uploadFile" class="re-upload">
