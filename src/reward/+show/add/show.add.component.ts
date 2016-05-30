@@ -150,7 +150,7 @@ export class ShowAddComponent {
         this.program = data.data;
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
-        if(this.program.cRPDesc==null){
+        if(this.program.cRPDesc!=null){
           this.program.cRPDesc = this.program.cRPDesc.replace(/<br>/g,'\n');
         }
         if(this.program.cRPBackgroundAdd!=''){
@@ -217,7 +217,7 @@ export class ShowAddComponent {
             return false;
         }
         this.loading = 1;
-        if(this.program.cRPDesc==null){
+        if(this.program.cRPDesc!=null){
           this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g,'<br>')
         }
         this.ss.add(this.program).subscribe(

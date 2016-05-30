@@ -96,7 +96,7 @@
 				<div class="s-items">
 					<div class="s-item" *ngFor="let tl of totalList">
 						<div>
-							<span>计划发放总量</span>
+							<span>{{info?.cRPExchangeType?tl.cRPDName+'数量':'计划发放总量'}}</span>
 							<span class="c-blue">{{tl.totalNum}}</span>
 							<span class="s-ico  s-ico-add" (click)="tl.addTotalShow=!tl.addTotalShow"></span>
 						</div>

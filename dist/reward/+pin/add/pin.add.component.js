@@ -126,7 +126,7 @@ let PinAddComponent = class PinAddComponent {
         this.pinProgram = data.data;
         this.pinProgram.cRPValidStartDate = this.moment(this.pinProgram.cRPValidStartDate);
         this.pinProgram.cRPValidEndDate = this.moment(this.pinProgram.cRPValidEndDate);
-        if (this.pinProgram.cRPDesc == null) {
+        if (this.pinProgram.cRPDesc != null) {
             this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br>/g, '\n');
         }
         if (this.pinProgram.cRPBackgroundAdd != '') {
@@ -255,7 +255,7 @@ let PinAddComponent = class PinAddComponent {
             return false;
         }
         this.loading = 1;
-        if (this.pinProgram.cRPDesc == null) {
+        if (this.pinProgram.cRPDesc != null) {
             this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br>');
         }
         this.ps.add(this.pinProgram).subscribe(data => {
