@@ -131,14 +131,19 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     }
     handleBasicUpload(data, index) {
         let sb = this.baccarat.subInfo[index];
-        if (data && data.response) {
-            sb.uploadFile = JSON.parse(data.response);
-            sb.cRPBackgroundAdd = sb.uploadFile.data;
+        if (data.size > 2 * 1024 * 1024) {
+            sb.uploadFile = { error: { state: 2, msg: '图片文件尺寸请小于2M' } };
         }
-        sb.basicResp = data;
-        this.zone.run(() => {
-            sb.basicProgress = data.progress.percent;
-        });
+        else {
+            if (data && data.response) {
+                sb.uploadFile = JSON.parse(data.response);
+                sb.cRPBackgroundAdd = sb.uploadFile.data;
+            }
+            sb.basicResp = data;
+            this.zone.run(() => {
+                sb.basicProgress = data.progress.percent;
+            });
+        }
     }
     handleFileUpload(data) {
         if (data.response) {

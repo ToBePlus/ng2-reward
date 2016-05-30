@@ -299,7 +299,7 @@ export class PinDetailComponent {
 
     handleFileUpload(data,tl): void {
         if (data.size > 2 * 1024 * 1024) {
-            this.uploadFile = { error: { state: 2, msg: '上传图片大小不超过2M' } };
+            this.uploadFile = { error: { state: 2, msg: '图片文件尺寸请小于2M' } };
         } else {
             if (data.response) {
                 this.uploadFileXls = JSON.parse(data.response);

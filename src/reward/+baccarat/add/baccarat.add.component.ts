@@ -15,13 +15,13 @@ import {TextTohtmlPipe} from '../../pipe/Text.to.html';
 import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 const URL = baseUrl + '/medias/uploadBackgroundImage';
-const FILE_URL = baseUrl+'/rewardManage/uploadCheckCode';
+const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
 
 @Component({
     selector: 'baccarat-add',
     templateUrl: 'reward/+baccarat/add/template.html',
     styleUrls: ['reward/+baccarat/add/style.min.css'],
-    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES,DATEPICKER_DIRECTIVES],
+    directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [BaccaratService, HTTP_PROVIDERS, JSONP_PROVIDERS],
     pipes: [TextTohtmlPipe],
     host: {
@@ -52,11 +52,11 @@ export class BaccaratAddComponent {
     fileResp: Object;
     uploadFileXls: any;
 
-    dateShow:any;
-    currentPage:any;
-    cRPRateContent:any;
+    dateShow: any;
+    currentPage: any;
+    cRPRateContent: any;
 
-    baseUrl:string;
+    baseUrl: string;
 
     constructor(private bs: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
@@ -135,11 +135,11 @@ export class BaccaratAddComponent {
     };
 
     moment(date) {
-      if (date == null) return '';
+        if (date == null) return '';
         return moment(date).format('YYYY-MM-DD');
     }
 
-    momentDate(date):Date {
+    momentDate(date): Date {
         return moment(date).toDate();
     }
 
@@ -159,40 +159,44 @@ export class BaccaratAddComponent {
 
     handleBasicUpload(data, index): void {
         let sb = this.baccarat.subInfo[index];
-        if (data && data.response) {
-            sb.uploadFile = JSON.parse(data.response);
-            sb.cRPBackgroundAdd = sb.uploadFile.data;
+        if (data.size > 2 * 1024 * 1024) {
+            sb.uploadFile = { error: { state: 2, msg: '图片文件尺寸请小于2M' } };
+        } else {
+            if (data && data.response) {
+                sb.uploadFile = JSON.parse(data.response);
+                sb.cRPBackgroundAdd = sb.uploadFile.data;
+            }
+            sb.basicResp = data;
+            this.zone.run(() => {
+                sb.basicProgress = data.progress.percent;
+            });
         }
-        sb.basicResp = data;
-        this.zone.run(() => {
-            sb.basicProgress = data.progress.percent;
-        });
     }
 
     handleFileUpload(data): void {
-      if (data.response) {
-        this.uploadFileXls = JSON.parse(data.response);
-        if(this.uploadFileXls.error.state===0){
-          this.baccarat.fileName = this.uploadFileXls.data.filePath;
+        if (data.response) {
+            this.uploadFileXls = JSON.parse(data.response);
+            if (this.uploadFileXls.error.state === 0) {
+                this.baccarat.fileName = this.uploadFileXls.data.filePath;
+            }
+            this.fileResp = data;
         }
-        this.fileResp = data;
-      }
-      this.zone.run(() => {
-          this.fileProgress = data.progress.percent;
-      });
+        this.zone.run(() => {
+            this.fileProgress = data.progress.percent;
+        });
     }
 
-    onDelFileName(){
-      this.baccarat.fileName='';
-      this.fileProgress=0;
-      this.uploadFileXls = {};
+    onDelFileName() {
+        this.baccarat.fileName = '';
+        this.fileProgress = 0;
+        this.uploadFileXls = {};
     }
 
     onDelImg(i) {
-      let sb = this.baccarat.subInfo[i];
-      sb.cRPBackgroundAdd = '';
-      sb.basicProgress = 0;
-      sb.uploadFile = null;
+        let sb = this.baccarat.subInfo[i];
+        sb.cRPBackgroundAdd = '';
+        sb.basicProgress = 0;
+        sb.uploadFile = null;
     }
 
     getImg(subinfo) {
@@ -209,44 +213,44 @@ export class BaccaratAddComponent {
         this.baccarat = data.data;
         this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
-        if(this.baccarat.cRPDesc!=null){
-          this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br>/g,'\n');
+        if (this.baccarat.cRPDesc != null) {
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br>/g, '\n');
         }
     }
 
-    before(start,end){
+    before(start, end) {
         return moment(start).isBefore(end);
     }
-    timeError:any;
+    timeError: any;
 
     onSubmit() {
-        let error:number =0;
+        let error: number = 0;
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
         }
-        if(this.before(this.baccarat.cRPValidEndDate,this.baccarat.cRPValidStartDate)){
-          this.timeError = 1;
-          return false;
-        }else{
-          this.timeError = 0;
-        }
-        this.baccarat.subInfo.forEach(item=>{
-          this.checkNum(item.cRPDNum,item);
-          if(item.numberError){
-            error+=1;
+        if (this.before(this.baccarat.cRPValidEndDate, this.baccarat.cRPValidStartDate)) {
+            this.timeError = 1;
             return false;
-          }
+        } else {
+            this.timeError = 0;
+        }
+        this.baccarat.subInfo.forEach(item => {
+            this.checkNum(item.cRPDNum, item);
+            if (item.numberError) {
+                error += 1;
+                return false;
+            }
         })
-        if(error){
-          return false;
+        if (error) {
+            return false;
         }
         if (this.loading) {
             return false;
         }
         this.loading = 1;
-        if(this.baccarat.cRPDesc!=null){
-          this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g,'<br>');
+        if (this.baccarat.cRPDesc != null) {
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br>');
         }
         this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;
@@ -259,34 +263,34 @@ export class BaccaratAddComponent {
         },
             error => { this.errorMessage = <any>error; alert(error); this.loading = 0; });
     }
-    addTotaError:any=0;
+    addTotaError: any = 0;
     onAddTotal(subinfo) {
-        let data:any = {};
+        let data: any = {};
         data.cRPId = this.baccarat.cRPId;
         data.cRPDId = subinfo.cRPDId;
         data.fileName = this.baccarat.fileName;
-        data.additionalNum = isNaN(+subinfo.additionalNum)?0:+subinfo.additionalNum;
-        if(data.additionalNum==0){
-          subinfo.addTotaError = 1;
-          return false;
-        }else{
-          subinfo.addTotaError = 0;
+        data.additionalNum = isNaN(+subinfo.additionalNum) ? 0 : +subinfo.additionalNum;
+        if (data.additionalNum == 0) {
+            subinfo.addTotaError = 1;
+            return false;
+        } else {
+            subinfo.addTotaError = 0;
         }
         this.bs.addTotal(data).subscribe(data => {
-          if (data.error.state !== 0) {
-              alert(data.error.msg);
-              return;
-          }
-          alert('新增成功');
-          subinfo.cRPDNum += +subinfo.additionalNum;
-          subinfo.additionalNum = '';
+            if (data.error.state !== 0) {
+                alert(data.error.msg);
+                return;
+            }
+            alert('新增成功');
+            subinfo.cRPDNum += +subinfo.additionalNum;
+            subinfo.additionalNum = '';
             // TimerWrapper.setTimeout(() => {
             //   tl.addStatus = 0;
             //   this.getTotalList();
             // }, 5000);
         }, error => this.handleError);
     }
-    onEnterAddTotal(event,subinfo) {
+    onEnterAddTotal(event, subinfo) {
         event.stopPropagation();
         if (event.keyCode == 13) {
             this.onAddTotal(subinfo);
@@ -300,22 +304,22 @@ export class BaccaratAddComponent {
         this.baccarat.subInfo.push({});
     }
 
-    onDeleteSubInfo(i){
-      this.baccarat.subInfo.splice(i,1);
+    onDeleteSubInfo(i) {
+        this.baccarat.subInfo.splice(i, 1);
     }
 
-    getTotal(){
-      let total:number = 0;
-      this.baccarat.subInfo.forEach(item=>total += item.cRPDNum);
-      return total||0;
+    getTotal() {
+        let total: number = 0;
+        this.baccarat.subInfo.forEach(item => total += item.cRPDNum);
+        return total || 0;
     }
 
-    checkNum(data,target){
-      if(/^([1-9][0-9]{0,5}|100000)$/.test(data)){
-        target.numberError = 0;
-      }else{
-        target.numberError = 1;
-      }
+    checkNum(data, target) {
+        if (/^([1-9][0-9]{0,5}|100000)$/.test(data)) {
+            target.numberError = 0;
+        } else {
+            target.numberError = 1;
+        }
     }
 
     private handleError(error: any) {
