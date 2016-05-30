@@ -85,7 +85,6 @@ export class AccountService {
         let search = new URLSearchParams();
         search.set('currentPage', data.currentPage);
         search.set('pageSize', data.pageSize);
-        console.log(search);
         return this.http.get(searchUrl, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**

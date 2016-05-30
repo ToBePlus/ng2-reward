@@ -16,6 +16,7 @@ const Observable_1 = require('rxjs/Observable');
 const http_2 = require('@angular/http');
 const common_1 = require('@angular/common');
 const moment = require('moment');
+const _ = require('lodash');
 const ng2_uploader_1 = require('ng2-uploader/ng2-uploader');
 const config_1 = require('../../services/config');
 const Baccarat_service_1 = require('../Baccarat.service');
@@ -36,6 +37,8 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             url: FILE_URL
         };
         this.fileProgress = 0;
+        this.timeError = 0;
+        this.nameError = 0;
         this.addTotaError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
@@ -68,14 +71,13 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             'cRPGenerateType': [1],
             'fileName': [''],
             'cRPNoticeNow': [1],
-            'cRPNoticeNowContent': ['奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。'],
+            'cRPNoticeNowContent': ['奖励领取验证码{验证码}，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。'],
             'cRPValidNotice': [1],
             'cRPValidNoticeDay': [3],
-            'cRPValidNoticeContent': ['奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
+            'cRPValidNoticeContent': ['奖励领取验证码{验证码}，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
         });
         this.cRPRateContent = this.bsForm.controls['cRPRateContent'];
         this.baseUrl = config_1.baseUrl;
-        console.log(config_1.baseUrl);
     }
     ngOnInit() {
         this.baccarat = {};
@@ -86,8 +88,8 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.baccarat.cRPCodeType = 1;
         this.baccarat.cRPGenerateType = 1;
         this.baccarat.cRPValidNoticeDay = 3;
-        this.baccarat.cRPNoticeNowContent = '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}';
-        this.baccarat.cRPValidNoticeContent = '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。';
+        this.baccarat.cRPNoticeNowContent = '奖励领取验证码{验证码}，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}';
+        this.baccarat.cRPValidNoticeContent = '奖励领取验证码{验证码}，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。';
         this.baccarat.cRPValidStartDate = moment().format('YYYY-MM-DD');
         this.baccarat.cRPValidEndDate = moment().format('YYYY-MM-DD');
         this.baccarat.range = -1;
@@ -187,11 +189,26 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     before(start, end) {
         return moment(start).isBefore(end);
     }
+    checkNum(data, target) {
+        if (/^([1-9][0-9]{0,5}|100000)$/.test(data)) {
+            target.numberError = 0;
+        }
+        else {
+            target.numberError = 1;
+        }
+    }
     onSubmit() {
         let error = 0;
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
+        }
+        if (this.baccarat.cRPName != null && _.trim(this.baccarat.cRPName) == '') {
+            this.nameError = 1;
+            return false;
+        }
+        else {
+            this.nameError = 0;
         }
         if (this.before(this.baccarat.cRPValidEndDate, this.baccarat.cRPValidStartDate)) {
             this.timeError = 1;
@@ -205,6 +222,14 @@ let BaccaratAddComponent = class BaccaratAddComponent {
             if (item.numberError) {
                 error += 1;
                 return false;
+            }
+            if (_.trim(item.cRPDName) == '') {
+                item.subNameError = 1;
+                error += 1;
+                return false;
+            }
+            else {
+                item.subNameError = 0;
             }
         });
         if (error) {
@@ -274,14 +299,6 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.baccarat.subInfo.forEach(item => total += item.cRPDNum);
         return total || 0;
     }
-    checkNum(data, target) {
-        if (/^([1-9][0-9]{0,5}|100000)$/.test(data)) {
-            target.numberError = 0;
-        }
-        else {
-            target.numberError = 1;
-        }
-    }
     handleError(error) {
         // In a real world app, we might use a remote logging infrastructure
         let errMsg = error.message || 'Server error';
@@ -310,4 +327,4 @@ BaccaratAddComponent = __decorate([
     __metadata('design:paramtypes', [Baccarat_service_1.BaccaratService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], BaccaratAddComponent);
 exports.BaccaratAddComponent = BaccaratAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map

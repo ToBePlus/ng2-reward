@@ -67,12 +67,13 @@ export class AccountListComponent{
         alert(data.error.msg);
         return;
     }
-    // this.params = data.params;
-    this.list=data.data.list;
-    this.page=data.data.page;
-    this.currentPage = +data.data.page.currentPage;
-    this.pageSize = +data.data.page.pageSize;
-    this.pageCount = +data.data.page.pageCount;
+    if(data.data.list){
+      this.list=data.data.list;
+      this.page=data.data.page;
+      this.currentPage = +data.data.page.currentPage;
+      this.pageSize = +data.data.page.pageSize;
+      this.pageCount = +data.data.page.pageCount;
+    }
   }
 
   toHome(){

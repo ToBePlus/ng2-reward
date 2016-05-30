@@ -97,10 +97,10 @@ export class ShowDetailComponent {
     }
 
     onSetRange(range) {
-        this.prizesParams.range = range;
-        if (range == '-1') {
-
-        } else if (range < 91) {
+      if(range=='-1'){
+        this.prizesParams.startDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+      }else if (range == '7'||range == '30'||range == '90') {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         } else if (range === 'currentYear') {

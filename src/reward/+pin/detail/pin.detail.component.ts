@@ -77,8 +77,7 @@ export class PinDetailComponent {
         this.prizesParams.cRPDId = 0;
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
-        this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
-        this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.startDate = moment().format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.rangeDate = this.prizesParams.startDate + '~' + this.prizesParams.endDate;
         this.prizesParams.range = -1;
@@ -104,7 +103,10 @@ export class PinDetailComponent {
 
     onSetRange(range) {
         this.prizesParams.range = range;
-        if (range < 91) {
+        if(range=='-1'){
+          this.prizesParams.startDate = moment().format('YYYY-MM-DD');
+          this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        }else if (range == '7'||range == '30'||range == '90') {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         } else if (range === 'currentYear') {

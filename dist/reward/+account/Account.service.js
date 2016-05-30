@@ -90,7 +90,6 @@ let AccountService = class AccountService {
         let search = new http_1.URLSearchParams();
         search.set('currentPage', data.currentPage);
         search.set('pageSize', data.pageSize);
-        console.log(search);
         return this.http.get(searchUrl, { search: search }).map(res => res.json()).catch(this.handleError);
     }
     /**
@@ -114,4 +113,4 @@ AccountService = __decorate([
     __metadata('design:paramtypes', [http_1.Http])
 ], AccountService);
 exports.AccountService = AccountService;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+account/Account.service.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+account/Account.service.js.map

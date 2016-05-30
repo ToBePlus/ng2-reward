@@ -68,10 +68,11 @@ let ShowDetailComponent = class ShowDetailComponent {
         return moment(date).toDate();
     }
     onSetRange(range) {
-        this.prizesParams.range = range;
         if (range == '-1') {
+            this.prizesParams.startDate = moment().format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         }
-        else if (range < 91) {
+        else if (range == '7' || range == '30' || range == '90') {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         }
@@ -285,4 +286,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+show/detail/show.detail.component.js.map

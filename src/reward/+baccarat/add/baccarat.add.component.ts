@@ -6,6 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
+import * as _ from 'lodash';
 import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
 
 import {baseUrl} from '../../services/config';
@@ -58,6 +59,9 @@ export class BaccaratAddComponent {
 
     baseUrl: string;
 
+    timeError: any=0;
+    nameError: any=0;
+
     constructor(private bs: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
@@ -90,14 +94,13 @@ export class BaccaratAddComponent {
             'cRPGenerateType': [1],
             'fileName': [''],
             'cRPNoticeNow': [1],
-            'cRPNoticeNowContent': ['奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。'],
+            'cRPNoticeNowContent': ['奖励领取验证码{验证码}，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}。'],
             'cRPValidNotice': [1],
             'cRPValidNoticeDay': [3],
-            'cRPValidNoticeContent': ['奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
+            'cRPValidNoticeContent': ['奖励领取验证码{验证码}，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'],
         });
         this.cRPRateContent = this.bsForm.controls['cRPRateContent'];
         this.baseUrl = baseUrl;
-        console.log(baseUrl);
     }
 
     ngOnInit() {
@@ -109,8 +112,8 @@ export class BaccaratAddComponent {
         this.baccarat.cRPCodeType = 1;
         this.baccarat.cRPGenerateType = 1;
         this.baccarat.cRPValidNoticeDay = 3;
-        this.baccarat.cRPNoticeNowContent = '奖励领取验证码888888，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}'
-        this.baccarat.cRPValidNoticeContent = '奖励领取验证码888888，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'
+        this.baccarat.cRPNoticeNowContent = '奖励领取验证码{验证码}，恭喜您获得由{品牌名}提供的的{奖品名称}一份，有效期{生效日期}至{失效日期}'
+        this.baccarat.cRPValidNoticeContent = '奖励领取验证码{验证码}，您获得的由{品牌名}提供的的{奖品名称}将在{失效日}到期，请及时兑换。'
         this.baccarat.cRPValidStartDate = moment().format('YYYY-MM-DD');
         this.baccarat.cRPValidEndDate = moment().format('YYYY-MM-DD');
         this.baccarat.range = -1;
@@ -221,13 +224,28 @@ export class BaccaratAddComponent {
     before(start, end) {
         return moment(start).isBefore(end);
     }
-    timeError: any;
+
+    checkNum(data, target) {
+        if (/^([1-9][0-9]{0,5}|100000)$/.test(data)) {
+            target.numberError = 0;
+        } else {
+            target.numberError = 1;
+        }
+    }
+
+
 
     onSubmit() {
         let error: number = 0;
         if (!this.bsForm.valid) {
             this.bsForm.markAsTouched();
             return false;
+        }
+        if(this.baccarat.cRPName!=null&&_.trim(this.baccarat.cRPName)==''){
+          this.nameError = 1;
+          return false;
+        }else{
+          this.nameError = 0;
         }
         if (this.before(this.baccarat.cRPValidEndDate, this.baccarat.cRPValidStartDate)) {
             this.timeError = 1;
@@ -240,6 +258,13 @@ export class BaccaratAddComponent {
             if (item.numberError) {
                 error += 1;
                 return false;
+            }
+            if(_.trim(item.cRPDName)==''){
+              item.subNameError = 1;
+              error += 1;
+              return false;
+            }else{
+              item.subNameError = 0;
             }
         })
         if (error) {
@@ -314,13 +339,7 @@ export class BaccaratAddComponent {
         return total || 0;
     }
 
-    checkNum(data, target) {
-        if (/^([1-9][0-9]{0,5}|100000)$/.test(data)) {
-            target.numberError = 0;
-        } else {
-            target.numberError = 1;
-        }
-    }
+
 
     private handleError(error: any) {
         // In a real world app, we might use a remote logging infrastructure

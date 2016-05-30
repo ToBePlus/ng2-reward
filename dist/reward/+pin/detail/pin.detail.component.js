@@ -46,8 +46,7 @@ let PinDetailComponent = class PinDetailComponent {
         this.prizesParams.cRPDId = 0;
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
-        this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
-        this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        this.prizesParams.startDate = moment().format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.rangeDate = this.prizesParams.startDate + '~' + this.prizesParams.endDate;
         this.prizesParams.range = -1;
@@ -70,7 +69,11 @@ let PinDetailComponent = class PinDetailComponent {
     }
     onSetRange(range) {
         this.prizesParams.range = range;
-        if (range < 91) {
+        if (range == '-1') {
+            this.prizesParams.startDate = moment().format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        }
+        else if (range == '7' || range == '30' || range == '90') {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         }
@@ -295,4 +298,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-eViLGfg8.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
