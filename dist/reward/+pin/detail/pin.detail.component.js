@@ -55,6 +55,7 @@ let PinDetailComponent = class PinDetailComponent {
     onShowDate(event) {
         event.stopPropagation();
         this.dateShow = !this.dateShow;
+        this.prizesParams.range = 'custom';
     }
     closeDatePicker(event) {
         event.stopPropagation();

@@ -86,6 +86,7 @@ export class PinDetailComponent {
     onShowDate(event) {
         event.stopPropagation();
         this.dateShow = !this.dateShow;
+        this.prizesParams.range = 'custom';
     }
 
     public closeDatePicker(event) {

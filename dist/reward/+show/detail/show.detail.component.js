@@ -43,7 +43,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.prizesParams.projectId = '';
         this.projectsParams.queryType = 1;
         this.prizesParams.cRPId = this.id;
-        this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
+        this.prizesParams.startDate = moment().format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         this.prizesParams.range = -1;
         this.additionalNumControl = this.showForm.controls['additionalNumControl'];
@@ -51,6 +51,7 @@ let ShowDetailComponent = class ShowDetailComponent {
     onShowDate(event) {
         event.stopPropagation();
         this.dateShow = !this.dateShow;
+        this.prizesParams.range = 'custom';
     }
     closeDatePicker(event) {
         event.stopPropagation();
