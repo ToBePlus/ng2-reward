@@ -100,7 +100,7 @@
 					<div class="re-form-field re-rule-date">
 						<div class="re-label">有效日期：</div>
 						<div>
-							<div class="rd-btn" [class.active]="program.cRPValidType===-1" (click)="program.cRPValidType=-1">自定义</div>
+							<div class="rd-btn" [class.active]="program.cRPValidType===-1" (click)="program.cRPValidType=-1;onInitDate();">自定义</div>
 							<div class="rd-btn" [class.active]="program.cRPValidType===0" (click)="program.cRPValidType=0">发放后当日</div>
 							<div class="rd-btn" [class.active]="program.cRPValidType===24" (click)="program.cRPValidType=24">发放后24小时</div>
 							<div class="rd-btn" [class.active]="program.cRPValidType===7" (click)="program.cRPValidType=7">发放后7日</div>

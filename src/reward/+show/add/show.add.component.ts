@@ -94,6 +94,11 @@ export class ShowAddComponent {
         this.dateShow = !this.dateShow;
     }
 
+    onInitDate(){
+      this.program.cRPValidStartDate =  moment().format('YYYY-MM-DD');
+      this.program.cRPValidEndDate =  moment().format('YYYY-MM-DD');
+    }
+
     public closeDatePicker(event) {
         event.stopPropagation();
         this.dateShow = 0;

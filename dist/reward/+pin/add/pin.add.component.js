@@ -104,6 +104,10 @@ let PinAddComponent = class PinAddComponent {
         event.stopPropagation();
         this.dateShow = !this.dateShow;
     }
+    onInitDate() {
+        this.pinProgram.cRPValidStartDate = moment().format('YYYY-MM-DD');
+        this.pinProgram.cRPValidEndDate = moment().format('YYYY-MM-DD');
+    }
     closeDatePicker(event) {
         event.stopPropagation();
         this.dateShow = 0;

@@ -130,6 +130,11 @@ export class PinAddComponent {
         this.dateShow = !this.dateShow;
     }
 
+    onInitDate(){
+      this.pinProgram.cRPValidStartDate =  moment().format('YYYY-MM-DD');
+      this.pinProgram.cRPValidEndDate =  moment().format('YYYY-MM-DD');
+    }
+
     public closeDatePicker(event) {
         event.stopPropagation();
         this.dateShow = 0;

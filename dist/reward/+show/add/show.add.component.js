@@ -68,6 +68,10 @@ let ShowAddComponent = class ShowAddComponent {
         event.stopPropagation();
         this.dateShow = !this.dateShow;
     }
+    onInitDate() {
+        this.program.cRPValidStartDate = moment().format('YYYY-MM-DD');
+        this.program.cRPValidEndDate = moment().format('YYYY-MM-DD');
+    }
     closeDatePicker(event) {
         event.stopPropagation();
         this.dateShow = 0;
