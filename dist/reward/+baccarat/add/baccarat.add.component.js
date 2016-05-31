@@ -181,7 +181,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         return moment(start).isBefore(end);
     }
     checkNum(data, target) {
-        if (/^([1-9][0-9]{0,5}|100000)$/.test(data)) {
+        if (/^([1-9][0-9]{0,4}|100000)$/.test(data)) {
             target.numberError = 0;
         }
         else {

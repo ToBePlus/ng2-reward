@@ -126,9 +126,9 @@
 							<span class="text-danger">*</span>发放总量：
 						</div>
 						<div class="re-convert-ops re-convert-lib">
-							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="^([1-9][0-9]{0,5}|100000)$" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
+							<input class="inputtxt input-157" [disabled]="program.cRPId" pattern="/^([1-9][0-9]{0,4}|100000)$/" type="text" name="totalRewards" required [ngFormControl]="psForm.controls['totalRewards']" [(ngModel)]="program.totalRewards" placeholder="输入1~100,000的数字">张
 							<div class="re-add-num" *ngIf="program.cRPId">
-								<input type="text" (keyup)="!additionalNumControl.hasError('required')&&!additionalNumControl.hasError('pattern')&&onEnterAddTotal($event)" [(ngModel)]="additionalNum" pattern="^([1-9][0-9]{0,5}|100000)$" [ngFormControl]="psForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
+								<input type="text" (keyup)="!additionalNumControl.hasError('required')&&!additionalNumControl.hasError('pattern')&&onEnterAddTotal($event)" [(ngModel)]="additionalNum" pattern="/^([1-9][0-9]{0,4}|100000)$/" [ngFormControl]="psForm.controls['additionalNumControl']" placeholder="输入1~100,000的数字">
 								<button class="add-btn" (click)="onAddTotal()" [disabled]="additionalNumControl.hasError('pattern')"></button>
 							</div>
 							<!-- <a href="" class="re-date-tip">+添加到期提醒</a> -->
@@ -156,7 +156,7 @@
 						</div>
 						<div class="re-rule-cbks">
 							<input class="re-ckb re-ckb-radio" type="radio" name="cRPRate" [checked]="program.cRPRate===2"  (click)="program.cRPRate=2" id="rule-type-2"> <label for="rule-type-2">自定义比例</label>
-							<input class="inputtxt input-71" [disabled]="program.cRPRate===1" name="cRPRateContent" pattern="^(([1-9][0-9]{0,1}(\.\d+)?)|100)$" [ngFormControl]="psForm.controls['cRPRateContent']" [(ngModel)]="program.cRPRateContent" type="text">%
+							<input class="inputtxt input-71" [disabled]="program.cRPRate===1" name="cRPRateContent" pattern="^(([1-9][0-9]{0,1}(\.\d+){0,2})|100)$" [ngFormControl]="psForm.controls['cRPRateContent']" [(ngModel)]="program.cRPRateContent" type="text">%
 							<span>输入1～100的数字</span>
 						</div>
 						<div class="text-danger" *ngIf="cRPRateContent.hasError('pattern')">
