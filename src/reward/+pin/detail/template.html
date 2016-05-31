@@ -115,7 +115,7 @@
 								<td>{{psl.groupName}}</td>
 								<td>{{psl.entityName}}</td>
 								<td>{{psl.cRMobile||'-'}}</td>
-								<td>{{psl.cRVerifyTime|date:'yyyy/MM/dd'}}</td>
+								<td>{{moment(psl.cRVerifyTime,'YYYY-MM-DD HH:mm')}}</td>
 								<td>{{psl.userName||'-'}}</td>
 							</tr>
 						</tbody>
