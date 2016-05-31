@@ -215,7 +215,7 @@ export class PinDetailComponent {
             if (this.errorAlert(data)) {
                 this.projectsList = data.data;
                 this.curProjectsList = data.data.filter(data => data.cPStatus === '1');
-                if (this.projectsList.length > 0 && this.prizesParams.projectId === undefined) {
+                if (this.projectsList.length > 0 && this.prizesParams.projectId === '') {
                     this.prizesParams.projectId = this.projectsList[0].cPId;
                 }
                 if (this.prizesParams.projectId !== undefined) {

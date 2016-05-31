@@ -6,7 +6,7 @@
 		<button class="rd-save" [disabled]="loading" type="submit"></button>
 	</div>
 	<div class="rd-main">
-		<div class="rd-mid-edit" *ngIf="state===1">奖励正在运行中，修改内容并保存后将立即生效，请谨慎操作！</div>
+		<div class="rd-mid-edit" *ngIf="state==1">奖励正在运行中，修改内容并保存后将立即生效，请谨慎操作！</div>
 		<div class="rd-mid zs-border clearfix re-main">
 				<input type="hidden" name="cRPRewardType" [ngFormControl]="psForm.controls['cRPRewardType']" [(ngModel)]="program.cRPRewardType" >
 			<div class="re-form fr">
