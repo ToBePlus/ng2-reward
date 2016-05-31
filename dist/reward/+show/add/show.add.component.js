@@ -119,7 +119,7 @@ let ShowAddComponent = class ShowAddComponent {
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
         if (this.program.cRPDesc != null) {
-            this.program.cRPDesc = this.program.cRPDesc.replace(/<br>/g, '\n');
+            this.program.cRPDesc = this.program.cRPDesc.replace(/<br\/>/g, '\n');
         }
         if (this.program.cRPBackgroundAdd != '') {
             this.uploadFile = {};
@@ -184,7 +184,7 @@ let ShowAddComponent = class ShowAddComponent {
         }
         this.loading = 1;
         if (this.program.cRPDesc != null) {
-            this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g, '<br>');
+            this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g, '<br/>');
         }
         this.ss.add(this.program).subscribe(data => {
             this.loading = 0;
@@ -227,4 +227,4 @@ ShowAddComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/src/reward/+show/add/show.add.component.js.map

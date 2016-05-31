@@ -87,6 +87,7 @@
 							<tr>
 								<th>序号</th>
 								<th>兑换核验码</th>
+								<th>奖品名称</th>
 								<th>发放状态</th>
 								<th>兑换状态</th>
 								<th>发放时间</th>
@@ -107,6 +108,7 @@
 							<tr *ngFor="let psl of pinList;let i = index;">
 								<td>{{i+1}}</td>
 								<td>{{psl.cRCode}}</td>
+								<td>{{psl.cRPrizeName}}</td>
 								<td>{{psl.cRStatus!==0?'已发放':'-'}}</td>
 								<td>{{psl.cRStatus===2?'已兑换':'未兑换'}}</td>
 								<td>{{moment(psl.cRSendTime,'YYYY-MM-DD HH:mm')}}</td>
@@ -188,12 +190,12 @@
 							输入不符合规则,请输入1~100,000的整数
 						</div>
 						<div>
-							<span>已发放总量</span>
+							<span>已发放数量</span>
 							<span class="c-green">{{tl.senderNum}}</span>
 							<a class="s-ico s-ico-down" target="_blank" [href]="onDoneDownload(tl.cRPDId)"></a>
 						</div>
 						<div>
-							<span>已兑换总量</span>
+							<span>已兑换数量</span>
 							<span class="c-green">{{tl.verfiyNum}}</span>
 							<a class="s-ico s-ico-down" target="_blank" [href]="onExchangeDownload(tl.cRPDId)"></a>
 						</div>

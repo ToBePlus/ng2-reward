@@ -116,21 +116,6 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     momentDate(date) {
         return moment(date).toDate();
     }
-    onSetRange(range) {
-        this.baccarat.range = range;
-        if (range < 91) {
-            this.baccarat.cRPValidStartDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
-            this.baccarat.cRPValidEndDate = moment().format('YYYY-MM-DD');
-        }
-        else if (range === 'currentYear') {
-            this.baccarat.cRPValidStartDate = moment().startOf('year').format('YYYY-MM-DD');
-            this.baccarat.cRPValidEndDate = moment().endOf('year').format('YYYY-MM-DD');
-        }
-        else if (range === 'nextYear') {
-            this.baccarat.cRPValidStartDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
-            this.baccarat.cRPValidEndDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
-        }
-    }
     handleBasicUpload(data, index) {
         let sb = this.baccarat.subInfo[index];
         if (data.size > 2 * 1024 * 1024) {
@@ -139,7 +124,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         else {
             if (data && data.response) {
                 sb.uploadFile = JSON.parse(data.response);
-                sb.cRPBackgroundAdd = sb.uploadFile.data;
+                sb.cRPDBackgroundAdd = sb.uploadFile.data;
             }
             sb.basicResp = data;
             this.zone.run(() => {
@@ -166,12 +151,12 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     }
     onDelImg(i) {
         let sb = this.baccarat.subInfo[i];
-        sb.cRPBackgroundAdd = '';
+        sb.cRPDBackgroundAdd = '';
         sb.basicProgress = 0;
         sb.uploadFile = null;
     }
     getImg(subinfo) {
-        return 'url(\'/' + subinfo.cRPBackgroundAdd + '\') no-repeat center center';
+        return 'url(\'/' + subinfo.cRPDBackgroundAdd + '\') no-repeat center center';
     }
     getPinProgram() {
         if (this.id === undefined || isNaN(this.id))
@@ -183,8 +168,14 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
         if (this.baccarat.cRPDesc != null) {
-            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br>/g, '\n');
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br\/>/g, '\n');
         }
+        this.baccarat.subInfo.forEach(function (item, i) {
+            if (item.cRPDBackgroundAdd != '') {
+                item.uploadFile = {};
+                item.uploadFile.data = item.cRPDBackgroundAdd;
+            }
+        });
     }
     before(start, end) {
         return moment(start).isBefore(end);
@@ -240,7 +231,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         }
         this.loading = 1;
         if (this.baccarat.cRPDesc != null) {
-            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br>');
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br/>');
         }
         this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;
@@ -327,4 +318,4 @@ BaccaratAddComponent = __decorate([
     __metadata('design:paramtypes', [Baccarat_service_1.BaccaratService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], BaccaratAddComponent);
 exports.BaccaratAddComponent = BaccaratAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/src/reward/+baccarat/add/baccarat.add.component.js.map

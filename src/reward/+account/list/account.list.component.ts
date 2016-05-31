@@ -67,7 +67,7 @@ export class AccountListComponent{
         alert(data.error.msg);
         return;
     }
-    if(data.data.list){
+    if(data!=null&&data!='null'&&data.data&&data.data.list){
       this.list=data.data.list;
       this.page=data.data.page;
       this.currentPage = +data.data.page.currentPage;

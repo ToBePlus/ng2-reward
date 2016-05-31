@@ -51,13 +51,13 @@
 							</div>
 							<div class="advance " *ngIf="subinfo.advanceSetShow">
 								<div class="re-subtit">
-									奖品副标题：<input class="inputtxt input-200" type="text" maxlength="12"  [(ngModel)]="subinfo.cRPDSubtitle" placeholder="最多显示12个字,显示在领奖页" >
+									奖品副标题：<input class="inputtxt input-200" type="text" maxlength="12" [disabled]="baccarat.cRPId"  [(ngModel)]="subinfo.cRPDSubtitle" placeholder="最多显示12个字,显示在领奖页" >
 								</div>
 								<div class="advance advance-base advance-show">
 									<div *ngIf="!subinfo.uploadFile" class="re-upload">
 										<input type="file" name="fileName" accept="image/gif,image/jpeg,image/png" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
-										<div class="rd-btn">选择文件</div>
-										<div class="re-progress clearfix">
+										<div class="rd-btn" *ngIf="!baccarat.cRPId">选择文件</div>
+										<div *ngIf="!baccarat.cRPId" class="re-progress clearfix">
 											<div >
 												<span></span>
 												<div class="re-progress-bar" *ngIf="subinfo.basicProgress">
@@ -68,12 +68,12 @@
 										</div>
 									</div>
 									<div *ngIf="subinfo.uploadFile?.data" style="background: #f3f3f3;">
-										<span>已上传图片  {{subinfo.basicResp?.originalName||subinfo.cRPBackgroundAdd}}</span>
+										<span>已上传图片  {{subinfo.basicResp?.originalName||subinfo.uploadFile?.data}}</span>
 										<div class="re-upload re-upload-op">
 											<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
-											<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg(i)">删除</div>
-											<div class="re-progress clearfix" *ngIf="subinfo.basicProgress">
-												<div >
+											<div class="upload-op" *ngIf="!baccarat.cRPId">重新上传</div><div *ngIf="!baccarat.cRPId" class="upload-op" (click)="onDelImg(i)">删除</div>
+											<div class="re-progress clearfix" *ngIf="subinfo.basicProgress&&!baccarat.cRPId" >
+												<div>
 													<span></span>
 													<div class="re-progress-bar">
 														<div [ngStyle]="{ 'width': subinfo.basicProgress + '%' }"></div>
@@ -104,8 +104,8 @@
 										<span class="text-danger">{{subinfo.uploadFile.error.msg}}</span>
 										<div class="re-upload re-upload-op">
 											<input type="file" accept="image/gif,image/jpeg,image/png" name="fileName" [ng-file-select]="options" (onUpload)="handleBasicUpload($event,i)" >
-											<div class="upload-op">重新上传</div><div class="upload-op" (click)="onDelImg(i)">删除</div>
-											<div class="re-progress clearfix" *ngIf="subinfo.basicProgress">
+											<div class="upload-op" *ngIf="!baccarat.cRPId">重新上传</div><div *ngIf="!baccarat.cRPId" class="upload-op" (click)="onDelImg(i)">删除</div>
+											<div class="re-progress clearfix" *ngIf="subinfo.basicProgress&&!baccarat.cRPId">
 												<div >
 													<span></span>
 													<div class="re-progress-bar">
@@ -120,7 +120,7 @@
 								<div class="re-tip">请使用240*74比例的的PNG,JPG透明图片，小于2M</div>
 							</div>
 						</div>
-						<div [class.disabled]="baccarat.cRPId" *ngIf="baccarat.subInfo.length<8" class="add-prize" (click)="!baccarat.cRPId&&onAddSubInfo()"><span>+添加奖品</span></div>
+						<div  *ngIf="baccarat.subInfo.length<8&&!baccarat.cRPId" class="add-prize" (click)="!baccarat.cRPId&&onAddSubInfo()"><span>+添加奖品</span></div>
 					</div>
 					<div class="re-form-field">
 						<div class="re-label">活动说明：<input class="re-ckb" type="checkbox" [(ngModel)]="baccarat.cRPDescShow" [ngFormControl]="bsForm.controls['cRPDescShow']" id="ckb-des"> <label for="ckb-des">显示</label></div>
@@ -182,15 +182,15 @@
 							<span class="text-danger">*</span>奖品兑换方式：
 						</div>
 						<div class="re-convert-ops re-convert-type">
-							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPExchangeType === 2" (click)="baccarat.cRPExchangeType = 2" name="convertType" id="convert-type-1"> <label for="convert-type-1" [class.disabled]="baccarat.cRPId">核验型</label>
-							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPExchangeType === 1" (click)="baccarat.cRPExchangeType = 1" name="convertType" id="convert-type-2"> <label for="convert-type-2" [class.disabled]="baccarat.cRPId">展示型</label>
+							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPExchangeType === 2" (click)="baccarat.cRPExchangeType = 2" name="convertType" id="convert-type-1"> <label for="convert-type-1" >核验型</label>
+							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPExchangeType === 1" (click)="baccarat.cRPExchangeType = 1" name="convertType" id="convert-type-2"> <label for="convert-type-2" >展示型</label>
 							<span style="top:10px;">奖品兑换方式生效后,将不可进行修改</span>
 						</div>
 					</div>
 					<div class="re-form-field" *ngIf="baccarat.cRPExchangeType === 2">
 						<div class="re-label"><span class="text-danger">*</span>码类型：</div>
 						<div class="re-convert-ops re-convert-code" >
-							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPCodeType === 1" (click)="baccarat.cRPCodeType = 1" name="convertCode" id="convert-code-3"> <label for="convert-code-3" [class.disabled]="baccarat.cRPId">一人一码</label>
+							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPCodeType === 1" (click)="baccarat.cRPCodeType = 1" name="convertCode" id="convert-code-3"> <label for="convert-code-3" >一人一码</label>
 							<!-- <input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPCodeType === 2" (click)="baccarat.cRPCodeType = 2" name="convertCode" id="convert-code-4"> <label for="convert-code-4">通用码</label> -->
 							<!-- <input class="inputtxt input-70" type="text" [(ngModel)]="baccarat.cRPCodeCommon" [ngFormControl]="bsForm.controls['cRPCodeCommon']"> -->
 							<!-- <span>输入6-8位数字与英文字母的组合，如 SALE20</span> -->
@@ -199,8 +199,8 @@
 					<div class="re-form-field" *ngIf="baccarat.cRPExchangeType === 2">
 						<div class="re-label"><span class="text-danger">*</span>生成方式：</div>
 						<div class="re-convert-ops re-convert-create">
-							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPGenerateType === 1" (click)="baccarat.cRPGenerateType = 1" name="convertCode" name="convertCreate" id="convert-create-1"> <label for="convert-create-1" [class.disabled]="baccarat.cRPId">系统生成</label>
-							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPGenerateType === 2" (click)="baccarat.cRPGenerateType = 2" name="convertCode" name="convertCreate" id="convert-create-2"> <label for="convert-create-2" [class.disabled]="baccarat.cRPId">导入码库</label>
+							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPGenerateType === 1" (click)="baccarat.cRPGenerateType = 1" name="convertCode" name="convertCreate" id="convert-create-1"> <label for="convert-create-1" >系统生成</label>
+							<input class="re-ckb re-ckb-radio" type="radio" [disabled]="baccarat.cRPId"  [checked]="baccarat.cRPGenerateType === 2" (click)="baccarat.cRPGenerateType = 2" name="convertCode" name="convertCreate" id="convert-create-2"> <label for="convert-create-2" >导入码库</label>
 							<a href="/word/checkcode.xlsx" >下载模板文件</a>
 							<span style="width:200px;top:10px">生成方式选择生效后,将不可进行修改</span>
 						</div>

@@ -127,7 +127,7 @@ let PinAddComponent = class PinAddComponent {
         this.pinProgram.cRPValidStartDate = this.moment(this.pinProgram.cRPValidStartDate);
         this.pinProgram.cRPValidEndDate = this.moment(this.pinProgram.cRPValidEndDate);
         if (this.pinProgram.cRPDesc != null) {
-            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br>/g, '\n');
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br\/>/g, '\n');
         }
         if (this.pinProgram.cRPBackgroundAdd != '') {
             this.uploadFile = {};
@@ -256,7 +256,7 @@ let PinAddComponent = class PinAddComponent {
         }
         this.loading = 1;
         if (this.pinProgram.cRPDesc != null) {
-            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br>');
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br/>');
         }
         this.ps.add(this.pinProgram).subscribe(data => {
             this.loading = 0;
@@ -296,4 +296,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/src/reward/+pin/add/pin.add.component.js.map

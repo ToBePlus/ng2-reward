@@ -27,7 +27,8 @@ export class BaccaratService {
      * @param  {[object]} data [插入数据]
      * @return {[Observables]}      [observables 数据]
      */
-    add(data) {
+    add(args) {
+        let data = Object.assign({},args);
         let URL;
         if (data.cRPId === null || data.cRPId === undefined || isNaN(data.cRPId)) {
             URL = BaccaratAddUrl //新增
@@ -43,8 +44,8 @@ export class BaccaratService {
         data.cRPValidNotice = data.cRPValidNotice ? 1 : 0;
         let items = [];
         data.subInfo.forEach(item=>{
-          items.push({cRPDNum:item.cRPDNum,cRPDName:item.cRPDName,cRPDSubtitle:item.cRPDSubtitle,cRPBackgroundAdd:item.cRPBackgroundAdd});
-        })
+          items.push({cRPDNum:item.cRPDNum,cRPDName:item.cRPDName,cRPDSubtitle:item.cRPDSubtitle,cRPDBackgroundAdd:item.cRPDBackgroundAdd});
+        });
         data.subInfo = items;
         let body = JSON.stringify(data);
         let headers = new Headers({ 'Content-Type': 'application/json' });

@@ -43,6 +43,7 @@ let PinDetailComponent = class PinDetailComponent {
         this.projectsParams.queryType = 1;
         this.prizesParams = {};
         this.prizesParams.cRPId = this.id;
+        this.prizesParams.projectId = '';
         this.prizesParams.cRPDId = 0;
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
@@ -118,6 +119,8 @@ let PinDetailComponent = class PinDetailComponent {
         return downLoadBase + '?' + search;
     }
     onSearch() {
+        this.currentPage = 1;
+        this.pageSize = 10;
         this.search();
     }
     onDelete() {
@@ -298,4 +301,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map

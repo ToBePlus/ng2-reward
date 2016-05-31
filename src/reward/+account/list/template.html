@@ -10,6 +10,10 @@
 				<a [routerLink]="['/']">返回奖励</a> ＞ 核验子账号设置
 			</div>
 			<a [routerLink]="['/account/add']" class="zs-btn-add"><span>创建子账户</span></a>
+			<div class="zs-empty" *ngIf="!list">
+				<div class="zs-empty-img"></div>
+				<div class="zs-empty-txt">当前未创建核验子账号</div>
+			</div>
 			<div class="ra-list" *ngIf="list">
 				<div class="row">账号列表</div>
 				<div class="row">
@@ -31,10 +35,6 @@
 								 <a class="rd-btn-link-inline" (click)="l.delInput=0">取消删除</a>
 						</div>
 					</div>
-			</div>
-			<div class="zs-empty" *ngIf="!list">
-				<div class="zs-empty-img"></div>
-				<div class="zs-empty-txt">当前未创建核验子账号</div>
 			</div>
 			<pagination (pageChanged)="pageChanged($event)" [totalItems]="pageCount" [(ngModel)]="currentPage" [itemsPerPage]="pageSize" class="pagination-sm"
 						[boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event" firstText="首页" lastText="结束页" previousText="上一页" nextText="下一页"></pagination>

@@ -40,6 +40,7 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.projectsParams = {};
         this.prizesParams = {};
         this.projectsParams.cRPId = this.id;
+        this.prizesParams.projectId = '';
         this.projectsParams.queryType = 1;
         this.prizesParams.cRPId = this.id;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
@@ -106,6 +107,8 @@ let ShowDetailComponent = class ShowDetailComponent {
         return downLoadBase + '?' + search;
     }
     onSearch() {
+        this.currentPage = 1;
+        this.pageSize = 10;
         this.search();
     }
     onDelete() {
@@ -286,4 +289,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/src/reward/+show/detail/show.detail.component.js.map

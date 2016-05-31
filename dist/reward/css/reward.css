@@ -1,6 +1,6 @@
 .reward-edit .re-main { padding: 37px 17px 37px 76px; }
 .reward-edit .rd-preview { position:relative; width:285px; }
-.reward-edit .re-form { width:598px; }
+.reward-edit .re-form { width: 638px; }
 .re-form .re-form-field { padding-bottom:9px; }
 .re-form .lengend { font-size:18px; display:inline-block; line-height: 24px; color:#383838; border-bottom:2px solid #5d90cb; padding-top:3px; margin-bottom:9px;}
 .re-form-field .re-label { margin:5px 0; font-size:14px; line-height: 24px; }
@@ -21,7 +21,7 @@
 .re-form .inputs > span:after { position:absolute; top:0; right:0; pointer-events: none; display:block; width:10px; height:25px; content:''; background:url(./../../reward/images/reward_ico.png) no-repeat -202px -13px; }
 .re-form .inputs > span.re-show:after { background-position: -232px -13px; }
 .re-form .inputs .input-80 { padding:6px;  }
-.re-form .advance { margin:15px 0; border:2px dashed #5d90cb; padding:13px 21px;}
+.re-form .advance { margin:15px 50px 15px 0; border:2px dashed #5d90cb; padding:13px 21px;}
 .re-form .advance-base { border:none; padding:0; margin:0;}
 .re-form .advance-show {display:block;}
 .re-form .advance .re-tip{ font-size:12px; color:#888; margin-top:16px;}
@@ -74,6 +74,8 @@
 .re-pr + label { position:relative; }
 .re-form-field .re-label label { margin-left:17px; }
 .re-form-name .inputtxt { margin-right:18px; }
+.re-ckb:disabled + label:before{background:url(./../../reward/images/checkbox-disabled.png) no-repeat 2px 2px }
+.re-ckb-radio:disabled + label:before{background:url(./../../reward/images/checkbox-disabled.png) no-repeat 2px 2px }
 
 /** message **/
 .re-message .re-form-field { position:relative; padding-left:90px; }
@@ -179,5 +181,5 @@
 .rd-save { border: 0; position:absolute; width:75px; height:56px; background:#89c654 url(./../../reward/images/reward_ico.png) no-repeat -40px -229px; top:0; right:0; cursor:pointer;}
 .rd-save:hover { background-color:#77b442; }
 
-.re-form .inputs .re-add-num { width:84px; margin-right:17px; }
-.re-form .inputs .re-add-num input { width:58px; }
+.re-form .inputs .re-add-num { width:164px; margin-right:17px; }
+.re-form .inputs .re-add-num input { width:150px; }

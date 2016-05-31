@@ -1,4 +1,4 @@
-import {Component, Input,NgZone} from '@angular/core';
+import {Component, Input, NgZone} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
 import {TimerWrapper} from '@angular/core/src/facade/async';
@@ -24,7 +24,7 @@ const downLoadBase = baseUrl + '/rewardManage/check/export';
     selector: 'pin-detail',
     templateUrl: 'reward/+pin/detail/template.html',
     styleUrls: ['reward/+pin/detail/style.min.css'],
-    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES,UPLOAD_DIRECTIVES],
+    directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES, UPLOAD_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS],
     host: {
         '(click)': 'closeDatePicker($event)'
@@ -61,12 +61,12 @@ export class PinDetailComponent {
     fileResp: Object;
 
     uploadFileXls: any;
-    zone:any;
+    zone: any;
 
-    baseUrl:string;
+    baseUrl: string;
 
     constructor(private ps: PinService, private router: Router, params: RouteSegment) {
-      this.zone = new NgZone({ enableLongStackTrace: false });
+        this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id'); //获取URL中的ID
         this.state = +params.getParam('state'); //获取URL中的状态
         this.projectsParams = {};
@@ -74,6 +74,7 @@ export class PinDetailComponent {
         this.projectsParams.queryType = 1;
         this.prizesParams = {};
         this.prizesParams.cRPId = this.id;
+        this.prizesParams.projectId = '';
         this.prizesParams.cRPDId = 0;
         this.prizesParams.sendStatus = 0;
         this.prizesParams.verifyStatus = 0;
@@ -92,21 +93,21 @@ export class PinDetailComponent {
         this.dateShow = 0;
     }
 
-    moment(date,format = 'YYYY-MM-DD') {
+    moment(date, format = 'YYYY-MM-DD') {
         if (date == null) return '';
         return moment(date).format(format);
     }
 
-    momentDate(date):Date {
+    momentDate(date): Date {
         return moment(date).toDate();
     }
 
     onSetRange(range) {
         this.prizesParams.range = range;
-        if(range=='-1'){
-          this.prizesParams.startDate = moment().format('YYYY-MM-DD');
-          this.prizesParams.endDate = moment().format('YYYY-MM-DD');
-        }else if (range == '7'||range == '30'||range == '90') {
+        if (range == '-1') {
+            this.prizesParams.startDate = moment().format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        } else if (range == '7' || range == '30' || range == '90') {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         } else if (range === 'currentYear') {
@@ -131,8 +132,8 @@ export class PinDetailComponent {
         search.set('cRPDId', this.prizesParams.cRPDId);
         search.set('sendStatus', this.prizesParams.sendStatus);
         search.set('verifyStatus', this.prizesParams.verifyStatus);
-        search.set('startDate', this.prizesParams.startDate||'');
-        search.set('endDate', this.prizesParams.endDate||'');
+        search.set('startDate', this.prizesParams.startDate || '');
+        search.set('endDate', this.prizesParams.endDate || '');
         search.set('projectId', this.prizesParams.projectId);
         return downLoadBase + '?' + search;
     }
@@ -154,6 +155,8 @@ export class PinDetailComponent {
     }
 
     onSearch() {
+        this.currentPage = 1;
+        this.pageSize = 10;
         this.search();
     }
 
@@ -216,24 +219,24 @@ export class PinDetailComponent {
                     this.prizesParams.projectId = this.projectsList[0].cPId;
                 }
                 if (this.prizesParams.projectId !== undefined) {
-                  this.search();
+                    this.search();
                 }
             }
         }, error => this.handleError);
     }
 
-    before(start,end){
+    before(start, end) {
         return moment(start).isBefore(end);
     }
-    timeError:any;
+    timeError: any;
 
     search() {
 
-        if(this.before(this.prizesParams.cRPValidEndDate,this.prizesParams.cRPValidStartDate)){
-          this.timeError = 1;
-          return false;
-        }else{
-          this.timeError = 0;
+        if (this.before(this.prizesParams.cRPValidEndDate, this.prizesParams.cRPValidStartDate)) {
+            this.timeError = 1;
+            return false;
+        } else {
+            this.timeError = 0;
         }
         this.prizesParams.currentPage = this.currentPage;
         this.prizesParams.pageSize = this.pageSize;
@@ -295,11 +298,11 @@ export class PinDetailComponent {
         return false;
     }
 
-    checkUploadFile(){
-      return this.info.cRPCodeType === 1&&this.info.cRPGenerateType === 2;
+    checkUploadFile() {
+        return this.info.cRPCodeType === 1 && this.info.cRPGenerateType === 2;
     }
 
-    handleFileUpload(data,tl): void {
+    handleFileUpload(data, tl): void {
         if (data.size > 2 * 1024 * 1024) {
             this.uploadFile = { error: { state: 2, msg: '图片文件尺寸请小于2M' } };
         } else {

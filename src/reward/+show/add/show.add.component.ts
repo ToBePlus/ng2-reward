@@ -151,7 +151,7 @@ export class ShowAddComponent {
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
         if(this.program.cRPDesc!=null){
-          this.program.cRPDesc = this.program.cRPDesc.replace(/<br>/g,'\n');
+          this.program.cRPDesc = this.program.cRPDesc.replace(/<br\/>/g,'\n');
         }
         if(this.program.cRPBackgroundAdd!=''){
           this.uploadFile = {};
@@ -218,7 +218,7 @@ export class ShowAddComponent {
         }
         this.loading = 1;
         if(this.program.cRPDesc!=null){
-          this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g,'<br>')
+          this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g,'<br/>')
         }
         this.ss.add(this.program).subscribe(
             data => {

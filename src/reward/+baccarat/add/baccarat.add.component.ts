@@ -146,20 +146,6 @@ export class BaccaratAddComponent {
         return moment(date).toDate();
     }
 
-    onSetRange(range) {
-        this.baccarat.range = range;
-        if (range < 91) {
-            this.baccarat.cRPValidStartDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
-            this.baccarat.cRPValidEndDate = moment().format('YYYY-MM-DD');
-        } else if (range === 'currentYear') {
-            this.baccarat.cRPValidStartDate = moment().startOf('year').format('YYYY-MM-DD');
-            this.baccarat.cRPValidEndDate = moment().endOf('year').format('YYYY-MM-DD');
-        } else if (range === 'nextYear') {
-            this.baccarat.cRPValidStartDate = moment().add(1, 'y').startOf('year').format('YYYY-MM-DD');
-            this.baccarat.cRPValidEndDate = moment().add(1, 'y').endOf('year').format('YYYY-MM-DD');
-        }
-    }
-
     handleBasicUpload(data, index): void {
         let sb = this.baccarat.subInfo[index];
         if (data.size > 2 * 1024 * 1024) {
@@ -167,7 +153,7 @@ export class BaccaratAddComponent {
         } else {
             if (data && data.response) {
                 sb.uploadFile = JSON.parse(data.response);
-                sb.cRPBackgroundAdd = sb.uploadFile.data;
+                sb.cRPDBackgroundAdd = sb.uploadFile.data;
             }
             sb.basicResp = data;
             this.zone.run(() => {
@@ -197,13 +183,13 @@ export class BaccaratAddComponent {
 
     onDelImg(i) {
         let sb = this.baccarat.subInfo[i];
-        sb.cRPBackgroundAdd = '';
+        sb.cRPDBackgroundAdd = '';
         sb.basicProgress = 0;
         sb.uploadFile = null;
     }
 
     getImg(subinfo) {
-        return 'url(\'/' + subinfo.cRPBackgroundAdd + '\') no-repeat center center';
+        return 'url(\'/' + subinfo.cRPDBackgroundAdd + '\') no-repeat center center';
     }
 
 
@@ -217,8 +203,14 @@ export class BaccaratAddComponent {
         this.baccarat.cRPValidStartDate = this.moment(this.baccarat.cRPValidStartDate);
         this.baccarat.cRPValidEndDate = this.moment(this.baccarat.cRPValidEndDate);
         if (this.baccarat.cRPDesc != null) {
-            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br>/g, '\n');
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br\/>/g, '\n');
         }
+        this.baccarat.subInfo.forEach(function(item,i){
+          if(item.cRPDBackgroundAdd!=''){
+            item.uploadFile = {};
+            item.uploadFile.data = item.cRPDBackgroundAdd;
+          }
+        });
     }
 
     before(start, end) {
@@ -275,7 +267,7 @@ export class BaccaratAddComponent {
         }
         this.loading = 1;
         if (this.baccarat.cRPDesc != null) {
-            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br>');
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br/>');
         }
         this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;

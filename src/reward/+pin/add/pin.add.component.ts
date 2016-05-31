@@ -156,7 +156,7 @@ export class PinAddComponent {
         this.pinProgram.cRPValidStartDate = this.moment(this.pinProgram.cRPValidStartDate);
         this.pinProgram.cRPValidEndDate = this.moment(this.pinProgram.cRPValidEndDate);
         if (this.pinProgram.cRPDesc != null) {
-            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br>/g, '\n');
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br\/>/g, '\n');
         }
         if (this.pinProgram.cRPBackgroundAdd != '') {
             this.uploadFile = {};
@@ -292,7 +292,7 @@ export class PinAddComponent {
         }
         this.loading = 1;
         if (this.pinProgram.cRPDesc != null) {
-            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br>');
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br/>');
         }
         this.ps.add(this.pinProgram).subscribe(data => {
             this.loading = 0;

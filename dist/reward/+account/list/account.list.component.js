@@ -54,7 +54,7 @@ let AccountListComponent = class AccountListComponent {
             alert(data.error.msg);
             return;
         }
-        if (data.data.list) {
+        if (data != null && data != 'null' && data.data && data.data.list) {
             this.list = data.data.list;
             this.page = data.data.page;
             this.currentPage = +data.data.page.currentPage;
@@ -80,4 +80,4 @@ AccountListComponent = __decorate([
     __metadata('design:paramtypes', [Account_service_1.AccountService, router_1.Router])
 ], AccountListComponent);
 exports.AccountListComponent = AccountListComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-GxqQNl8n.tmp/0/src/reward/+account/list/account.list.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-h9Awj8FX.tmp/0/src/reward/+account/list/account.list.component.js.map

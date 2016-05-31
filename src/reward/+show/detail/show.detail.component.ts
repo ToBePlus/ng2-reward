@@ -64,6 +64,7 @@ export class ShowDetailComponent {
         this.projectsParams = {};
         this.prizesParams = {};
         this.projectsParams.cRPId = this.id;
+        this.prizesParams.projectId = '';
         this.projectsParams.queryType = 1;
         this.prizesParams.cRPId = this.id;
         this.prizesParams.startDate = moment().subtract(7, 'days').format('YYYY-MM-DD');
@@ -97,10 +98,10 @@ export class ShowDetailComponent {
     }
 
     onSetRange(range) {
-      if(range=='-1'){
-        this.prizesParams.startDate = moment().format('YYYY-MM-DD');
-        this.prizesParams.endDate = moment().format('YYYY-MM-DD');
-      }else if (range == '7'||range == '30'||range == '90') {
+        if (range == '-1') {
+            this.prizesParams.startDate = moment().format('YYYY-MM-DD');
+            this.prizesParams.endDate = moment().format('YYYY-MM-DD');
+        } else if (range == '7' || range == '30' || range == '90') {
             this.prizesParams.startDate = moment().subtract(range, 'days').format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');
         } else if (range === 'currentYear') {
@@ -138,6 +139,8 @@ export class ShowDetailComponent {
 
 
     onSearch() {
+        this.currentPage = 1;
+        this.pageSize = 10;
         this.search();
     }
 
