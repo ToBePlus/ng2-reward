@@ -62,7 +62,7 @@ let ShowAddComponent = class ShowAddComponent {
         this.cRPRateContent = this.psForm.controls['cRPRateContent'];
         //初始化数据
         this.basicResp = {};
-        this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, '', '');
+        this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
     }
     onShowDate(event) {
         event.stopPropagation();

@@ -86,7 +86,7 @@ export class ShowAddComponent {
 
         //初始化数据
         this.basicResp = {};
-        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, '', '');
+        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
     }
 
     onShowDate(event) {

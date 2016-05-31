@@ -139,7 +139,7 @@
 						<div>
 							<div class="rd-btn" [class.active]="baccarat.cRPValidType===-1" (click)="baccarat.cRPValidType=-1">自定义</div>
 							<div class="rd-btn" *ngIf="baccarat.cRPCodeType ===1" [class.active]="baccarat.cRPValidType===0" (click)="baccarat.cRPValidType=0">发放后当日</div>
-							<div class="rd-btn" *ngIf="baccarat.cRPCodeType ===1" [class.active]="baccarat.cRPValidType===1" (click)="baccarat.cRPValidType=1">发放后24小时</div>
+							<div class="rd-btn" *ngIf="baccarat.cRPCodeType ===1" [class.active]="baccarat.cRPValidType===24" (click)="baccarat.cRPValidType=24">发放后24小时</div>
 							<div class="rd-btn" *ngIf="baccarat.cRPCodeType ===1" [class.active]="baccarat.cRPValidType===7" (click)="baccarat.cRPValidType=7">发放后7日</div>
 							<div class="rd-btn" *ngIf="baccarat.cRPCodeType ===1" [class.active]="baccarat.cRPValidType===30" (click)="baccarat.cRPValidType=30">发放后30日</div>
 						</div>

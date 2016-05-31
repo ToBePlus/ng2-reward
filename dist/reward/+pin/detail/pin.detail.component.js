@@ -202,6 +202,29 @@ let PinDetailComponent = class PinDetailComponent {
             }
         }, error => this.handleError);
     }
+    onAddFile(tl) {
+        if (this.loading) {
+            return false;
+        }
+        this.loading = 1;
+        let data = {};
+        data.cRPId = this.prizesParams.cRPId;
+        data.cRPDId = tl.cRPDId;
+        data.fileName = tl.fileName;
+        this.ps.addTotal(data).subscribe(data => {
+            if (data.error.state !== 0) {
+                tl.addStatus = 2;
+            }
+            else {
+                tl.addTotalShow = 0;
+                tl.addStatus = 1;
+            }
+            async_1.TimerWrapper.setTimeout(() => {
+                tl.addStatus = 0;
+                this.getTotalList();
+            }, 2000);
+        }, error => this.handleError);
+    }
     onAddTotal(tl) {
         if (this.loading) {
             return false;
@@ -252,21 +275,26 @@ let PinDetailComponent = class PinDetailComponent {
     }
     handleFileUpload(data, tl) {
         if (data.size > 2 * 1024 * 1024) {
-            this.uploadFile = { error: { state: 2, msg: '图片文件尺寸请小于2M' } };
+            tl.uploadFile = { error: { state: 2, msg: '图片文件尺寸请小于2M' } };
         }
         else {
             if (data.response) {
-                this.uploadFileXls = JSON.parse(data.response);
-                if (this.uploadFileXls.error.state === 0) {
-                    tl.fileName = this.uploadFileXls.data.filePath;
+                tl.uploadFileXls = JSON.parse(data.response);
+                if (tl.uploadFileXls.error.state === 0) {
+                    tl.fileName = tl.uploadFileXls.data.filePath;
                 }
-                this.fileResp = data;
-                this.fileProgress = 0;
+                tl.fileResp = data;
+                tl.fileProgress = 0;
             }
             this.zone.run(() => {
-                this.fileProgress = data.progress.percent;
+                tl.fileProgress = data.progress.percent;
             });
         }
+    }
+    onDelFileName(tl) {
+        tl.fileName = '';
+        tl.fileProgress = 0;
+        tl.uploadFileXls = null;
     }
     errorAlert(data) {
         if (data.error.state !== 0) {
