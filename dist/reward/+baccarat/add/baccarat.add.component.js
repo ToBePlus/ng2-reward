@@ -231,7 +231,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         }
         this.loading = 1;
         if (this.baccarat.cRPDesc != null) {
-            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[.\n]/g, '<br/>');
+            this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/[\n]/g, '<br/>');
         }
         this.bs.add(this.baccarat).subscribe(data => {
             this.loading = 0;

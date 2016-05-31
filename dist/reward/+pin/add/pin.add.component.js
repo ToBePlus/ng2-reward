@@ -256,7 +256,7 @@ let PinAddComponent = class PinAddComponent {
         }
         this.loading = 1;
         if (this.pinProgram.cRPDesc != null) {
-            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[.\n]/g, '<br/>');
+            this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/[\n]/g, '<br/>');
         }
         this.ps.add(this.pinProgram).subscribe(data => {
             this.loading = 0;

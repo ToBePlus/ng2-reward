@@ -7,6 +7,6 @@ import {Injectable, Pipe,PipeTransform} from '@angular/core';
 export class TextTohtmlPipe implements PipeTransform {
     transform(items: any, args: any): any {
         if(items===undefined) return null;
-        return items.replace(/[.\n]/g,'<br/>');
+        return items.replace(/[\n]/g,'<br/>');
     }
 }

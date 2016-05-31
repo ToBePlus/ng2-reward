@@ -13,7 +13,7 @@ let TextTohtmlPipe = class TextTohtmlPipe {
     transform(items, args) {
         if (items === undefined)
             return null;
-        return items.replace(/[.\n]/g, '<br/>');
+        return items.replace(/[\n]/g, '<br/>');
     }
 };
 TextTohtmlPipe = __decorate([

@@ -218,7 +218,7 @@ export class ShowAddComponent {
         }
         this.loading = 1;
         if(this.program.cRPDesc!=null){
-          this.program.cRPDesc = this.program.cRPDesc.replace(/[.\n]/g,'<br/>')
+          this.program.cRPDesc = this.program.cRPDesc.replace(/[\n]/g,'<br/>')
         }
         this.ss.add(this.program).subscribe(
             data => {
