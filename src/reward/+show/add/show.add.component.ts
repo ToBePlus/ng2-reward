@@ -158,7 +158,9 @@ export class ShowAddComponent {
         if(this.program.cRPDesc!=null){
           this.program.cRPDesc = this.program.cRPDesc.replace(/<br\/>/g,'\n');
         }
-        if(this.program.cRPBackgroundAdd!=''){
+        if(this.program.cRPBackgroundAdd==''||this.program.cRPBackgroundAdd==null){
+
+        }else{
           this.uploadFile = {};
           this.uploadFile.data = this.program.cRPBackgroundAdd;
         }

@@ -208,7 +208,9 @@ export class BaccaratAddComponent {
             this.baccarat.cRPDesc = this.baccarat.cRPDesc.replace(/<br\/>/g, '\n');
         }
         this.baccarat.subInfo.forEach(function(item,i){
-          if(item.cRPDBackgroundAdd!=''){
+          if(item.cRPDBackgroundAdd==''||item.cRPDBackgroundAdd==null){
+
+          }else{
             item.uploadFile = {};
             item.uploadFile.data = item.cRPDBackgroundAdd;
           }

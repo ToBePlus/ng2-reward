@@ -165,7 +165,9 @@ export class PinAddComponent {
         if (this.pinProgram.cRPDesc != null) {
             this.pinProgram.cRPDesc = this.pinProgram.cRPDesc.replace(/<br\/>/g, '\n');
         }
-        if (this.pinProgram.cRPBackgroundAdd != '') {
+        if (this.pinProgram.cRPBackgroundAdd == ''||this.pinProgram.cRPBackgroundAdd==null) {
+
+        }else{
             this.uploadFile = {};
             this.uploadFile.data = this.pinProgram.cRPBackgroundAdd;
         }

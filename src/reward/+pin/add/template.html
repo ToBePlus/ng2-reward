@@ -1,8 +1,8 @@
 <form class="" (ngSubmit)="onSubmit($event)"  [ngFormModel]="psForm">
 <div class="reward-edit reward-pin">
 	<div class="zs-bar tc">
-		<a [routerLink]="['/']" *ngIf="!pinProgram.cRPId" class="zs-back"></a>
-		<a (click)="goBack()" *ngIf="pinProgram.cRPId" class="zs-back"></a>
+		<a [routerLink]="['/']" class="zs-back"></a>
+		<!-- <a (click)="goBack()" *ngIf="pinProgram.cRPId" class="zs-back"></a> -->
 		{{pinProgram.cRPId?'修改核验型奖励':'新建核验型奖励'}}
 		<button class="rd-save" [disabled]="loading" type="submit"></button>
 	</div>
