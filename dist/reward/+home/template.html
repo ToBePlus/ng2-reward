@@ -16,12 +16,11 @@
 					<div>
 						<div class="rd-coupon"  *ngFor="let tl of typelist|groupType:1; let idx = index;trackBy:trackByTypelist">
 							<a [routerLink]="['/show/detail',{id:tl.cRPId,state:tl.cRPStatus}]">
-								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1" [class.rd-coupon-over]="tl.cRPStatus===3"></div>
+								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1" [class.rd-coupon-over]="tl.completeStatus==1"></div>
 								<div class="coupon-name" [ngStyle]="{'background':getImg(tl)}">{{tl.cRPName}}</div>
 								<div class="coupon-status" [ngSwitch]="tl.cRPStatus">
 										<span class="coupon-status-pause" *ngSwitchWhen="2">暂停中</span>
 										<span class="coupon-status-run" *ngSwitchWhen="1">奖励发放中</span>
-										<span class="coupon-status-pause" *ngSwitchWhen="3">暂停中</span>
 								</div>
 							</a>
 							<a [routerLink]="['/show/edit',{id:tl.cRPId,state:tl.cRPStatus}]" class="coupon-edit">编辑</a>
@@ -36,12 +35,11 @@
 					<div>
 						<div class="rd-coupon"  *ngFor="let tl of typelist|groupType:2; let idx = index;trackBy:trackByTypelist">
 							<a [routerLink]="['/pin/detail',{id:tl.cRPId,state:tl.cRPStatus}]">
-								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1" [class.rd-coupon-over]="tl.cRPStatus==3"></div>
+								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1" [class.rd-coupon-over]="tl.completeStatus==1"></div>
 								<div class="coupon-name" [ngStyle]="{'background':getImg(tl)}">{{tl.cRPName}}</div>
 								<div class="coupon-status" [ngSwitch]="tl.cRPStatus">
 										<span class="coupon-status-pause" *ngSwitchWhen="2">暂停中</span>
 										<span class="coupon-status-run" *ngSwitchWhen="1">奖励发放中</span>
-										<span class="coupon-status-pause" *ngSwitchWhen="3">暂停中</span>
 								</div>
 							</a>
 							<a [routerLink]="['/pin/edit',{id:tl.cRPId,state:tl.cRPStatus}]" class="coupon-edit">编辑</a>
@@ -56,12 +54,11 @@
 					<div>
 						<div class="rd-coupon" *ngFor="let tl of typelist|groupType:3; let idx = index;trackBy:trackByTypelist">
 							<a [routerLink]="[tl.cRPExchangeType==1?'/show/detail':'/pin/detail',{id:tl.cRPId,state:tl.cRPStatus}]">
-								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1"[class.rd-coupon-over]="tl.cRPStatus==3"></div>
+								<div class="coupon-bar" [class.coupon-bar-run]="tl.cRPStatus==1"[class.rd-coupon-over]="tl.completeStatus==1"></div>
 								<div class="coupon-name" [ngStyle]="{'background':getImg(tl)}">{{tl.cRPName}}</div>
 								<div class="coupon-status" [ngSwitch]="tl.cRPStatus">
 										<span class="coupon-status-pause" *ngSwitchWhen="2">暂停中</span>
 										<span class="coupon-status-run" *ngSwitchWhen="1">奖励发放中</span>
-										<span class="coupon-status-pause" *ngSwitchWhen="3">暂停中</span>
 								</div>
 							</a>
 							<a [routerLink]="['/baccarat/edit',{id:tl.cRPId,state:tl.cRPStatus}]" class="coupon-edit">编辑</a>
