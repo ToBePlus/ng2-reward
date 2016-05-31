@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <title>Ng2Reward</title>
-  <base href="./">
+  <base href="/rewardredirect/">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- <link rel="stylesheet" href="https://cdn.rawgit.com/twbs/bootstrap/v4-dev/dist/css/bootstrap.css"> -->
@@ -23,16 +23,15 @@
     }
   </script>
   -->
+  <script src="vendor/es6-shim/es6-shim.js"></script>
+  <script src="vendor/reflect-metadata/Reflect.js"></script>
+  <script src="vendor/systemjs/dist/system.src.js"></script>
+  <script src="vendor/zone.js/dist/zone.js"></script>
 </head>
 <body>
   <reward-app>
     加载中...
   </reward-app>
-
-  <script src="vendor/es6-shim/es6-shim.js"></script>
-  <script src="vendor/reflect-metadata/Reflect.js"></script>
-  <script src="vendor/systemjs/dist/system.src.js"></script>
-  <script src="vendor/zone.js/dist/zone.js"></script>
 
   <script>
     System.import('system-config.js').then(function () {
