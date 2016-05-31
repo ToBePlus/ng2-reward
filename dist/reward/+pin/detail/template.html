@@ -87,7 +87,7 @@
 							<tr>
 								<th>序号</th>
 								<th>兑换核验码</th>
-								<th>奖品名称</th>
+								<th *ngIf="info?.cRPExchangeType">奖品名称</th>
 								<th>发放状态</th>
 								<th>兑换状态</th>
 								<th>发放时间</th>
@@ -108,7 +108,7 @@
 							<tr *ngFor="let psl of pinList;let i = index;">
 								<td>{{i+1}}</td>
 								<td>{{psl.cRCode}}</td>
-								<td>{{psl.cRPrizeName}}</td>
+								<td *ngIf="info?.cRPExchangeType">{{psl.cRPrizeName}}</td>
 								<td>{{psl.cRStatus!==0?'已发放':'-'}}</td>
 								<td>{{psl.cRStatus===2?'已兑换':'未兑换'}}</td>
 								<td>{{moment(psl.cRSendTime,'YYYY-MM-DD HH:mm')}}</td>

@@ -243,7 +243,7 @@ export class PinDetailComponent {
         this.ps.pinList(this.prizesParams).subscribe(data => {
             if (this.errorAlert(data)) {
                 this.pinList = data.data;
-                this.prizesParams = data.param;
+                // this.prizesParams = data.param;
                 this.currentPage = +this.prizesParams.currentPage;
                 this.pageSize = +this.prizesParams.pageSize;
                 this.pageCount = +this.prizesParams.pageCount;
