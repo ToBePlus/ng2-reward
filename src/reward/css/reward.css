@@ -19,6 +19,7 @@
 .re-form .inputs input { margin-right:10px; }
 .re-form .inputs > span { position:relative;display:inline-block; padding-right:18px; cursor:pointer; text-decoration: underline; color:#5d90cb; font-size:12px; line-height: 25px; height:25px;}
 .re-form .inputs > span:after { position:absolute; top:0; right:0; pointer-events: none; display:block; width:10px; height:25px; content:''; background:url(./../../reward/images/reward_ico.png) no-repeat -202px -13px; }
+.re-form .inputs > span.open:after { background-position: -231px -13px;}
 .re-form .inputs > span.re-show:after { background-position: -232px -13px; }
 .re-form .inputs .input-80 { padding:6px;  }
 .re-form .advance { margin:15px 50px 15px 0; border:2px dashed #5d90cb; padding:13px 21px;}

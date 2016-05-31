@@ -61,10 +61,12 @@ export class BaccaratAddComponent {
 
     timeError: any=0;
     nameError: any=0;
+    state: number=0;
 
     constructor(private bs: BaccaratService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
+        this.state = +params.getParam('state'); //获取URL中的状态
         this.subForm = fb.group({
             'cRPDName': ['', Validators.required],
             'cRPDSubtitle': [''],

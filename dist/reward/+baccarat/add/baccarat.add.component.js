@@ -39,9 +39,11 @@ let BaccaratAddComponent = class BaccaratAddComponent {
         this.fileProgress = 0;
         this.timeError = 0;
         this.nameError = 0;
+        this.state = 0;
         this.addTotaError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
+        this.state = +params.getParam('state'); //获取URL中的状态
         this.subForm = fb.group({
             'cRPDName': ['', Validators_1.Validators.required],
             'cRPDSubtitle': [''],

@@ -99,6 +99,7 @@ export class ShowDetailComponent {
     }
 
     onSetRange(range) {
+      this.prizesParams.range = range;
         if (range == '-1') {
             this.prizesParams.startDate = moment().format('YYYY-MM-DD');
             this.prizesParams.endDate = moment().format('YYYY-MM-DD');

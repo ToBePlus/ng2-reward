@@ -31,7 +31,7 @@
 									<input type="text" (keyup)="onEnterAddTotal($event,subinfo)" [(ngModel)]="subinfo.additionalNum"  placeholder="输入1~100,000的数字">
 									<span (click)="onAddTotal(subinfo)"></span>
 								</div>
-								<span (click)="subinfo.advanceSetShow=!subinfo.advanceSetShow">高级设置</span>
+								<span [class.open]="subinfo.advanceSetShow" (click)="subinfo.advanceSetShow=!subinfo.advanceSetShow">高级设置</span>
 								<a class="del-btn" (click)="onDeleteSubInfo(i)" *ngIf="i>2&&!baccarat.cRPId"></a>
 							</div>
 							<div class="text-danger" *ngIf="subinfo.subNameError">

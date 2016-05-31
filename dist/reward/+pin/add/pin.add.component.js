@@ -40,9 +40,11 @@ let PinAddComponent = class PinAddComponent {
         this.additionalNumError = 0;
         this.cRPRateContent = 0;
         this.timeError = 0;
+        this.state = 0;
         this.totalRewardsError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
+        this.state = +params.getParam('state'); //获取URL中的状态
         this.psForm = fb.group({
             'cRPName': ['', Validators_1.Validators.required],
             'cRPRewardType': [2],

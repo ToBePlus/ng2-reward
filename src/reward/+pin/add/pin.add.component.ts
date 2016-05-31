@@ -63,10 +63,12 @@ export class PinAddComponent {
     timeError: any = 0;
     file: any;
     image: any;
+    state: number=0;
 
     constructor(private ps: PinService, private router: Router, fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
         this.id = +params.getParam('id');
+        this.state = +params.getParam('state'); //获取URL中的状态
         this.psForm = fb.group({
             'cRPName': ['', Validators.required],
             'cRPRewardType': [2],
