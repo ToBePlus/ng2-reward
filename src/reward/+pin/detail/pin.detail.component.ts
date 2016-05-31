@@ -80,7 +80,6 @@ export class PinDetailComponent {
         this.prizesParams.verifyStatus = 0;
         this.prizesParams.startDate = moment().format('YYYY-MM-DD');
         this.prizesParams.endDate = moment().format('YYYY-MM-DD');
-        this.prizesParams.rangeDate = this.prizesParams.startDate + '~' + this.prizesParams.endDate;
         this.prizesParams.range = -1;
     }
     onShowDate(event) {
