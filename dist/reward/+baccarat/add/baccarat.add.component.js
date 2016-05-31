@@ -287,7 +287,7 @@ let BaccaratAddComponent = class BaccaratAddComponent {
     }
     getTotal() {
         let total = 0;
-        this.baccarat.subInfo.forEach(item => total += item.cRPDNum);
+        this.baccarat.subInfo.forEach(item => total += isNaN(+item.cRPDNum) ? 0 : +item.cRPDNum);
         return total || 0;
     }
     handleError(error) {
