@@ -69,13 +69,14 @@ let AccountAddComponent = class AccountAddComponent {
 };
 AccountAddComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'account-add',
-        templateUrl: 'reward/+account/add/template.html',
-        styleUrls: ['reward/+account/add/style.min.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.min.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES],
         providers: [Account_service_1.AccountService, http_1.HTTP_PROVIDERS],
     }), 
     __metadata('design:paramtypes', [Account_service_1.AccountService, router_1.Router, router_1.RouteSegment])
 ], AccountAddComponent);
 exports.AccountAddComponent = AccountAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+account/add/account.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+account/add/account.add.component.js.map

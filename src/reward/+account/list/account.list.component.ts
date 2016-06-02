@@ -11,9 +11,10 @@ import {AccountService} from '../Account.service';
 import {Validators} from '../../services/Validators';
 
 @Component({
+  moduleId:module.id,
     selector: 'account-list',
-    templateUrl:'reward/+account/list/template.html',
-    styleUrls:['reward/+account/list/style.min.css'],
+    templateUrl:'template.html',
+    styleUrls:['style.min.css'],
     directives: [PAGINATION_DIRECTIVES,ROUTER_DIRECTIVES,CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault],
     providers: [AccountService,HTTP_PROVIDERS]
 })

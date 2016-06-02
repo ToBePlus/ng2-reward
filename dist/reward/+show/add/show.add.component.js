@@ -220,9 +220,10 @@ let ShowAddComponent = class ShowAddComponent {
 };
 ShowAddComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'show-add',
-        templateUrl: 'reward/+show/add/template.html',
-        styleUrls: ['reward/+show/add/style.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
         pipes: [Text_to_html_1.TextTohtmlPipe],
@@ -233,4 +234,4 @@ ShowAddComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+show/add/show.add.component.js.map

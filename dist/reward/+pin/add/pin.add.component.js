@@ -291,9 +291,10 @@ let PinAddComponent = class PinAddComponent {
 };
 PinAddComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'pin-add',
-        templateUrl: 'reward/+pin/add/template.html',
-        styleUrls: ['reward/+pin/add/style.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
         pipes: [Text_to_html_1.TextTohtmlPipe],
@@ -304,4 +305,4 @@ PinAddComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], PinAddComponent);
 exports.PinAddComponent = PinAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+pin/add/pin.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+pin/add/pin.add.component.js.map

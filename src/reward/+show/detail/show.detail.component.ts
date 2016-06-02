@@ -1,33 +1,34 @@
 import {Component} from '@angular/core';
+import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
 import {Http, Response, HTTP_PROVIDERS, URLSearchParams } from '@angular/http';
 import 'rxjs/Rx';
-import {TimerWrapper} from '@angular/core/src/facade/async';
 import { Observable } from 'rxjs/Observable';
+import {TimerWrapper} from '@angular/core/src/facade/async';
 import * as moment from 'moment';
-import * as _ from 'lodash';
-import {baseUrl} from '../../services/config';
+// import * as _ from 'lodash';
+
 import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
-import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
-import {ShowProgram, ShowService} from '../Show.service';
+
+import {baseUrl} from '../../services/config';
+import {ShowService} from '../Show.service';
 import {Validators} from '../../services/Validators';
 
 const URL = baseUrl + '/ccs/medias/uploadBackgroundImage';
-// const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 
 const downLoadBase = baseUrl + '/rewardManage/show/export';
 
 @Component({
+  moduleId:module.id,
     selector: 'show-detail',
-    templateUrl: 'reward/+show/detail/template.html',
-    styleUrls: ['reward/+show/detail/style.min.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.min.css'],
     directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES, FORM_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS],
     host: {
         '(click)': 'closeDatePicker($event)'
     }
 })
-
 
 export class ShowDetailComponent {
     showForm: ControlGroup;
@@ -53,6 +54,7 @@ export class ShowDetailComponent {
 
     loading: number = 0;
     additionalNumError: number = 0;
+    timeError: any;
 
     constructor(private ss: ShowService, private router: Router, params: RouteSegment, fb: FormBuilder) {
         this.showForm = fb.group({
@@ -89,9 +91,9 @@ export class ShowDetailComponent {
         this.currentPage = pageNo;
     };
 
-    moment(date, format = 'YYYY-MM-DD') {
+    moment(date, format) {
         if (date == null) return '';
-        return moment(date).format(format);
+        return moment(date).format(format||'YYYY-MM-DD');
     }
 
     momentDate(date): Date {
@@ -207,7 +209,7 @@ export class ShowDetailComponent {
     before(start, end) {
         return moment(start).isBefore(end);
     }
-    timeError: any;
+
     search() {
         if (this.prizesParams.projectId === undefined) {
             return;
@@ -277,13 +279,6 @@ export class ShowDetailComponent {
         }
     }
 
-    // onAddCancal(tl) {
-    //     tl.additionalNum = '';
-    //     tl.addTotalShow = 0;
-    //     tl.addStatus = 0;
-    //     tl.additionalNumError = 0;
-    // }
-
     checkTotal(tl) {
         if (tl.additionalNum === '') {
             tl.additionalNumError = 1;
@@ -312,8 +307,6 @@ export class ShowDetailComponent {
         console.error(errMsg); // log to console instead
         return Observable.throw(errMsg);
     }
-
-
 
     toHome() {
         this.router.navigate(['/']);

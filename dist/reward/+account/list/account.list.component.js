@@ -71,13 +71,14 @@ let AccountListComponent = class AccountListComponent {
 };
 AccountListComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'account-list',
-        templateUrl: 'reward/+account/list/template.html',
-        styleUrls: ['reward/+account/list/style.min.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.min.css'],
         directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, router_1.ROUTER_DIRECTIVES, common_1.CORE_DIRECTIVES, common_1.NgFor, common_1.NgSwitch, common_1.NgSwitchWhen, common_1.NgSwitchDefault],
         providers: [Account_service_1.AccountService, http_1.HTTP_PROVIDERS]
     }), 
     __metadata('design:paramtypes', [Account_service_1.AccountService, router_1.Router])
 ], AccountListComponent);
 exports.AccountListComponent = AccountListComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+account/list/account.list.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+account/list/account.list.component.js.map

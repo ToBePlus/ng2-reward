@@ -60,10 +60,10 @@ let PinDetailComponent = class PinDetailComponent {
         event.stopPropagation();
         this.dateShow = 0;
     }
-    moment(date, format = 'YYYY-MM-DD') {
+    moment(date, format) {
         if (date == null)
             return '';
-        return moment(date).format(format);
+        return moment(date).format(format || 'YYYY-MM-DD');
     }
     momentDate(date) {
         return moment(date).toDate();
@@ -317,9 +317,10 @@ let PinDetailComponent = class PinDetailComponent {
 };
 PinDetailComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'pin-detail',
-        templateUrl: 'reward/+pin/detail/template.html',
-        styleUrls: ['reward/+pin/detail/style.min.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.min.css'],
         directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES],
         providers: [Pin_service_1.PinService, http_1.HTTP_PROVIDERS],
         host: {
@@ -329,4 +330,4 @@ PinDetailComponent = __decorate([
     __metadata('design:paramtypes', [Pin_service_1.PinService, router_1.Router, router_1.RouteSegment])
 ], PinDetailComponent);
 exports.PinDetailComponent = PinDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+pin/detail/pin.detail.component.js.map

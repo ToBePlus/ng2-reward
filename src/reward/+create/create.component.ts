@@ -7,9 +7,10 @@ import 'rxjs/Rx';
 import {RewardType, RewardTypeService} from './RewardType.service';
 
 @Component({
+  moduleId:module.id,
     selector: 'create',
-    templateUrl: 'reward/+create/template.html',
-    styleUrls: ['reward/+create/style.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.css'],
     directives: [ROUTER_DIRECTIVES],
     providers: [RewardTypeService, HTTP_PROVIDERS],
 })

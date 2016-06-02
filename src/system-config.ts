@@ -57,7 +57,7 @@ declare var System: any;
 
 // Apply the CLI SystemJS configuration.
 System.config({
-    // baseURL: "",
+    baseURL: "/rewardredirect/",
     map: {
         '@angular': 'vendor/@angular',
         'rxjs': 'vendor/rxjs',

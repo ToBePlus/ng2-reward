@@ -20,9 +20,10 @@ const URL = baseUrl + '/medias/uploadBackgroundImage';
 
 
 @Component({
+  moduleId:module.id,
     selector: 'show-add',
-    templateUrl: 'reward/+show/add/template.html',
-    styleUrls: ['reward/+show/add/style.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
     pipes: [TextTohtmlPipe],

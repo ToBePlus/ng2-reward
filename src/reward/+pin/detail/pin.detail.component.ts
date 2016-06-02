@@ -21,9 +21,10 @@ const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
 const downLoadBase = baseUrl + '/rewardManage/check/export';
 
 @Component({
+  moduleId:module.id,
     selector: 'pin-detail',
-    templateUrl: 'reward/+pin/detail/template.html',
-    styleUrls: ['reward/+pin/detail/style.min.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.min.css'],
     directives: [PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES, ROUTER_DIRECTIVES, UPLOAD_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS],
     host: {
@@ -93,9 +94,9 @@ export class PinDetailComponent {
         this.dateShow = 0;
     }
 
-    moment(date, format = 'YYYY-MM-DD') {
+    moment(date, format) {
         if (date == null) return '';
-        return moment(date).format(format);
+        return moment(date).format(format||'YYYY-MM-DD');
     }
 
     momentDate(date): Date {

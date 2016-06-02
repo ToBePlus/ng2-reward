@@ -12,9 +12,10 @@ import {Validators} from '../services/Validators';
 import {GroupTypePipe} from '../pipe/Group.type.pipe';
 
 @Component({
+  moduleId:module.id,
     selector: 'home',
-    templateUrl:'./reward/+home/template.html',
-    styleUrls:['./reward/+home/style.css'],
+    templateUrl:'template.html',
+    styleUrls:['style.css'],
     directives: [ROUTER_DIRECTIVES,CORE_DIRECTIVES,NgFor,NgSwitch, NgSwitchWhen, NgSwitchDefault,NgStyle],
     providers: [HomeService,HTTP_PROVIDERS],
     pipes: [ GroupTypePipe ],

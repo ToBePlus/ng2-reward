@@ -19,9 +19,10 @@ const URL = baseUrl + '/medias/uploadBackgroundImage';
 const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
 
 @Component({
+    moduleId:module.id,
     selector: 'baccarat-add',
-    templateUrl: 'reward/+baccarat/add/template.html',
-    styleUrls: ['reward/+baccarat/add/style.min.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.min.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [BaccaratService, HTTP_PROVIDERS, JSONP_PROVIDERS],
     pipes: [TextTohtmlPipe],

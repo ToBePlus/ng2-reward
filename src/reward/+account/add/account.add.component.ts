@@ -13,9 +13,10 @@ import {AccountService} from '../Account.service';
 import {Validators} from '../../services/Validators';
 
 @Component({
+  moduleId:module.id,
     selector: 'account-add',
-    templateUrl: 'reward/+account/add/template.html',
-    styleUrls: ['reward/+account/add/style.min.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.min.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES],
     providers: [AccountService, HTTP_PROVIDERS],
 })

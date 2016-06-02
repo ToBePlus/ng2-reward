@@ -54,9 +54,10 @@ let HomeComponent = class HomeComponent {
 };
 HomeComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'home',
-        templateUrl: './reward/+home/template.html',
-        styleUrls: ['./reward/+home/style.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.CORE_DIRECTIVES, common_1.NgFor, common_1.NgSwitch, common_1.NgSwitchWhen, common_1.NgSwitchDefault, common_1.NgStyle],
         providers: [Home_service_1.HomeService, http_1.HTTP_PROVIDERS],
         pipes: [Group_type_pipe_1.GroupTypePipe],
@@ -64,4 +65,4 @@ HomeComponent = __decorate([
     __metadata('design:paramtypes', [Home_service_1.HomeService, router_1.Router])
 ], HomeComponent);
 exports.HomeComponent = HomeComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+home/home.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+home/home.component.js.map

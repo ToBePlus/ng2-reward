@@ -20,9 +20,10 @@ const FILE_URL = baseUrl + '/rewardManage/uploadCheckCode';
 
 
 @Component({
+  moduleId:module.id,
     selector: 'pin-add',
-    templateUrl: 'reward/+pin/add/template.html',
-    styleUrls: ['reward/+pin/add/style.css'],
+    templateUrl: 'template.html',
+    styleUrls: ['style.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [PinService, HTTP_PROVIDERS, JSONP_PROVIDERS],
     pipes: [TextTohtmlPipe],

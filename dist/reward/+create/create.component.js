@@ -72,13 +72,14 @@ let CreateComponent = class CreateComponent {
 };
 CreateComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'create',
-        templateUrl: 'reward/+create/template.html',
-        styleUrls: ['reward/+create/style.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.css'],
         directives: [router_1.ROUTER_DIRECTIVES],
         providers: [RewardType_service_1.RewardTypeService, http_1.HTTP_PROVIDERS],
     }), 
     __metadata('design:paramtypes', [RewardType_service_1.RewardTypeService, router_1.Router])
 ], CreateComponent);
 exports.CreateComponent = CreateComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+create/create.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+create/create.component.js.map

@@ -9,18 +9,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 const core_1 = require('@angular/core');
+const common_1 = require('@angular/common');
 const router_1 = require('@angular/router');
 const http_1 = require('@angular/http');
 require('rxjs/Rx');
-const async_1 = require('@angular/core/src/facade/async');
 const Observable_1 = require('rxjs/Observable');
+const async_1 = require('@angular/core/src/facade/async');
 const moment = require('moment');
-const config_1 = require('../../services/config');
+// import * as _ from 'lodash';
 const ng2_bootstrap_1 = require('ng2-bootstrap/ng2-bootstrap');
-const common_1 = require('@angular/common');
+const config_1 = require('../../services/config');
 const Show_service_1 = require('../Show.service');
 const URL = config_1.baseUrl + '/ccs/medias/uploadBackgroundImage';
-// const URL = 'http://192.168.1.146:8080/medias/uploadBackgroundImage';
 const downLoadBase = config_1.baseUrl + '/rewardManage/show/export';
 let ShowDetailComponent = class ShowDetailComponent {
     constructor(ss, router, params, fb) {
@@ -61,10 +61,10 @@ let ShowDetailComponent = class ShowDetailComponent {
         this.currentPage = pageNo;
     }
     ;
-    moment(date, format = 'YYYY-MM-DD') {
+    moment(date, format) {
         if (date == null)
             return '';
-        return moment(date).format(format);
+        return moment(date).format(format || 'YYYY-MM-DD');
     }
     momentDate(date) {
         return moment(date).toDate();
@@ -238,12 +238,6 @@ let ShowDetailComponent = class ShowDetailComponent {
             this.onAddTotal(tl);
         }
     }
-    // onAddCancal(tl) {
-    //     tl.additionalNum = '';
-    //     tl.addTotalShow = 0;
-    //     tl.addStatus = 0;
-    //     tl.additionalNumError = 0;
-    // }
     checkTotal(tl) {
         if (tl.additionalNum === '') {
             tl.additionalNumError = 1;
@@ -279,9 +273,10 @@ let ShowDetailComponent = class ShowDetailComponent {
 };
 ShowDetailComponent = __decorate([
     core_1.Component({
+        moduleId: module.id,
         selector: 'show-detail',
-        templateUrl: 'reward/+show/detail/template.html',
-        styleUrls: ['reward/+show/detail/style.min.css'],
+        templateUrl: 'template.html',
+        styleUrls: ['style.min.css'],
         directives: [ng2_bootstrap_1.PAGINATION_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES, router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS],
         host: {
@@ -291,4 +286,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-i45Tc3U5.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+show/detail/show.detail.component.js.map
