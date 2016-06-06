@@ -286,4 +286,4 @@ ShowDetailComponent = __decorate([
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, router_1.RouteSegment, common_1.FormBuilder])
 ], ShowDetailComponent);
 exports.ShowDetailComponent = ShowDetailComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+show/detail/show.detail.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-zwfUcOLy.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-zwfUcOLy.tmp/0/src/reward/+show/detail/show.detail.component.js.map

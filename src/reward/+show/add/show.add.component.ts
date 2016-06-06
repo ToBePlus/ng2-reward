@@ -1,14 +1,14 @@
-import {Component, Input, Output, NgZone} from '@angular/core';
+import {Component, NgZone, HostListener} from '@angular/core';
 import {ROUTER_DIRECTIVES, Router, RouteSegment} from '@angular/router';
-import {Http, Response, HTTP_PROVIDERS} from '@angular/http';
+import { HTTP_PROVIDERS} from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
-import { Jsonp, URLSearchParams, JSONP_PROVIDERS } from '@angular/http';
+import { JSONP_PROVIDERS } from '@angular/http';
 import { FORM_DIRECTIVES, ControlGroup, FormBuilder } from '@angular/common';
 import * as moment from 'moment';
 import * as _ from 'lodash';
 import {UPLOAD_DIRECTIVES} from 'ng2-uploader/ng2-uploader';
-import { PAGINATION_DIRECTIVES, DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
+import {DATEPICKER_DIRECTIVES } from 'ng2-bootstrap/ng2-bootstrap';
 
 
 import {baseUrl} from '../../services/config';
@@ -20,17 +20,18 @@ const URL = baseUrl + '/medias/uploadBackgroundImage';
 
 
 @Component({
-  moduleId:module.id,
+    moduleId: module.id,
     selector: 'show-add',
     templateUrl: 'template.html',
     styleUrls: ['style.css'],
     directives: [ROUTER_DIRECTIVES, FORM_DIRECTIVES, UPLOAD_DIRECTIVES, DATEPICKER_DIRECTIVES],
     providers: [ShowService, HTTP_PROVIDERS, JSONP_PROVIDERS],
-    pipes: [TextTohtmlPipe],
-    host: {
-        '(click)': 'closeDatePicker($event)',
-    }
+    pipes: [TextTohtmlPipe]
 })
+
+
+
+
 
 
 export class ShowAddComponent {
@@ -57,11 +58,12 @@ export class ShowAddComponent {
 
     dateShow: any = 0;
 
-    constructor(private ss: ShowService, private router: Router, fb: FormBuilder, params: RouteSegment) {
+    constructor(private ss: ShowService, private router: Router,
+        fb: FormBuilder, params: RouteSegment) {
         this.zone = new NgZone({ enableLongStackTrace: false });
-        this.id = +params.getParam('id'); //获取URL中的ID
-        this.state = +params.getParam('state'); //获取URL中的状态
-        //自定义from 验证规则
+        this.id = +params.getParam('id'); // 获取URL中的ID
+        this.state = +params.getParam('state'); // 获取URL中的状态
+        // 自定义from 验证规则
         this.psForm = fb.group({
             'cRTId': [params.getParam('id')],
             'cRPName': ['', Validators.required],
@@ -81,13 +83,22 @@ export class ShowAddComponent {
             'totalRewards': [''],
             'additionalNumControl': [''],
         });
+
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
         this.cRPRateContent = this.psForm.controls['cRPRateContent'];
 
-        //初始化数据
+        // 初始化数据
         this.basicResp = {};
-        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
+        this.program = new ShowProgram(null, 1, '', 1, '', 0, '', 0, '',
+            0, 0, 1, null, null, moment().format('YYYY-MM-DD'),
+            moment().format('YYYY-MM-DD'));
+    }
+
+    @HostListener('window:click', ['$event'])
+    closeDatePicker(event: any) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
 
     onShowDate(event) {
@@ -95,18 +106,15 @@ export class ShowAddComponent {
         this.dateShow = !this.dateShow;
     }
 
-    onInitDate(){
-      this.program.cRPValidStartDate =  moment().format('YYYY-MM-DD');
-      this.program.cRPValidEndDate =  moment().format('YYYY-MM-DD');
+    onInitDate() {
+        this.program.cRPValidStartDate = moment().format('YYYY-MM-DD');
+        this.program.cRPValidEndDate = moment().format('YYYY-MM-DD');
     }
 
-    public closeDatePicker(event) {
-        event.stopPropagation();
-        this.dateShow = 0;
-    }
+
 
     moment(date) {
-        if (date == null) return '';
+        if (date == null) { return ''; };
         return moment(date).format('YYYY-MM-DD');
     }
 
@@ -148,7 +156,7 @@ export class ShowAddComponent {
 
     //查询
     getProgram() {
-        if (this.id === undefined || isNaN(this.id)) return;
+        if (this.id === undefined || isNaN(this.id)) { return null; };
         this.ss.getOne(this.id).subscribe(data => this.setPsForm(data));
     }
 
@@ -156,14 +164,14 @@ export class ShowAddComponent {
         this.program = data.data;
         this.program.cRPValidStartDate = this.moment(this.program.cRPValidStartDate);
         this.program.cRPValidEndDate = this.moment(this.program.cRPValidEndDate);
-        if(this.program.cRPDesc!=null){
-          this.program.cRPDesc = this.program.cRPDesc.replace(/<br\/>/g,'\n');
+        if (this.program.cRPDesc != null) {
+            this.program.cRPDesc = this.program.cRPDesc.replace(/<br\/>/g, '\n');
         }
-        if(this.program.cRPBackgroundAdd==''||this.program.cRPBackgroundAdd==null){
+        if (this.program.cRPBackgroundAdd == '' || this.program.cRPBackgroundAdd == null) {
 
-        }else{
-          this.uploadFile = {};
-          this.uploadFile.data = this.program.cRPBackgroundAdd;
+        } else {
+            this.uploadFile = {};
+            this.uploadFile.data = this.program.cRPBackgroundAdd;
         }
     }
     addTotaError: any = 0;
@@ -198,7 +206,7 @@ export class ShowAddComponent {
             // }, 5000);
         }, error => this.handleError);
     }
-    onEnterAddTotal(event,tl) {
+    onEnterAddTotal(event, tl) {
         event.stopPropagation();
         if (event.keyCode == 13) {
             this.onAddTotal(tl);
@@ -225,8 +233,8 @@ export class ShowAddComponent {
             return false;
         }
         this.loading = 1;
-        if(this.program.cRPDesc!=null){
-          this.program.cRPDesc = this.program.cRPDesc.replace(/[\n]/g,'<br/>')
+        if (this.program.cRPDesc != null) {
+            this.program.cRPDesc = this.program.cRPDesc.replace(/[\n]/g, '<br/>')
         }
         this.ss.add(this.program).subscribe(
             data => {

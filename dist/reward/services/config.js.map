@@ -1,1 +1,1 @@
-{"version":3,"file":"config.js","sourceRoot":"","sources":["../../../../../../src/reward/services/config.ts"],"names":[],"mappings":";AAAa,eAAO,GAAG,0BAA0B,CAAC,CAAE,MAAM","sourcesContent":["export const baseUrl = 'http://192.168.1.54:4500';  //后台路由\n"]}
+{"version":3,"file":"config.js","sourceRoot":"","sources":["../../../../../../src/reward/services/config.ts"],"names":[],"mappings":";AAAa,eAAO,GAAG,uBAAuB,CAAC,CAAE,MAAM","sourcesContent":["export const baseUrl = 'http://localhost:4500';  //后台路由\n"]}

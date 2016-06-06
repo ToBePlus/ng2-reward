@@ -35,9 +35,9 @@ let ShowAddComponent = class ShowAddComponent {
         this.dateShow = 0;
         this.addTotaError = 0;
         this.zone = new core_1.NgZone({ enableLongStackTrace: false });
-        this.id = +params.getParam('id'); //获取URL中的ID
-        this.state = +params.getParam('state'); //获取URL中的状态
-        //自定义from 验证规则
+        this.id = +params.getParam('id'); // 获取URL中的ID
+        this.state = +params.getParam('state'); // 获取URL中的状态
+        // 自定义from 验证规则
         this.psForm = fb.group({
             'cRTId': [params.getParam('id')],
             'cRPName': ['', Validators_1.Validators.required],
@@ -60,9 +60,13 @@ let ShowAddComponent = class ShowAddComponent {
         this.totalRewards = this.psForm.controls['totalRewards'];
         this.additionalNumControl = this.psForm.controls['additionalNumControl'];
         this.cRPRateContent = this.psForm.controls['cRPRateContent'];
-        //初始化数据
+        // 初始化数据
         this.basicResp = {};
         this.program = new Show_service_1.ShowProgram(null, 1, '', 1, '', 0, '', 0, '', 0, 0, 1, null, null, moment().format('YYYY-MM-DD'), moment().format('YYYY-MM-DD'));
+    }
+    closeDatePicker(event) {
+        event.stopPropagation();
+        this.dateShow = 0;
     }
     onShowDate(event) {
         event.stopPropagation();
@@ -72,13 +76,11 @@ let ShowAddComponent = class ShowAddComponent {
         this.program.cRPValidStartDate = moment().format('YYYY-MM-DD');
         this.program.cRPValidEndDate = moment().format('YYYY-MM-DD');
     }
-    closeDatePicker(event) {
-        event.stopPropagation();
-        this.dateShow = 0;
-    }
     moment(date) {
-        if (date == null)
+        if (date == null) {
             return '';
+        }
+        ;
         return moment(date).format('YYYY-MM-DD');
     }
     momentDate(date) {
@@ -114,8 +116,10 @@ let ShowAddComponent = class ShowAddComponent {
     }
     //查询
     getProgram() {
-        if (this.id === undefined || isNaN(this.id))
-            return;
+        if (this.id === undefined || isNaN(this.id)) {
+            return null;
+        }
+        ;
         this.ss.getOne(this.id).subscribe(data => this.setPsForm(data));
     }
     setPsForm(data) {
@@ -218,6 +222,12 @@ let ShowAddComponent = class ShowAddComponent {
         window.history.back();
     }
 };
+__decorate([
+    core_1.HostListener('window:click', ['$event']), 
+    __metadata('design:type', Function), 
+    __metadata('design:paramtypes', [Object]), 
+    __metadata('design:returntype', void 0)
+], ShowAddComponent.prototype, "closeDatePicker", null);
 ShowAddComponent = __decorate([
     core_1.Component({
         moduleId: module.id,
@@ -226,12 +236,9 @@ ShowAddComponent = __decorate([
         styleUrls: ['style.css'],
         directives: [router_1.ROUTER_DIRECTIVES, common_1.FORM_DIRECTIVES, ng2_uploader_1.UPLOAD_DIRECTIVES, ng2_bootstrap_1.DATEPICKER_DIRECTIVES],
         providers: [Show_service_1.ShowService, http_1.HTTP_PROVIDERS, http_2.JSONP_PROVIDERS],
-        pipes: [Text_to_html_1.TextTohtmlPipe],
-        host: {
-            '(click)': 'closeDatePicker($event)',
-        }
+        pipes: [Text_to_html_1.TextTohtmlPipe]
     }), 
     __metadata('design:paramtypes', [Show_service_1.ShowService, router_1.Router, common_1.FormBuilder, router_1.RouteSegment])
 ], ShowAddComponent);
 exports.ShowAddComponent = ShowAddComponent;
-//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-Becmab64.tmp/0/src/reward/+show/add/show.add.component.js.map
+//# sourceMappingURL=/Users/worm/Documents/ng2-reward/tmp/broccoli_type_script_compiler-input_base_path-zwfUcOLy.tmp/0/tmp/broccoli_type_script_compiler-input_base_path-zwfUcOLy.tmp/0/src/reward/+show/add/show.add.component.js.map
